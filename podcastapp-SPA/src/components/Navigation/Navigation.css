@@ -1,0 +1,17 @@
+.dropdown {
+    color: white;
+}
+
+.dropdown-menu {
+    position: absolute;
+    left: -70px;
+}
+
+.fa-user-circle{
+    transform: scale(1.3);
+    padding: 10px;
+}
+
+.nav-link {
+    cursor: pointer;
+}

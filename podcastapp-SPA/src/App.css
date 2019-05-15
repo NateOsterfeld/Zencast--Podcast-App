@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  /* margin-right: -0.75rem; */
+  /* margin-top: -0.75rem; */
+}
+
+.menu-label:not(:last-child) {
+  margin-bottom: 1em;
+}
+.menu-label:not(:first-child) {
+  margin-top: 1em;
+}
+
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.case {
+  display: flex;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

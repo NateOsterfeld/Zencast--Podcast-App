@@ -1,0 +1,43 @@
+.menu {
+    flex: none;
+    width: 25%;
+    padding: .75rem;
+}
+
+li {
+    list-style-type: none;
+}
+
+.menu-list {
+    background-color: white;
+    border-radius: 6px;
+    /* box-shadow: 0 2px 3px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1); */
+    box-shadow: 0 20px 20px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1);
+    color: #4a4a4a;
+    padding: 1rem;
+}
+
+.menu-list a {
+    border-radius: 2px;
+    color: #4a4a4a;
+    display: block;
+    padding: 0.5em 0.75em;
+}
+
+.menu-icon {
+    z-index: 1;
+}
+.fas {
+    z-index: 1;
+}
+
+.menu-list-item {
+    display: flex;
+}
+.genre-name {
+    position: absolute;
+    left: 75px;
+}
+.hidden {
+    display: none;
+}
