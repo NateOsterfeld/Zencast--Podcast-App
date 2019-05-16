@@ -1,11 +1,19 @@
 .menu {
     flex: none;
-    width: 25%;
+    width: 20%;
     padding: .75rem;
 }
 
 li {
     list-style-type: none;
+}
+
+.menu-label {
+    color: #7a7a7a;
+    font-size: 0.75em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 1em;
 }
 
 .menu-list {
@@ -14,7 +22,7 @@ li {
     /* box-shadow: 0 2px 3px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1); */
     box-shadow: 0 20px 20px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1);
     color: #4a4a4a;
-    padding: 1rem;
+    padding: 20px;
 }
 
 .menu-list a {
@@ -25,7 +33,9 @@ li {
 }
 
 .menu-icon {
-    z-index: 1;
+    display: inline-block;
+    width: 2em;
+    height: 1.5em;
 }
 .fas {
     z-index: 1;
@@ -40,4 +50,11 @@ li {
 }
 .hidden {
     display: none;
+}
+
+.menu-nav {
+    color: #7a7a7a;
+    font-size: 0.75em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }

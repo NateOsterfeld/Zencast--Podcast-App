@@ -34,7 +34,7 @@ app.get('/popular', (req, res) => {
         .then(result => res.json(result.feed.results));
 })
 
-app.get('/genres', (req, res) => {
+app.get('/genresMenu', (req, res) => {
     const url = 'http://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres';
 
     fetch(url)
@@ -43,11 +43,21 @@ app.get('/genres', (req, res) => {
             const podcastObj = data['26'].subgenres;
             let majorGenres = [];
             Object.keys(podcastObj).forEach(key => {
-                console.log(podcastObj[key]);
+                // console.log(podcastObj[key]);
                 majorGenres.push(podcastObj[key]);
             })
             res.json(majorGenres);
         })
+})
+
+app.get('genres/:id', (req, res) => {
+    console.log(req);
+
+    // const url = `https://itunes.apple.com/search?term=podcast&genreId=${req.params.id}&limit=50`;
+
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => console.log);
 })
 
 

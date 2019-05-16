@@ -1,0 +1,36 @@
+.clear-icon {
+    color: white;
+    opacity: 0;
+}
+
+.menu-list-item {
+    padding: 8px 12px;
+}
+.menu-list-item span {
+    position: relative;
+    right: 10px;
+    bottom: 1.6px;
+}
+.menu-list-item ul {
+    border-left: 1px solid #dbdbdb;
+    margin: 0.75em;
+    padding-left: 0.75em;
+    margin-top: 22px;
+    right: 37px;
+    position: relative;
+}
+
+.chev {
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.menu-icon {
+    display: inline-block;
+    width: 2em;
+    height: 1.5em;
+}
+
+.genre-name {
+    cursor:pointer;
+}

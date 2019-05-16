@@ -7,16 +7,18 @@ class PodcastCard extends React.Component {
     }
 
     render() {
-        const { title, image, publisher } = this.props;
+        const { id, title, image, publisher } = this.props;
         return (
             <div className="podcast fl">
-                <a href="http://localhost:3000/id:podcast" className="podcast-a">
+                <div 
+                    onClick = {() => this.props.getEpisodes(id, title, image, publisher) }
+                    className="podcast-a">
                     <img src={image} alt="podcast" className="podcast-image" />
                     <p style={{width: 200 + 'px'}}>
                         <strong>{title}</strong>
                     </p>
                     <p>{publisher}</p>
-                </a>
+                </div>
             </div>
         )    
     }

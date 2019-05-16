@@ -1,26 +1,9 @@
 import React from 'react';
 import './Menu.css';
+import GenreList from './GenreList/GenreList';
 
 // Pass in "GET" categories. Run forEach loop to print out "li"s for them
-const Menu = ({ genres }) => {
-
-    const collapseList = (event) => {
-        let el = event.target.parentNode.nextElementSibling.nextElementSibling;
-        console.log(event.target.className);
-        if (el.className === 'hidden') {
-            el.classList.remove('hidden');
-            event.target.classList.remove('fa-angle-double-right');
-            event.target.classList.add('fa-sort-down');
-        } else {
-            el.classList.add('hidden');
-            event.target.classList.remove('fa-sort-down');
-            event.target.classList.add('fa-angle-double-right');
-        }
-    }
-    const loadGenre = () => {
-        console.log('load genre');
-    }
-    
+const Menu = ({ genres, getGenre }) => {
     return (
         <div className="menu">
             <ul className="menu-list">
@@ -32,36 +15,19 @@ const Menu = ({ genres }) => {
                         Podcast
                     </p>
                     <li>
-                        <a href="">
+                        <a href="" className="menu-nav">
                             <span className="menu-icon"></span>
                             Discover
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="" className="menu-nav">
                             <span className="menu-icon"></span>
                             Popular
                         </a>
                     </li>
                     <p className="menu-label">Categories</p>
-
-                   
-                    <li className="menu-list-item">
-                            <span className="menu-icon">
-                                <i 
-                                    onClick = { (e) => collapseList(e) }
-                                    className="fas fa-angle-double-right">
-                                </i>
-                            </span>
-                            <div className="genre-name">
-                                <p onClick = { () => loadGenre() } >Arts</p>  
-                            </div>
-                        <ul className="hidden">
-                            <li>
-                               <a>did it work</a>  
-                            </li>
-                        </ul>
-                    </li>
+                    <GenreList genres={genres} getGenre={getGenre} />
             </ul>
         </div>
     );

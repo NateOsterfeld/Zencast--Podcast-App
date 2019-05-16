@@ -1,18 +1,17 @@
 import React from 'react';
 import Genre from './Genre/Genre';
 
-const GenreList = ({ podcasts }) => {
-    console.log('GenreList', podcasts);
+const GenreList = ({ genres, getGenre }) => {
     return (
         <div className="podcast-container">
             {
-                podcasts.map(podcast => {
-                    return <PodcastCard 
-                        key={podcast.id}
-                        id={podcast.id}
-                        title={podcast.name}
-                        image={podcast.artworkUrl100}
-                        publisher={podcast.artistName}
+                genres.map(genre => {
+                    return <Genre 
+                        key={genre.id}
+                        id={genre.id}
+                        name={genre.name}
+                        subgenres={genre.subgenres}
+                        getGenre={getGenre}
                     />
                 })
             }
