@@ -5,6 +5,7 @@ const cors = require('cors');
 const knex = require('knex');
 const fetch = require('node-fetch');
 const unirest = require('unirest');
+// const util = require('util')
 const db = knex({
   client: 'pg',
   connection: {
@@ -43,7 +44,9 @@ app.get('/genresMenu', (req, res) => {
             const podcastObj = data['26'].subgenres;
             let majorGenres = [];
             Object.keys(podcastObj).forEach(key => {
-                // console.log(podcastObj[key]);
+                console.log(podcastObj[key]);
+                // console.log(util.inspect(podcastObj[key], false, null, true))
+                // console.dir(podcastObj[key], {depth: null})
                 majorGenres.push(podcastObj[key]);
             })
             res.json(majorGenres);
