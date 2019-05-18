@@ -29,7 +29,11 @@ class App extends Component {
   getPopular = () => {
     fetch('http://localhost:3000/popular')
     .then(response1 => response1.json())
-    .then(response2 => this.setState({ popular: response2 }))
+    .then(response2 => {
+      console.log('pooop', response2)
+      this.setState({ popular: response2 })
+    })
+      
   }
 
   getGenre = (id, name) => {
@@ -39,8 +43,10 @@ class App extends Component {
     .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
   }
 
-  getEpisodes = (id, title, name, publisher) => {
-    console.log('id', id, 'title', title, 'name', name, 'publisher', publisher);
+  getEpisodes = (id, title, image, publisher) => {
+    fetch(`http://localhost:3000/episodes/${id}`)
+      .then(response => response.json())
+      .then(response => console.log('err', response));
   }
 
   getMenuItems = () => {
@@ -68,7 +74,6 @@ class App extends Component {
       <div className="App">
         <Navigation changeRoute={this.changeRoute} />
         <section className="section">
-        <enclosure length="98199430" type="audio/mpeg" url="http://traffic.libsyn.com/joeroganexp/p1297.mp3?dest-id=19997" />
           <div className="case">
             <Menu genres={this.state.genresMenu} getGenre={this.getGenre} />
             {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }

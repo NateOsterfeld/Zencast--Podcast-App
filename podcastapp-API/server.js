@@ -5,7 +5,8 @@ const cors = require('cors');
 const knex = require('knex');
 const fetch = require('node-fetch');
 const unirest = require('unirest');
-// const util = require('util')
+// const util = require('util');
+const Parser = require('rss-parser');
 const db = knex({
   client: 'pg',
   connection: {
@@ -62,6 +63,44 @@ app.get('genres/:id', (req, res) => {
     //     .then(response => response.json())
     //     .then(data => console.log);
 })
+
+app.get('/episodes/:id', (req, res) => {
+    fetch(`https://itunes.apple.com/lookup?id=${req.params.id}&entity=podcast`)
+        .then(response => response.json())
+        .then(response => {
+            console.log('kook', response)
+            console.log('kink', response.results[0].feedUrl);
+            (async () => {
+                // const parser = new Parser();
+                let parser = new Parser({
+                    customFields: {
+                      feed: ['otherTitle', 'extendedDescription'],
+                      item: [
+                          ['description', 'description'],
+                          ['itunes:duration', 'duration'],
+                          ['itunes:image', 'image']
+                      ] 
+                    }
+                  });
+                const feed = await parser.parseURL(response.results[0].feedUrl);
+                
+                let episodes = feed.items.map(item => {
+                    const episodesObj = {
+                        title: item.title,
+                        description: item.description,
+                        pubDate: item.pubDate,
+                        link: item.link,
+                        enclosure: item.enclosure,
+                        duration: item.duration,
+                        image: item.image
+                    }
+                    return episodesObj;
+                })
+                res.json(episodes);
+            })();
+        })
+})
+
 
 
 app.listen(process.env.PORT || 3000, () => {

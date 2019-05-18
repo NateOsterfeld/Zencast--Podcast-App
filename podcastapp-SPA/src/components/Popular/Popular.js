@@ -3,7 +3,7 @@ import PodcastCard from '../PodcastCard/PodcastCard';
 import './Popular.css';
 
 const Popular = ({ podcasts, getEpisodes }) => {
-            console.log('thisiswhatwewant', podcasts);
+            console.log('chickachicka', podcasts);
             return (
                 
                 <div className="podcast-container">
