@@ -54,25 +54,15 @@ app.get('/genresMenu', (req, res) => {
         })
 })
 
-app.get('genres/:id', (req, res) => {
-    console.log(req);
-
-    // const url = `https://itunes.apple.com/search?term=podcast&genreId=${req.params.id}&limit=50`;
-
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(data => console.log);
-})
 
 app.get('/episodes/:id', (req, res) => {
     fetch(`https://itunes.apple.com/lookup?id=${req.params.id}&entity=podcast`)
         .then(response => response.json())
         .then(response => {
-            console.log('kook', response)
-            console.log('kink', response.results[0].feedUrl);
+            // console.log('kook', response)
+            // console.log('kink', response.results[0].feedUrl);
             (async () => {
-                // const parser = new Parser();
-                let parser = new Parser({
+                const parser = new Parser({
                     customFields: {
                       feed: ['otherTitle', 'extendedDescription'],
                       item: [
@@ -83,6 +73,7 @@ app.get('/episodes/:id', (req, res) => {
                     }
                   });
                 const feed = await parser.parseURL(response.results[0].feedUrl);
+                console.log('feed', feed.description);
                 
                 let episodes = feed.items.map(item => {
                     const episodesObj = {
@@ -94,8 +85,10 @@ app.get('/episodes/:id', (req, res) => {
                         duration: item.duration,
                         image: item.image
                     }
+                    episodesObj.mainDescription = feed.description;
                     return episodesObj;
                 })
+                
                 res.json(episodes);
             })();
         })

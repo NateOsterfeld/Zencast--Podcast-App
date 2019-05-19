@@ -5,6 +5,8 @@ import Navigation from './components/Navigation/Navigation';
 import Discover from './components/Discover/Discover';
 import Menu from './components/Menu/Menu';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
+import Episodes from './components/Episodes/Episodes';
+import PlayBar from './components/PlayBar/PlayBar';
 // idea to add state inside popular component to save/cache podcasts once they've been loaded there
 // for discover, use curated lists
 
@@ -15,7 +17,8 @@ class App extends Component {
       popular: [],
       route: 'popular',
       genresMenu: [],
-      genrePodcasts: { name: '', podcasts: [] }
+      genrePodcasts: { name: '', podcasts: [] },
+      episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] }
     }
   }
 
@@ -46,7 +49,11 @@ class App extends Component {
   getEpisodes = (id, title, image, publisher) => {
     fetch(`http://localhost:3000/episodes/${id}`)
       .then(response => response.json())
-      .then(response => console.log('err', response));
+      .then(response => {
+        console.log('err', response);
+        this.setState({ route: 'episodes', episodesObj: {id:id, title:title, image:image, publisher:publisher, mainDescription: response[0].mainDescription, episodes: response }});
+        console.log(this.state);
+      })
   }
 
   getMenuItems = () => {
@@ -74,13 +81,17 @@ class App extends Component {
       <div className="App">
         <Navigation changeRoute={this.changeRoute} />
         <section className="section">
+            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} />}
           <div className="case">
-            <Menu genres={this.state.genresMenu} getGenre={this.getGenre} />
+            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} /> }
             {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }
             {route === 'discover' && <Discover getEpisodes={this.getEpisodes} /> }
             {route === 'genre' && <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} /> }
           </div>
         </section>
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+          <PlayBar />
+        </nav>
       </div>
     );
   }

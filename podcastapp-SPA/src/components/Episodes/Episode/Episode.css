@@ -1,0 +1,66 @@
+.level {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all .3s ease;
+}
+.level:hover {
+    color: black;
+}
+
+.level-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.level-item {
+    margin-right: .7em;
+}
+
+.grey-text {
+    color: #b5b5b5 !important;
+}
+
+.fa-play-circle {
+    font-size: 2.2em;
+    color: #3273dc;
+    cursor: pointer;
+    opacity: .8;
+    transition: all .3s ease;
+}
+.fa-play-circle:hover {
+    font-size: 2.25em;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.td1 {
+    border: 1px solid #dbdbdb;
+    border-width: 0 0 1px;
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    padding-top: 1em;
+}
+.td {
+    border: 1px solid #dbdbdb;
+    border-width: 0 0 1px;
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    padding-top: 1em;
+}
+
+.ep-title {
+    color: #3273dc;
+    cursor: pointer;
+    font-weight: 600;
+    opacity: .9;
+    transition: all .2s ease;
+}
+.ep-title:hover {
+    transform: scale(1.02);
+    opacity: 1;
+}

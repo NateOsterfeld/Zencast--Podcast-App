@@ -1,0 +1,140 @@
+
+
+@media screen and (min-width: 1472px) {
+.top-container {
+    max-width: 1344px;
+    width: 1344px;
+    }
+}
+@media screen and (min-width: 1280px) {
+.top-container {
+    max-width: 1152px;
+    width: 1152px;
+    }
+}
+@media screen and (min-width: 1088px) {
+.top-container {
+    max-width: 960px;
+    width: 960px;
+    margin: 0;
+    }
+}
+
+.top-container {
+    margin: 0 16rem;
+}
+.media-container {
+    align-items: flex-start;
+    display: flex;
+    text-align: left;
+}
+.media-container > div {
+    margin-bottom: 1.5em;
+}
+
+.media-left {
+    margin-right: 1rem;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.media-center {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    min-width: 80%;
+}
+
+.title {
+    color: #363636;
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.125;
+}
+.publisher {
+    color: #4a4a4a;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 2px;
+}
+.media-right {
+    margin-left: 1rem;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.logo {
+    width: 250px;
+    height: 250px;
+}
+
+.subscribe {
+    color: #fff;
+    background-color: #209cee;
+    border-color: transparent;
+    width: 180px;
+    padding: .3rem 0;
+}
+
+.fas {
+    margin: 0 8px;
+
+}
+
+.episodes-container {
+    background-color: #fff;
+    color: #363636;
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    border: 1px solid #dbdbdb;
+    border-width: 0 0 1px;
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    line-height: 2;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.episodes-container thead th {
+    border-width: 0 0 2px;
+    color: #363636;
+}
+
+.episodes-container th {
+    color: #363636;
+    text-align: left;
+}
+
+
+th {
+    border-width: 0 0 2px;
+    color: #363636;
+    border: 1px solid #dbdbdb;
+    padding: 0.5em 0.75em;
+    vertical-align: top;
+    letter-spacing: 1px;
+}
+
+.description {
+    color: black;
+    cursor: context-menu !important;
+    margin: 0;
+    padding: 0;
+}
+
+p.released {
+    color: #3273dc;
+    cursor: pointer;
+    transition: color .5s ease-in-out;
+}
+p.released:hover {
+    color: black;
+    cursor: pointer;
+}
