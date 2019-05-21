@@ -8,7 +8,6 @@ class PodcastCard extends React.Component {
 
     render() {
         const { id, title, image, publisher } = this.props;
-        console.log('check', id, title, image, publisher);
         return (
             <div className="podcast fl">
                 <div 

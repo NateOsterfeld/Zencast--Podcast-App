@@ -1,0 +1,248 @@
+$playerColor: #363732;
+$white: #ffffff;
+
+.play-btn {
+    outline: 0;
+    transition: all .5s ease;
+    &.play {
+        .fa-pause {
+            display: none;
+            outline: 0;
+        }
+    }
+    &.pause {
+        transform: rotate(180deg);
+        .fa-play {
+            display: none;
+            outline: 0;
+
+        }
+    }
+}
+
+#timing {
+    display: flex;
+    justify-content: center;
+
+    .timing-end {
+        margin-left: 5px;
+    }
+}
+
+#player>.level {
+    width: 100%;
+}
+.level.is-mobile {
+    display: flex;
+}
+
+.level {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.level.is-mobile .level-left, .level.is-mobile .level-right {
+    display: flex;
+}
+.level-left {
+    align-items: center;
+    justify-content: flex-start;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+.level.is-mobile .level-item:not(.is-narrow) {
+    flex-grow: 1;
+}
+
+.level.is-mobile .level-item:not(:last-child) {
+    margin-bottom: 0;
+}
+
+.level-item {
+    align-items: center;
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+#playing-art {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 128px;
+    height: 128px;
+}
+
+.level img {
+    display: inline-block;
+    vertical-align: top;
+}
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.art-placeholder {
+    z-index: 2;
+    display: flex;
+    color: gray;
+    justify-content: center;
+    align-items: center;
+    width: 128px;
+    height: 128px;
+    background-color: whitesmoke;
+}
+
+.player-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 128px;
+    height: 128px;
+}
+
+.button.is-rounded {
+    border-radius: 290486px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.button.is-loading {
+    color: transparent !important;
+    pointer-events: none;
+}
+.button.is-large {
+    font-size: 1.5rem;
+}
+.button.is-link {
+    background-color: #3273dc;
+    border-color: transparent;
+    color: #fff;
+}
+.player-loading .button {
+    width: 2.2em;
+}
+
+.field.has-addons {
+    display: flex;
+    justify-content: flex-start;
+}
+.field.has-addons .control:not(:last-child) {
+    margin-right: -1px;
+}
+
+.control {
+    font-size: 1rem;
+    position: relative;
+    text-align: left;
+}
+.button.is-large {
+    font-size: 1.5rem;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+#player-center {
+    width: 100%;
+}
+.has-text-centered {
+    text-align: center !important;
+}
+
+.is-size-6 {
+    font-size: 1rem !important;
+}
+
+.player-info {
+    height: 1em;
+    font-size: 0.85em;
+    margin-bottom: 0.3em;
+}
+#player input[type="range"] {
+    border: none;
+    box-shadow: none;
+}
+#scrub {
+    margin-top: 0.2em;
+    padding-top: 0.5em;
+}
+input[type=range].slider:not([orient="vertical"]) {
+    min-height: calc(( 1rem + 2px ) * 1.25);
+}
+input[type=range].slider.is-fullwidth {
+    display: block;
+    width: 100%;
+}
+input[type=range].slider {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 1rem 0;
+    background: transparent;
+}
+.player-time {
+    font-size: 0.8em;
+}
+
+.level-left, .level-right {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+}
+.select.is-small {
+    border-radius: 2px;
+    font-size: 0.75rem;
+}
+
+.select:not(.is-multiple) {
+    height: 2.25em;
+}
+.select {
+    display: inline-block;
+    max-width: 100%;
+    position: relative;
+    vertical-align: top;
+}
+.select select:not([multiple]) {
+    padding-right: 2.5em;
+}
+.select.is-rounded select {
+    border-radius: 290486px;
+    padding-left: 1em;
+}
+.select select {
+    background-color: white;
+    border-color: #dbdbdb;
+    color: #363636;
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    max-width: 100%;
+    outline: none;
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.hidden {
+    display: none;
+}

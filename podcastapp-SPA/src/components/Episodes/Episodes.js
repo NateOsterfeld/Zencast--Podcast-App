@@ -2,8 +2,8 @@ import React from 'react';
 import Episode from './Episode/Episode';
 import './Episodes.css';
 
-const Episodes = ({ episodesObj }) => {
-    console.log('pasddd', episodesObj);
+const Episodes = ({ episodesObj, postPlayBarObj }) => {
+    // console.log('pasddd', episodesObj);
     return (
         <div className="episodes-case">
             <div className="top-container">
@@ -48,6 +48,8 @@ const Episodes = ({ episodesObj }) => {
                                 link={episode.link}
                                 pubDate={episode.pubDate}
                                 title={episode.title}
+                                postPlayBarObj={postPlayBarObj}
+                                ogImage={episodesObj.image}
                             />
                         })
                     }

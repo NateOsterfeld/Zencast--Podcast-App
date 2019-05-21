@@ -18,7 +18,8 @@ class App extends Component {
       route: 'popular',
       genresMenu: [],
       genrePodcasts: { name: '', podcasts: [] },
-      episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] }
+      episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] },
+      playBarObj: { image: {}, enclosure: {}, title: '' }
     }
   }
 
@@ -33,10 +34,13 @@ class App extends Component {
     fetch('http://localhost:3000/popular')
     .then(response1 => response1.json())
     .then(response2 => {
-      console.log('pooop', response2)
       this.setState({ popular: response2 })
     })
-      
+  }
+
+  createPlayBarObj = (image, enclosure, title) => {
+    console.log('preplaybar', image, enclosure, title);
+    this.setState({ playBarObj: { image: image, enclosure: enclosure, title: title } })
   }
 
   getGenre = (id, name) => {
@@ -50,9 +54,7 @@ class App extends Component {
     fetch(`http://localhost:3000/episodes/${id}`)
       .then(response => response.json())
       .then(response => {
-        console.log('err', response);
         this.setState({ route: 'episodes', episodesObj: {id:id, title:title, image:image, publisher:publisher, mainDescription: response[0].mainDescription, episodes: response }});
-        console.log(this.state);
       })
   }
 
@@ -81,7 +83,7 @@ class App extends Component {
       <div className="App">
         <Navigation changeRoute={this.changeRoute} />
         <section className="section">
-            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} />}
+            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} />}
           <div className="case">
             {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} /> }
             {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }
@@ -90,7 +92,7 @@ class App extends Component {
           </div>
         </section>
         <nav class="navbar fixed-bottom navbar-light bg-light">
-          <PlayBar />
+          <PlayBar playBarObj={this.state.playBarObj}/>
         </nav>
       </div>
     );

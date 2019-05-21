@@ -2,12 +2,14 @@ import React from 'react';
 import './Episode.css';
 import '../Episodes.css';
 
-const Episode = ({ description, duration, enclosure, image, link, pubDate, title }) => {
-    const sound = new Audio();
-    const playSound = (enclosureUrl) => {
-        sound.src = enclosureUrl;
-        sound.play();
-    }
+const Episode = ({ postPlayBarObj, ogImage, description, duration, enclosure, image, link, pubDate, title }) => {
+    //if loads slow, run "postplaybarobj function" inside playsound, and "sound.play" first
+    // const sound = new Audio();
+    // const playSound = (enclosureUrl) => {
+    //     sound.src = enclosureUrl;
+    //     sound.play();
+    // }
+    // console.log(enclosure); //length, type, url
     return (
         <tr>
             <td className="td1">
@@ -31,7 +33,7 @@ const Episode = ({ description, duration, enclosure, image, link, pubDate, title
             <td className="td table-icon-container">
                 <div className="table-icon">
                     <a 
-                        onClick = {() => playSound(enclosure.url)}
+                        onClick = {() => postPlayBarObj(ogImage, enclosure, title)}
                         data-audio={enclosure.url}>
                         <span><i class="far fa-play-circle"></i></span>
                     </a>

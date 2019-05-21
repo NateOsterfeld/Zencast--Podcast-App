@@ -2,7 +2,6 @@ import React from 'react';
 import PodcastCard from '../PodcastCard/PodcastCard';
 
 const GenrePodcasts = ({ genrePodcasts, getEpisodes }) => {
-    console.log('thisiswhatwewant', genrePodcasts);
     return (
         <div className="podcast-container">
             <h1 className="title">{genrePodcasts.name}</h1>
