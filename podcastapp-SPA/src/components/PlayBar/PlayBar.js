@@ -2,115 +2,182 @@ import React from 'react';
 import './PlayBar.scss';
 
 class PlayBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    constructor(props) { //have a function in "Episode.js" that determines true/false if an episode has been clicked/played
+        super(props); //audio, image, enclosure, title
+        // this.onClickPlayButton = this.onClickPlayButton.bind(this);
+        // this.onClickSeekBarOuter = this.onClickSeekBarOuter.bind(this);
+        // this.onClickVolume = this.onClickVolume.bind(this);
+        this._refPlayButton = React.createRef();
+        this._refSeekBarInner = React.createRef();
+        this._refSeekBarOuter = React.createRef();
+        this._refTimingEnd = React.createRef();
+        this._refImage = React.createRef();
+        this._refVolumeInner = React.createRef();
+        this._refVolumeOuter = React.createRef();
 
-    componentDidMount() {
-        let playBtn = document.getElementById('play-btn');
-        playBtn.addEventListener('click', function() {
-            if (playBtn.classList.contains('play')) {
-                playBtn.classList.remove('play');
-                playBtn.classList.add('pause');  
-
-            } else if (playBtn.classList.contains('pause')) {
-                playBtn.classList.remove('pause');
-                playBtn.classList.add('play');
-            }
-        })
-    }
-
-    componentWillUpdate() {
-        let playBtn = document.getElementById('play-btn');
-        playBtn.addEventListener('click', function() {
-            if (playBtn.classList.contains('play')) {
-                playBtn.classList.remove('play');
-                playBtn.classList.add('pause');  
-
-            } else if (playBtn.classList.contains('pause')) {
-                playBtn.classList.remove('pause');
-                playBtn.classList.add('play');
-            }
-        })
-    }
-    
-    componentDidUpdate() {
-        console.log('viewmodel', this.props.playBarObj);
-            const audio = new Audio();
-            audio.src = `${this.props.playBarObj.enclosure.url}`;
-            audio.play();
-            let playBtn = document.getElementById('play-btn');
-            playBtn.addEventListener('click', function() {
-                if (playBtn.classList.contains('play')) {
-                    playBtn.classList.remove('play');
-                    playBtn.classList.add('pause');
-    
-                    let length = audio.duration;
-                    console.log('length', length);
-    
-    
-                } else if (playBtn.classList.contains('pause')) {
-                    playBtn.classList.remove('pause');
-                    playBtn.classList.add('play');
-                    audio.pause();
-                }
-            })
-            console.log(playBtn);
+        this.state = {
+            playButton: 'play',
+            duration: 0,
+            current: 0,
+            hasPlayed: 'has-not',
+            finalPlay: 'play',
+            playCounter: 0
+            
+            
         }
+
+    }
+    
+    //pass method in that will change the state
+
+    
+    //remember getsnapshot updates before component updates?
+    updateSeekBar = () => {
+        let seekBarPercentage = this.getPercentage(this.props.playBarObj.audio.currentTime.toFixed(2), this.props.playBarObj.audio.duration.toFixed(2));
+        console.log(this.props.playBarObj.audio.currentTime, this.state.duration);
+        // console.log(seekBarPercentage);
+        this._refSeekBarInner.current.style.width = seekBarPercentage + '%';
+        let convertedTime = this.convertToSeconds(this.props.playBarObj.audio.currentTime);
+        this.setState({ current: convertedTime });
+    }
+
+    getPercentage = (currentValue, totalLength) => {
+        let calcPercentage = (currentValue/totalLength)*100;
+        return parseFloat(calcPercentage.toString());
+    }
+
+    convertToSeconds = (currentTime) => {
+        let seconds = currentTime % 60;
+        let foo = currentTime - seconds;
+        let minutes = foo / 60;
+        if(seconds < 9){
+            seconds = 0 + seconds;
+            return minutes + ":0" + seconds.toFixed(0);
+        }
+        return minutes + ":" + seconds.toFixed(0);
+    }
+
+    convertToSecsEnd = (duration) => {
+        let seconds = duration % 60;
+        let foo = duration - seconds;
+        let minutes = foo / 60;
+        return minutes + ":" + seconds.toFixed(0);
+    }
+    
+    onClickPlayButton = () => {
+        this.state.playCounter++;
         
+        if (this._refPlayButton.current.className === 'play') {
+            this.setState({ finalPlay: 'pause'});
+            let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
+            this.setState({ duration: convertedEndTime })
+            console.log('k',convertedEndTime);
+            this.props.playBarObj.audio.play();
+            let interval = setInterval(() => {
+                if (!this.props.playBarObj.audio.paused) {
+                    this.updateSeekBar();
+                }
+            }, 250);
+        }
+        else if (this._refPlayButton.current.className === 'pause') {
+            let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
+            this._refTimingEnd.current.innerText = convertedEndTime;
+            let interval = setInterval(() => {
+                if (!this.props.playBarObj.audio.paused) {
+                    this.updateSeekBar();
+                }
+            }, 250);
+            this.setState({ finalPlay: 'play'});
+            this.props.playBarObj.audio.pause();
+        }
+        let interval = setInterval(() => {
+            if (!this.props.playBarObj.audio.paused) {
+                this.updateSeekBar();
+            }
+        }, 250);
+    }
+            
+    
+
+    onClickSeekBarOuter = (e) => {
+        if (!this.props.playBarObj.audio.ended && this.state.duration !== 0) {
+            let seekPosition = e.pageX - this._refSeekBarOuter.current.offsetLeft;
+            if (seekPosition >= 0 && seekPosition < this._refSeekBarOuter.current.offsetLeft + e.pageX) {
+                let newCurrentTime = (seekPosition*this.props.playBarObj.audio.duration.toFixed(2)) / this._refSeekBarOuter.current.offsetWidth;
+                console.log('newcc',newCurrentTime);
+                console.log('seekpos',seekPosition);
+                console.log('dur',this.state.duration);
+                console.log('refseek',this._refSeekBarOuter.current.offsetWidth);
+                this.props.playBarObj.audio.currentTime = newCurrentTime;
+            }
+        }
+    }
+ //run method that runs onclick
+    onClickVolume = (e) => {
+        let volumePosition = e.pageX - this._refVolumeOuter.current.offsetLeft;
+        let audioVolume = volumePosition / this._refVolumeOuter.current.offsetWidth;
         
-        // playBtn.addEventListener('click', function() {
-        //     if (playBtn.hasClass('play')) {
-        //         playBtn.removeClass('play').addClass('pause');
-        //     }
-        // })
+        if (audioVolume >= 0 && audioVolume <= 1) {
+            this.props.playBarObj.audio.volume = audioVolume;
+            this._refVolumeInner.current.style.width = audioVolume*100 + '%';
+            // this._refVolumeInner.current.classList.add('vol-animate');
+            // setInterval(() => {
+            //     this._refVolumeInner.current.classList.remove('vol-animate');
+            // }, 1500);
+        }
+    }
+
+        
         
     render() {
+        const { playBarObj } = this.props;
         return (
-            <div class="level is-mobile">
-                <div class="level-left" id="mobile-player">
-                    <a class="level-item" data-target="player.artLink" href="/podcasts/360084272?episode_id=http://blog.joerogan.net/?p=1810">
-                        <img data-target="player.art" id="playing-art" src={this.props.playBarObj.image} />
-                            <div class="art-placeholder">
-                                <i class="fas fa-headphones">
+            <div className="level is-mobile">
+                <div className="level-left" id="mobile-player">
+                    <div className="level-item" href="">
+                        <img 
+                            ref = { this._refImage }    
+                            id="playing-art" src={playBarObj.image} />
+                            <div className="art-placeholder">
+                                <i className="fas fa-headphones">
     
                                 </i>
                             </div>
-                        <div class="player-loading" data-target="player.loading">
-                            <div class="button is-link is-loading is-large is-rounded">
+                        <div className="player-loading">
+                            <div className="button is-link is-loading is-large is-rounded">
     
                             </div>
                         </div>
-                    </a>
-                    <div class="level-item" id="player-controls">
-                        <div class="field has-addons">
-                            <div class="control">
-                                <button class="button is-large btn" data-action="player#seekBack">
+                    </div>
+                    <div className="level-item" id="player-controls">
+                        <div className="field has-addons ma">
+                            <div className="control">
+                                <button className="button is-large btn">
                                     <span>
-                                        <i class="fas fa-backward">
+                                        <i className="fas fa-backward">
     
                                         </i>
                                     </span>
                                 </button>
                             </div>
-                            <div class="control">
-                                <button class="button is-large btn play play-btn" id="play-btn" data-action="player#togglePlay" data-target="player.toggle">
-                                    <span class="icon is-medium is-marginless" id="play-icon">
-                                        <i class="fas fa-play">
-    
-                                        </i>
+                            <div className="control">
+                                <button                                     
+                                        ref = { this._refPlayButton }
+                                        onClick = { () => this.onClickPlayButton() }
+                                        className={(this.props.hasPlayed.className === 'pause' && this.state.playCounter === 0) ? 'pause' : this.state.finalPlay} id="play-btn">
+                                    <span className="icon is-medium is-marginless" id="play-icon">
+                                        <i className="fas fa-play"></i>
+                                        <i className="fas fa-pause"></i>
                                     </span>
-                                    <span class="icon is-medium is-marginless" id="pause-icon">
-                                        <i class="fas fa-pause">
-    
-                                        </i>
-                                    </span>
+                                    
+                                        
+                                   
                                 </button>
                             </div>
-                            <div class="control">
-                                <button class="button is-large btn" data-action="player#seekForward">
+                            <div className="control">
+                                <button className="button is-large btn btn-for">
                                     <span>
-                                        <i class="fas fa-forward">
+                                        <i className="fas fa-forward">
     
                                         </i>
                                     </span>
@@ -119,27 +186,40 @@ class PlayBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div class="level-item is-hidden-mobile">
-                    <div class="has-text-centered" id="player-center">
-                        <p class="player-info is-size-6">
+                <div className="level-item is-hidden-mobile">
+                    <div className="has-text-centered" id="player-center">
+                        <p className="player-info is-size-6">
                             <a data-target="player.episode" href="/podcasts/360084272?episode_id=http://blog.joerogan.net/?p=1810">
-                                {this.props.playBarObj.title}
+                                {playBarObj.title.length > 0 ? playBarObj.title : 'Go ahead...'}
                             </a>
                         </p>
-                        <p class="player-info">
-                            <a data-target="player.podcast" href="/podcasts/360084272">The Joe Rogan Experience - Dec 24, 2009
+                        <p className="player-info">
+                            <a data-target="player.podcast" href="/podcasts/360084272">
+                                {playBarObj.publisher.length > 0 ? playBarObj.publisher + '-' : ''} 
+                                {playBarObj.pubdate.length > 0 ? playBarObj.pubdate : 'play something already!'}
                             </a>
                         </p>
-                    <input class="slider is-fullwidth" data-action="click->player#setPosition" data-target="player.scrub" id="scrub" max="1" min="0" step="0.001" type="range" value="0" />
-                        <p class="player-time" id="timing" data-target="player.time">
-                            <p className="timing-start">0:00 / </p>
-                            <p className="timing-end"> 0:00</p>
-                        </p>
+                        <div className="seekBar">
+                            <span 
+                                ref = { this._refSeekBarOuter }
+                                onClick = { (e) => this.onClickSeekBarOuter(e) }
+                                className="outer">
+                                <span 
+                                    ref = { this._refSeekBarInner }
+                                    className="inner"></span>
+                            </span>
+                        </div>
+                        <div className="player-time" id="timing" data-target="player.time">
+                            <div className="timing-start">{this.state.current} / </div>
+                            <div 
+                                ref = { this._refTimingEnd }
+                                className="timing-end"> {this.state.duration}</div>
+                        </div>
                     </div>
                 </div>
-                <div class="level-right is-hidden-touch">
-                    <div class="level-item">
-                        <div class="select is-rounded is-small">
+                <div className="level-right is-hidden-touch ma">
+                    <div className="level-item">
+                        <div className="select is-rounded is-small">
                             <select data-action="player#setSpeed" data-target="player.speed" type="text">
                                 <option value="0.5">x0.5</option>
                                 <option value="0.75">x0.75</option>
@@ -149,13 +229,16 @@ class PlayBar extends React.Component {
                             </select>
                         </div>
                     </div>
-                    <div class="level-item">
-                        <span class="icon">
-                            <i class="fas fa-volume-up">
-    
-                            </i>
+                    <div className="level-item">
+                            <i className="fas fa-volume-up"></i>
+                        <span 
+                            ref = { this._refVolumeOuter }
+                            onClick = { (e) => this.onClickVolume(e) }
+                            className="outer-vol">
+                            <span 
+                                ref = { this._refVolumeInner }
+                                className="inner-vol"></span>
                         </span>
-                        <input class="slider" data-action="player#setVolume" data-target="player.volume" max="1" min="0" step="0.01" type="range" value="1" />
                     </div>
                 </div>
             </div>
@@ -163,43 +246,5 @@ class PlayBar extends React.Component {
     }
 }
 
+
 export default PlayBar;
-/*
-<div className="playbar">
-        //     <div className="playbar-left">
-        //         <div className="playbar-left-image">
-        //             <a href="">
-        //                 <img src=""></img>
-        //                 <div className="placeholder"><i class="fas fa-headphones"></i></div>
-        //             </a>
-        //         </div>
-        //         <div className="playbar-left-controls">
-        //             <div className="controls-container">
-        //                 <div className="control">
-        //                     <div className="control-rewind">
-        //                         <button>
-        //                             <span><i class="fas fa-play"></i></span>
-        //                         </button>
-                                
-        //                     </div>
-        //                 </div>
-        //                 <div className="control">
-        //                     <div className="control-play">
-        //                         <i class="fas fa-play"></i>
-        //                     </div>
-        //                 </div>
-        //                 <div className="control">
-        //                     <div className="control-forward">
-        //                         <i class="fas fa-play"></i>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <div className="playbar-middle">
-
-        //     </div>
-        //     <div className="playbar-right">
-
-        //     </div>
-        // </div> */

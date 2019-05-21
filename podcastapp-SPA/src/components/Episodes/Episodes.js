@@ -2,7 +2,7 @@ import React from 'react';
 import Episode from './Episode/Episode';
 import './Episodes.css';
 
-const Episodes = ({ episodesObj, postPlayBarObj }) => {
+const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
     // console.log('pasddd', episodesObj);
     return (
         <div className="episodes-case">
@@ -50,6 +50,8 @@ const Episodes = ({ episodesObj, postPlayBarObj }) => {
                                 title={episode.title}
                                 postPlayBarObj={postPlayBarObj}
                                 ogImage={episodesObj.image}
+                                publisher={episodesObj.publisher}
+                                hasPlayed={hasPlayed}
                             />
                         })
                     }

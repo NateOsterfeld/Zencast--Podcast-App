@@ -7,19 +7,20 @@ import Menu from './components/Menu/Menu';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
 import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
-// idea to add state inside popular component to save/cache podcasts once they've been loaded there
-// for discover, use curated lists
+
 
 class App extends Component {
   constructor() {
     super();
+    this._refPlayBar = React.createRef();
     this.state = {
       popular: [],
       route: 'popular',
       genresMenu: [],
       genrePodcasts: { name: '', podcasts: [] },
       episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] },
-      playBarObj: { image: {}, enclosure: {}, title: '' }
+      playBarObj: { audio: '', image: {}, enclosure: {}, title: '', publisher: '', pubdate: '' },
+      hasPlayed: ''
     }
   }
 
@@ -38,9 +39,13 @@ class App extends Component {
     })
   }
 
-  createPlayBarObj = (image, enclosure, title) => {
-    console.log('preplaybar', image, enclosure, title);
-    this.setState({ playBarObj: { image: image, enclosure: enclosure, title: title } })
+  createPlayBarObj = (audio, image, enclosure, title, hasPlayed, publisher, pubdate) => {
+    this.setState({ playBarObj: { audio: audio, image: image, enclosure: enclosure, title: title, publisher: publisher, pubdate: pubdate },
+                    hasPlayed: hasPlayed })
+  }
+
+  hasPlayed = (hasPlayed) => {
+    this.setState({ hasPlayed: hasPlayed.className });
   }
 
   getGenre = (id, name) => {
@@ -83,7 +88,7 @@ class App extends Component {
       <div className="App">
         <Navigation changeRoute={this.changeRoute} />
         <section className="section">
-            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} />}
+            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} />}
           <div className="case">
             {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} /> }
             {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }
@@ -91,8 +96,8 @@ class App extends Component {
             {route === 'genre' && <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} /> }
           </div>
         </section>
-        <nav class="navbar fixed-bottom navbar-light bg-light">
-          <PlayBar playBarObj={this.state.playBarObj}/>
+        <nav className="navbar fixed-bottom navbar-light bg-light">
+          <PlayBar playBarObj={this.state.playBarObj} hasPlayed={this.state.hasPlayed} />
         </nav>
       </div>
     );

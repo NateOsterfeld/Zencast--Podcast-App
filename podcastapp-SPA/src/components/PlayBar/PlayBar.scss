@@ -1,10 +1,72 @@
-$playerColor: #363732;
+$playerColor: #007bff;
 $white: #ffffff;
+.outer-vol {
+    border-radius: 50px;
+    border: 1px inset $playerColor;
+    background-color: darken($playerColor, 30%);
+    overflow: hidden;
+    flex-basis: 80%;
+    margin-left: .4rem;
+    justify-content: flex-start;
+    align-items: center;
+    width: 10rem;
+    display: inline-flex;
+    height: 1rem;
 
-.play-btn {
-    outline: 0;
+    &:hover {
+        cursor: pointer;
+    }
+
+    .inner-vol {
+        background-color: $white;
+        width: 80%;
+        height: 100%;
+        display: inline-block;
+        border-top-right-radius: 50px;
+        transition: all 1s ease;
+        // &.vol-animate {
+        //     animation: vol-animate 1s ease-in-out;
+        // }
+    }
+}
+
+@keyframes vol-animate {
+    0% {
+        border-bottom-right-radius: 0px;
+    } 50% {
+        border-bottom-right-radius: 50px;
+    } 100% {
+        border-bottom-right-radius: 0px;
+    }
+}
+
+#play-btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem 2rem;
+    margin: 0 2px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
     transition: all .5s ease;
+    font-size: 1.5rem;
+    outline: 0;
+    border: 1px solid #dbdbdb;
     &.play {
+        
         .fa-pause {
             display: none;
             outline: 0;
@@ -12,12 +74,80 @@ $white: #ffffff;
     }
     &.pause {
         transform: rotate(180deg);
+        border-radius: 500px;
         .fa-play {
             display: none;
             outline: 0;
 
         }
     }
+    &:hover {
+        border: 1px solid #b5b5b5;
+    }
+}
+
+.btn {
+    outline: 0;
+    border: 1px solid #dbdbdb;
+    border-radius: .25em;
+    &:focus {
+        box-shadow: none;
+    }
+    &:hover {
+        border: 1px solid #b5b5b5;
+    }
+}
+.btn-for {
+    outline: 0;
+    border: 1px solid #dbdbdb;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: .25em !important;
+    border-top-right-radius: .25em !important;
+    &:focus {
+        box-shadow: none;
+    }
+    &:hover {
+        border: 1px solid #b5b5b5;
+    }
+}
+
+.seekBar {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    margin-top: .5rem;
+
+    .outer {
+        overflow: hidden;
+        border: 1px inset $playerColor;
+        border-radius: 50px;
+        display: flex;
+        height: .5rem;
+        flex-basis: 100%;
+        justify-content: flex-start;
+        background-color: darken($playerColor, 30%);
+        align-items: center;
+        width: 10rem !important;
+        margin-left: .4rem;
+        &:hover {
+                cursor: pointer;
+            }
+
+        .inner {
+            background-color: $white;
+            height: 100%;
+            display: inline-block;
+            border-top-right-radius: 50px;
+            transition: all .3s ease;
+            width: 0%;
+            
+        }
+    }
+}
+
+#playing-art {
+    display: default;
 }
 
 #timing {
@@ -59,6 +189,14 @@ $white: #ffffff;
     margin-bottom: 0;
 }
 
+.ma {
+    margin-top: 1.5rem;
+}
+
+.fa-headphones {
+    font-size: 50px;
+    border-style: none;
+}
 .level-item {
     align-items: center;
     display: flex;
