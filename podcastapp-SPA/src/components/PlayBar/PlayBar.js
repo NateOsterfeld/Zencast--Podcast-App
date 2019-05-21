@@ -71,7 +71,9 @@ class PlayBar extends React.Component {
             this.setState({ finalPlay: 'pause'});
             let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
             this.setState({ duration: convertedEndTime })
-            console.log('k',convertedEndTime);
+            this._refImage.current.className = 'animateImage';
+            this._refImage.current.nextSibling.style.color = 'white';
+            console.log(this._refImage);
             this.props.playBarObj.audio.play();
             let interval = setInterval(() => {
                 if (!this.props.playBarObj.audio.paused) {
@@ -88,6 +90,7 @@ class PlayBar extends React.Component {
                 }
             }, 250);
             this.setState({ finalPlay: 'play'});
+            this._refImage.current.className = '';
             this.props.playBarObj.audio.pause();
         }
         let interval = setInterval(() => {

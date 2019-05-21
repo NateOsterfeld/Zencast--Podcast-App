@@ -148,6 +148,19 @@ $white: #ffffff;
 
 #playing-art {
     display: default;
+    &.animateImage {
+        animation: move 4s ease-in-out infinite;
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: translateY(0%);
+    } 50% {
+        transform: translateY(-20%);
+    } 100% {
+        transform: translateY(0%);
+    }
 }
 
 #timing {
