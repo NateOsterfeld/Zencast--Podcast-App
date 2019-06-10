@@ -34,8 +34,6 @@ class PlayBar extends React.Component {
     //remember getsnapshot updates before component updates?
     updateSeekBar = () => {
         let seekBarPercentage = this.getPercentage(this.props.playBarObj.audio.currentTime.toFixed(2), this.props.playBarObj.audio.duration.toFixed(2));
-        console.log(this.props.playBarObj.audio.currentTime, this.state.duration);
-        // console.log(seekBarPercentage);
         this._refSeekBarInner.current.style.width = seekBarPercentage + '%';
         let convertedTime = this.convertToSeconds(this.props.playBarObj.audio.currentTime);
         this.setState({ current: convertedTime });
@@ -73,7 +71,6 @@ class PlayBar extends React.Component {
             this.setState({ duration: convertedEndTime })
             this._refImage.current.className = 'animateImage';
             this._refImage.current.nextSibling.style.color = 'white';
-            console.log(this._refImage);
             this.props.playBarObj.audio.play();
             let interval = setInterval(() => {
                 if (!this.props.playBarObj.audio.paused) {
@@ -107,10 +104,6 @@ class PlayBar extends React.Component {
             let seekPosition = e.pageX - this._refSeekBarOuter.current.offsetLeft;
             if (seekPosition >= 0 && seekPosition < this._refSeekBarOuter.current.offsetLeft + e.pageX) {
                 let newCurrentTime = (seekPosition*this.props.playBarObj.audio.duration.toFixed(2)) / this._refSeekBarOuter.current.offsetWidth;
-                console.log('newcc',newCurrentTime);
-                console.log('seekpos',seekPosition);
-                console.log('dur',this.state.duration);
-                console.log('refseek',this._refSeekBarOuter.current.offsetWidth);
                 this.props.playBarObj.audio.currentTime = newCurrentTime;
             }
         }

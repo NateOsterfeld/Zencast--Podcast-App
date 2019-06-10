@@ -36,6 +36,18 @@ app.get('/popular', (req, res) => {
         .then(result => res.json(result.feed.results));
 })
 
+app.get('/searchPodcasts/:term', (req, res) => {
+    console.log('sisisisi', req.params.term);
+    const url = `https://itunes.apple.com/search?media=podcast&term=${req.params.term}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log('check checkhechkechkcekheckhec', data);
+            res.json(data);
+        })
+})
+
 app.get('/genresMenu', (req, res) => {
     const url = 'http://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres';
 

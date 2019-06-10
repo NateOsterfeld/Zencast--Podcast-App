@@ -34,7 +34,7 @@ class Episode extends React.Component {
 
     render() {
         const { postPlayBarObj, publisher, ogImage, description, duration, enclosure, image, link, pubDate, title } = this.props;
-        console.log(enclosure);
+        
         return (
             <tr>
                 <td className="td1">

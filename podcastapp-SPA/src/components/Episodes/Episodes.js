@@ -3,7 +3,7 @@ import Episode from './Episode/Episode';
 import './Episodes.css';
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
-    // console.log('pasddd', episodesObj);
+    // ('pasddd', episodesObj);
     return (
         <div className="episodes-case">
             <div className="top-container">

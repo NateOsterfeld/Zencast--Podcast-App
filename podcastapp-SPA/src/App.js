@@ -7,6 +7,7 @@ import Menu from './components/Menu/Menu';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
 import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
+import Search from './components/Search/Search';
 
 
 class App extends Component {
@@ -15,12 +16,15 @@ class App extends Component {
     this._refPlayBar = React.createRef();
     this.state = {
       popular: [],
+      searched: [],
       route: 'popular',
       genresMenu: [],
       genrePodcasts: { name: '', podcasts: [] },
       episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] },
       playBarObj: { audio: '', image: {}, enclosure: {}, title: '', publisher: '', pubdate: '' },
-      hasPlayed: ''
+      hasPlayed: '',
+      clearMenuSearch: '',
+      clearNavSearch: ''
     }
   }
 
@@ -32,6 +36,7 @@ class App extends Component {
   }
 
   getPopular = () => {
+    this.setState({ route: 'popular' })
     fetch('http://localhost:3000/popular')
     .then(response1 => response1.json())
     .then(response2 => {
@@ -51,8 +56,15 @@ class App extends Component {
   getGenre = (id, name) => {
     const url = `https://itunes.apple.com/search?term=podcast&genreId=${id}&limit=50`;
     fetch(url)
-    .then(response => response.json())
-    .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
+      .then(response => response.json())
+      .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
+  }
+
+  getSearchedPodcasts = (term, route) => {
+    this.setState({ route: route });
+    term !== '' && fetch(`http://localhost:3000/searchPodcasts/${term}`)
+      .then(response => response.json())
+      .then(response => this.setState({ searched: response }))
   }
 
   getEpisodes = (id, title, image, publisher) => {
@@ -65,14 +77,12 @@ class App extends Component {
 
   getMenuItems = () => {
     fetch('http://localhost:3000/genresMenu')
-    .then(response => response.json())
-    .then(response => {
+      .then(response => response.json())
+      .then(response => {
       this.setState({ genresMenu: response });
-    })
+      })
   }
 
-  //possible switch which methods come first. so run changeroute inside getpopular instead of getpopular inside changeroute like is
-  // also possible to just call setstate({route: popular}) inside getpopular method and call that only and get rid of changeroute method
   changeRoute = (route) => {
     if (route === 'popular') {
       this.setState({ route: 'popular' });
@@ -82,16 +92,22 @@ class App extends Component {
       }
   }
 
+  resetSearch = (clear) => {
+    clear === 'clearMenuSearch' && this.setState({ clearMenuSearch: true })
+    clear === 'clearNavSearch' && this.setState({ clearNavSearch: true })
+  }
+
   render() {
     const { route } = this.state;
     return (
       <div className="App">
-        <Navigation changeRoute={this.changeRoute} />
+        <Navigation changeRoute={this.changeRoute} getSearchedPodcasts={this.getSearchedPodcasts} updateSearchHolder={this.state.clearNavSearch} resetSearch={this.resetSearch} />
         <section className="section">
             {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} />}
           <div className="case">
-            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} /> }
-            {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }
+            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} updateSearchHolder={this.state.clearMenuSearch} resetSearch={this.resetSearch} /> }
+            {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes}  /> }
+            {route === 'search' && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} />}
             {route === 'discover' && <Discover getEpisodes={this.getEpisodes} /> }
             {route === 'genre' && <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} /> }
           </div>
