@@ -23,8 +23,6 @@ class App extends Component {
       episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [] },
       playBarObj: { audio: '', image: {}, enclosure: {}, title: '', publisher: '', pubdate: '' },
       hasPlayed: '',
-      clearMenuSearch: '',
-      clearNavSearch: ''
     }
   }
 
@@ -92,20 +90,15 @@ class App extends Component {
       }
   }
 
-  resetSearch = (clear) => {
-    clear === 'clearMenuSearch' && this.setState({ clearMenuSearch: true })
-    clear === 'clearNavSearch' && this.setState({ clearNavSearch: true })
-  }
-
   render() {
     const { route } = this.state;
     return (
       <div className="App">
-        <Navigation changeRoute={this.changeRoute} getSearchedPodcasts={this.getSearchedPodcasts} updateSearchHolder={this.state.clearNavSearch} resetSearch={this.resetSearch} />
+        <Navigation changeRoute={this.changeRoute} getSearchedPodcasts={this.getSearchedPodcasts} />
         <section className="section">
             {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} />}
           <div className="case">
-            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} updateSearchHolder={this.state.clearMenuSearch} resetSearch={this.resetSearch} /> }
+            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} /> }
             {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes}  /> }
             {route === 'search' && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} />}
             {route === 'discover' && <Discover getEpisodes={this.getEpisodes} /> }

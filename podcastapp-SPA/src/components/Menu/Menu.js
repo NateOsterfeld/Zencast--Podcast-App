@@ -1,51 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Menu.css';
 import GenreList from './GenreList/GenreList';
-import { isBoolean } from 'util';
 
 const Menu = (props) => {
-    const [searchHolder, setSearchHolder] = useState();
-    const [shouldUpdate, setShouldUpdate] = useState();
-    const [searchNode, setSearchNode] = useState();
-    const [hasUpdate, setHasUpdate] = useState(false);
-    
-    let handleSearch = (e) => {
-        setSearchHolder(e.target.value);
-        e.target.value ? (props.getSearchedPodcasts(e.target.value, 'search', 'clearNavSearch'), props.resetSearch('clearNavSearch'))  // eslint-disable-line
-                       : props.getSearchedPodcasts('', 'popular');
-        
-        console.log('hasUpdate: handleSearch ', hasUpdate);
+
+    let handleSearch = (e) => {    
+        let navSearch = document.querySelector('.nav-search');
+        e.target.value 
+            ? props.getSearchedPodcasts(e.target.value, 'search')
+            : props.getSearchedPodcasts('', 'popular');
+
+        if (e.target.value && navSearch.value.length > 0)  
+            navSearch.value = '';
     }
-
-    let resetValue = () => {
-        setHasUpdate(true);
-        setShouldUpdate(false);
-        searchNode.value = '';
-    }
-
-    useEffect(() => {
-        setSearchNode(document.querySelector('.fuck'));
-        if (!hasUpdate)
-        setShouldUpdate(props.updateSearchHolder);
-        
-        // console.log('shouldupdate', shouldUpdate);
-        console.log('props.updateSearchHolder: useEffect ', props.updateSearchHolder);
-        console.log('shouldUpdate: useEffect ', shouldUpdate);
-        
-        
-        
-        if (shouldUpdate) {
-            if (!hasUpdate) {
-                resetValue();
-            }
-        } else if (!shouldUpdate) {
-            // console.log('erm', searchNode.classList);
-            // searchNode.placeholder = 'Search';
-        }
-    })
-
-    
-
+  
     return (
         <div className="menu">
             <ul className="menu-list">
@@ -54,7 +22,7 @@ const Menu = (props) => {
                     <input
                     
                         onKeyUp = { (e) => handleSearch(e) } 
-                        className="form-control fuck" type='text' placeholder='Search' aria-label="Search" 
+                        className="form-control menu-search" type='text' placeholder='Search' aria-label="Search" 
                     />
                 </form>
                     <p className="menu-label">

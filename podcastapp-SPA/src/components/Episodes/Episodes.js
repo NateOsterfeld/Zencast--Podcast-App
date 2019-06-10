@@ -3,7 +3,7 @@ import Episode from './Episode/Episode';
 import './Episodes.css';
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
-    // ('pasddd', episodesObj);
+
     return (
         <div className="episodes-case">
             <div className="top-container">
@@ -18,7 +18,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
 
                     </div>
                     <div className="media-right">
-                        <button type="button" class="btn btn-secondary subscribe">
+                        <button type="button" className="btn btn-secondary subscribe">
                         <i className="fas fa-plus"></i>
                         Subscribe</button>
                     </div>
@@ -29,7 +29,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                     <tr>
                         <th>Episode Name</th>
                         <th className="order">
-                            <p className="released">Released<i class="fas fa-sort-down"></i></p>
+                            <p className="released">Released<i className="fas fa-sort-down"></i></p>
                         </th>
                         <th className="duration">Duration</th>
                         <th></th>

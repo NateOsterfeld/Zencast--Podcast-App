@@ -22,8 +22,6 @@ class PlayBar extends React.Component {
             hasPlayed: 'has-not',
             finalPlay: 'play',
             playCounter: 0
-            
-            
         }
 
     }
@@ -133,7 +131,7 @@ class PlayBar extends React.Component {
                     <div className="level-item" href="">
                         <img 
                             ref = { this._refImage }    
-                            id="playing-art" src={playBarObj.image} />
+                            id="playing-art" src={playBarObj.image} alt="" />
                             <div className="art-placeholder">
                                 <i className="fas fa-headphones">
     

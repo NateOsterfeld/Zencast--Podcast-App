@@ -1,50 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Navigation.css';
 
-const Navigation = ({ getSearchedPodcasts, changeRoute, updateSearchHolder, resetSearch }) => {
-
-  const [searchHolder, setSearchHolder] = useState();
-  const [shouldUpdate, setShouldUpdate] = useState();
-  const [searchNode, setSearchNode] = useState();
-  const [hasUpdate, setHasUpdate] = useState(false);
+const Navigation = ({ getSearchedPodcasts, changeRoute }) => {
   
   let handleSearch = (e) => {
-    e.target.value // eslint-disable-line
+    let menuSearch = document.querySelector('.menu-search');
+    e.target.value
       ? 
-        (getSearchedPodcasts(e.target.value, 'search'),
-         resetSearch('clearMenuSearch'))
+        getSearchedPodcasts(e.target.value, 'search')
       : 
         getSearchedPodcasts('', 'popular');
+
+    if (e.target.value && menuSearch.value.length > 0)
+      menuSearch.value = '';
   }
-
-  let resetValue = () => {
-    setHasUpdate(true);
-    setShouldUpdate(false);
-    searchNode.value = '';
-}
-
-  useEffect(() => {
-    let lolol = document.querySelector('.fuck');
-    console.log('navigation test', lolol);
-    setSearchNode(document.querySelector('.fuck'));
-    if (!hasUpdate)
-    setShouldUpdate(updateSearchHolder);
-    
-    // console.log('shouldupdate', shouldUpdate);
-    console.log('updateSearchHolder: useEffect ', updateSearchHolder);
-    console.log('shouldUpdate: useEffect ', shouldUpdate);
-    
-    
-    
-    if (shouldUpdate) {
-        if (!hasUpdate) {
-            resetValue();
-        }
-    } else if (!shouldUpdate) {
-        // console.log('erm', searchNode.classList);
-        // searchNode.placeholder = 'Search';
-    }
-})
   
   return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary">
