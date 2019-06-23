@@ -41,9 +41,6 @@ li {
     z-index: 1;
 }
 
-.menu-list-item {
-    display: flex;
-}
 .genre-name {
     position: absolute;
     left: 75px;

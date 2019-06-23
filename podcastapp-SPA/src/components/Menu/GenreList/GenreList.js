@@ -3,7 +3,7 @@ import Genre from './Genre/Genre';
 
 const GenreList = ({ genres, getGenre }) => {
     return (
-        <div className="podcast-container">
+        <div className="genre-container">
             {
                 genres.map(genre => {
                     return <Genre 

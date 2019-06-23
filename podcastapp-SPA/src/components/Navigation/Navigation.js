@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navigation.css';
 
 const Navigation = ({ getSearchedPodcasts, changeRoute }) => {
-  
-  let handleSearch = (e) => {
-    let menuSearch = document.querySelector('.menu-search');
-    e.target.value
-      ? 
-        getSearchedPodcasts(e.target.value, 'search')
-      : 
-        getSearchedPodcasts('', 'popular');
+  const [menuSearchNode, setMenuSearchNode] = useState();
+  const [navSearchNode, setNavSearchNode] = useState();
 
-    if (e.target.value && menuSearch.value.length > 0)
-      menuSearch.value = '';
+  let setSearchNodes = () => {
+    setMenuSearchNode(document.querySelector('.menu-search'));
+    setNavSearchNode(document.querySelector('.nav-search'));
+  } 
+
+  useEffect(setSearchNodes); 
+
+  let handleSearch = (e) => {
+    e.target.value
+      ? getSearchedPodcasts(e.target.value, 'search')
+      : getSearchedPodcasts('', 'popular');
+    
+    if (menuSearchNode !== null)
+    if (e.target.value && menuSearchNode.value.length > 0)
+      menuSearchNode.value = '';
+  }
+
+  let handlePopularClick = (e) => {
+    e.target.parentNode.classList.add('active');
+    document.querySelector('.nav-item-discover').classList.remove('active');
+    changeRoute('popular')
+    menuSearchNode !== null &&  //eslint-disable-line
+    menuSearchNode.value.length > 0 
+      ? menuSearchNode.value = ''
+      : navSearchNode.value.length > 0
+        navSearchNode.value = ''
+  }
+
+  let handleDiscoverClick = (e) => {
+    e.target.parentNode.classList.add('active');
+    document.querySelector('.nav-item-popular').classList.remove('active');
+    changeRoute('discover')
+    menuSearchNode !== null &&  //eslint-disable-line
+    menuSearchNode.value.length > 0 
+      ? menuSearchNode.value = ''
+      : navSearchNode.value.length > 0
+        navSearchNode.value = ''
   }
   
   return (
@@ -24,14 +53,14 @@ const Navigation = ({ getSearchedPodcasts, changeRoute }) => {
 
     <div className="collapse navbar-collapse" id="navbarsExample04">
       <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
+        <li className="nav-item nav-item-discover active">
           <div 
-              onClick = {() => changeRoute('discover') }
+              onClick = {(e) => handleDiscoverClick(e) }
               className="nav-link" href="/discover">Discover <span className="sr-only">(current)</span></div>
         </li>
-        <li className="nav-item">
+        <li className="nav-item nav-item-popular">
           <div 
-              onClick = {() => changeRoute('popular') }
+              onClick = {(e) => handlePopularClick(e) }
               className="nav-link" href="/popular">Popular</div>
         </li>
         <li className="nav-item">
@@ -40,7 +69,7 @@ const Navigation = ({ getSearchedPodcasts, changeRoute }) => {
       </ul>
       <form className="form-inline my-2 my-md-0">
         <input 
-          onKeyUp = { (e) => handleSearch(e) }
+          onChange = { (e) => handleSearch(e) }
           className="form-control nav-search" type="text" placeholder="Search" />
       </form>
     </div>

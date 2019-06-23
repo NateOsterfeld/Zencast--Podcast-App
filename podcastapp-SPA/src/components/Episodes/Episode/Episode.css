@@ -1,3 +1,21 @@
+.episode-container {
+    display: flex;
+}
+
+.ep-name {
+    width: 57%;
+}
+.ep-date {
+    width: 24%;
+    overflow: hidden;
+}
+.ep-duration {
+    width: 10%;
+}
+
+
+
+
 .level {
     display: flex;
     align-items: center;

@@ -5,14 +5,14 @@ const Search = (props) => {
 
     return (
         <div className="podcast-container">
-            <h1 className="title">Search</h1> {
+            <h1 className="title">Search: "{props.searchTerm}"</h1> {
                 props.podcasts.resultCount ?
                     props.podcasts.results.map(podcast => {
                         return <PodcastCard 
                             key={podcast.collectionId}
                             id={podcast.collectionId}
                             title={podcast.collectionName}
-                            image={podcast.artworkUrl100}
+                            image={podcast.artworkUrl600}
                             publisher={podcast.artistName}
                             getEpisodes={props.getEpisodes}
                         />

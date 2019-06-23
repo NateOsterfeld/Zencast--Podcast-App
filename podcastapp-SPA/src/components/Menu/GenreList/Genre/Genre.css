@@ -4,12 +4,35 @@
 }
 
 .menu-list-item {
+    cursor:pointer;
     padding: 8px 12px;
+    display: flex;
+    transition: all .2s;
 }
 .menu-list-item span {
     position: relative;
     right: 10px;
     bottom: 1.6px;
+}
+.menu-list-item:hover {
+    background-color: whitesmoke;
+}
+.menu-list-item .genre-name {
+    transition: all .2s;
+}
+.menu-list-item:hover .genre-name {
+    transform: scale(1.1);
+    font-weight: 600;
+}
+.subgenre-container {
+    display: flex;
+    flex-basis: 100%;
+    min-width: 100%;
+}
+.subgenre-container li {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
 }
 .menu-list-item ul {
     border-left: 1px solid #dbdbdb;
@@ -23,6 +46,11 @@
 .chev {
     font-size: 11px;
     cursor: pointer;
+    z-index: 1;
+}
+.chev:hover {
+    font-weight: 600;
+    color: #232323;
 }
 
 .menu-icon {
@@ -32,5 +60,6 @@
 }
 
 .genre-name {
-    cursor:pointer;
+    margin-left: 15px;
+    z-index: 1;
 }

@@ -3,9 +3,11 @@ import './Subgenre.css';
 
 const Subgenre = ({ id, name, getGenre }) => {
     return (
-            <p 
-                onClick = {() => getGenre(id, name) }
-                className="subgenre-name grow">{name}</p>  
+            <div className="subgenre-name">
+                <p onClick = {(e) => getGenre(id, name, e) }
+                   className="">{name}
+                </p>
+            </div>
     )
 }
 

@@ -17,6 +17,7 @@
 
 .case {
   display: flex;
+  padding-bottom: 5.5rem;
 }
 
 @keyframes App-logo-spin {

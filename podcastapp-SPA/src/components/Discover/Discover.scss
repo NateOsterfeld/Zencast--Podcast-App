@@ -1,0 +1,114 @@
+
+.discover-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    
+    .selection-container-title {
+        display: block;
+        font-weight: 400;
+        font-size: 1.3em;
+        flex-direction: row;
+        align-self: start;
+        
+        .selection-anchor {
+            display: inline-block;
+            font-size: 1rem;
+            text-align: center;
+            margin-left: 1em;
+            text-decoration: none;
+            color: #007bff;
+            cursor: pointer;
+            &:hover {
+                color: #0056b3;
+            }
+    
+            [attr="icon"] {
+                font-size: .7rem;
+            }
+        }
+    }
+    
+    .selection-container {
+        display: flex;
+        position: relative;
+        border: 1px solid white;
+        height: 300px;
+        flex-direction: row;
+
+        .selection-component {
+            display: flex;
+            
+            .componentCarousel {
+                float: left;
+                overflow: hidden;
+                padding: 15px 0px;
+                width: 100%;
+                position: relative;
+                display: flex;
+                transition: 1s ease-in;
+            }
+        }
+
+        .scrollLeft {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            z-index: 2;
+            left: -1px;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(to left, transparent, #fff);
+            transition: all .2s ease;
+            
+            &.transparent {
+                display: none;
+            }
+            
+            .scrollLeft-icon {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 3;
+                font-size: 2em;
+                cursor: pointer;
+
+                &:hover {
+                    font-size: 2.3em;
+                }
+            }
+        }
+        .scrollRight {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            z-index: 2;
+            right: -1px;
+            top: 0;
+            bottom: 0;
+            // background: linear-gradient(270deg, white 40%, transparent);
+            background: linear-gradient(to right, transparent, #fff);
+            
+            &.transparent {
+                display: none;
+            }
+            
+            .scrollRight-icon {
+                display: block;
+                position: absolute;
+                z-index: 3;
+                font-size: 2em;
+                cursor: pointer;
+                transition: font-size .2s;
+
+                &:hover {
+                    font-size: 2.3em;
+                }
+            }
+        }
+    }
+}

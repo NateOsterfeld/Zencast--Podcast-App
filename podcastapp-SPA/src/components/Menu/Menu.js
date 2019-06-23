@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Menu.css';
 import GenreList from './GenreList/GenreList';
 
 const Menu = (props) => {
 
+    const [navSearchNode, setNavSearchNode] = useState();
+
+    useEffect(() => setNavSearchNode(document.querySelector('.nav-search')));
+    
     let handleSearch = (e) => {    
-        let navSearch = document.querySelector('.nav-search');
         e.target.value 
             ? props.getSearchedPodcasts(e.target.value, 'search')
             : props.getSearchedPodcasts('', 'popular');
 
-        if (e.target.value && navSearch.value.length > 0)  
-            navSearch.value = '';
+        if (e.target.value && navSearchNode.value.length > 0)  
+            navSearchNode.value = '';
     }
   
     return (
@@ -20,8 +23,7 @@ const Menu = (props) => {
                 <form className="form-inline">
                     <i className="fas fa-search" aria-hidden="true"></i>
                     <input
-                    
-                        onKeyUp = { (e) => handleSearch(e) } 
+                        onChange = { (e) => handleSearch(e) } 
                         className="form-control menu-search" type='text' placeholder='Search' aria-label="Search" 
                     />
                 </form>

@@ -12,7 +12,6 @@ class SubgenreList extends React.Component {
     }
 
     createArray = () => {
-        
         let array = [];
             for (var sub in this.props.subgenres) {
                 if (this.props.subgenres.hasOwnProperty(sub)) {
@@ -22,10 +21,7 @@ class SubgenreList extends React.Component {
                 }
             }
             return array;
-        
     }
-
-    
 
     render() {
         let multiArray = this.createArray();

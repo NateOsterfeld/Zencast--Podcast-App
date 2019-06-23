@@ -36,8 +36,8 @@ class Episode extends React.Component {
         const { postPlayBarObj, publisher, ogImage, description, duration, enclosure, image, link, pubDate, title } = this.props;
         
         return (
-            <tr>
-                <td className="td1">
+            <div className="episode-container">
+                <div className="td1 ep-name">
                     <div className="level">
                         <div className="level-right">
                             <div className="level-item">
@@ -52,10 +52,10 @@ class Episode extends React.Component {
                             </div>
                         </div>
                     </div>
-                </td>
-                <td className="td">{pubDate}</td>
-                <td className="td">{duration}</td>
-                <td className="td table-icon-container">
+                </div>
+                <div className="td ep-date">{pubDate}</div>
+                <div className="td ep-duration">{duration}</div>
+                <div className="td table-icon-container">
                     <div className="table-icon">
                         <a
                             className='pause' 
@@ -64,8 +64,8 @@ class Episode extends React.Component {
                             <span><i class="far fa-play-circle"></i></span>
                         </a>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </div>
         )
     }
 }

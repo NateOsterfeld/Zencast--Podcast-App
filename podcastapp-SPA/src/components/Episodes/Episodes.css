@@ -20,6 +20,41 @@
     }
 }
 
+.table-head {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid grey;
+    margin-bottom: 5px;
+}
+
+.table-name {
+    width: 60%;
+    margin-left: 20px;
+    color: #4a4a4a;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 2px;
+}
+
+.order {
+    width: 22%;
+}
+
+.duration {
+    width: 10%;
+    margin-left: 20px;
+    color: #4a4a4a;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 2px;
+}
+
+.table-play {
+    width: 10%;
+}
+
 .top-container {
     margin: 0 16rem;
 }
@@ -97,30 +132,6 @@
     line-height: 2;
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-.episodes-container thead th {
-    border-width: 0 0 2px;
-    color: #363636;
-}
-
-.episodes-container th {
-    color: #363636;
-    text-align: left;
-}
-
-
-th {
-    border-width: 0 0 2px;
-    color: #363636;
-    border: 1px solid #dbdbdb;
-    padding: 0.5em 0.75em;
-    vertical-align: top;
-    letter-spacing: 1px;
-}
 
 .description {
     color: black;

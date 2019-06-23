@@ -3,5 +3,19 @@
     border-radius: 2px;
     color: #4a4a4a;
     display: block;
-    padding: 0.5em 0.75em;
+    padding: 0.5em 1.75em;
+}
+.subgenre-name:hover {
+    background-color: #efefef;
+}
+.subgenre-name p {
+    transition: all .2s;
+}
+.subgenre-name:hover p {
+    transform: scale(1.05);
+}
+
+
+.subgenre-name:first-child {
+    padding-top: .75em;
 }

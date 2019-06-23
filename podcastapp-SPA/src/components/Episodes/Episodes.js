@@ -1,15 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Episode from './Episode/Episode';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
+    let [count, setCount] = useState(30);
+    let [website, setWebsite] = useState();
+    let start = 0;
+    const initEpisodes = [];
 
+    for (let i = start; i < count; i++) {
+        if (episodesObj.episodes[i]){
+            initEpisodes.push(episodesObj.episodes[i]);
+        }
+    }
+
+    const loadMore = () => {
+        start = count;
+        setCount(count+=30);
+            
+        for (let i = start; i < count; i++) {
+            if (episodesObj.episodes[i]){
+
+                initEpisodes.push(episodesObj.episodes[i]);
+            }
+        }
+    }
+
+    useEffect(() => episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?'))))
+    
     return (
         <div className="episodes-case">
             <div className="top-container">
                 <div className="media-container">
                     <div className="media-left">
-                        <img className="logo" src={episodesObj.image} alt={episodesObj.title}></img>
+                        <a href={website} rel="noopener noreferrer" target="_blank" >
+                            <img className="logo" src={episodesObj.image} alt={episodesObj.title}></img>
+                        </a>
                     </div>
                     <div className="media-center">
                         <h1 className="title">{episodesObj.title}</h1>
@@ -24,40 +51,48 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                     </div>
                 </div>
             </div>
-            <table className="episodes-container">
-                <thead className="table-head">
-                    <tr>
-                        <th>Episode Name</th>
-                        <th className="order">
+            <div className="episodes-container">
+                <div className="table-head">               
+                        <div className="table-name">Episode Name</div>
+                        <div className="order">
                             <p className="released">Released<i className="fas fa-sort-down"></i></p>
-                        </th>
-                        <th className="duration">Duration</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                    <tbody>
-                    {
-                        episodesObj.episodes.map((episode, i) => {
-                            return <Episode 
-                                key={i}
-                                id={i}
-                                description={episode.description}
-                                duration={episode.duration}
-                                enclosure={episode.enclosure}
-                                image={episode.image}
-                                link={episode.link}
-                                pubDate={episode.pubDate}
-                                title={episode.title}
-                                postPlayBarObj={postPlayBarObj}
-                                ogImage={episodesObj.image}
-                                publisher={episodesObj.publisher}
-                                hasPlayed={hasPlayed}
-                            />
-                        })
-                    }
-                    </tbody>
+                        </div>
+                        <div className="duration">Duration</div>
+                        <div className="table-play"></div>
+                </div>
+                    <div>
+                    
+                        <InfiniteScroll
+                            dataLength={initEpisodes.length}
+                            next={() => loadMore()}
+                            threshold={episodesObj.episodes.length}
+                            hasMore={true}
+                            
+                        >
+                        {
+                            initEpisodes.map((episode, i) => {
+                                return <Episode 
+                                    key={i}
+                                    id={i}
+                                    description={episode.description}
+                                    duration={episode.duration}
+                                    enclosure={episode.enclosure}
+                                    image={episode.image}
+                                    link={episode.link}
+                                    pubDate={episode.pubDate}
+                                    title={episode.title}
+                                    postPlayBarObj={postPlayBarObj}
+                                    ogImage={episodesObj.image}
+                                    publisher={episodesObj.publisher}
+                                    hasPlayed={hasPlayed}
+                                />
+                            })
+                        }
+                        </InfiniteScroll>
+                    
+                    </div>
                 
-            </table>
+            </div>
         </div>
     )
 }

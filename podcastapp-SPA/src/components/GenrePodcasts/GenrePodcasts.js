@@ -18,6 +18,7 @@ const GenrePodcasts = ({ genrePodcasts, getEpisodes }) => {
                         genreIds={genrePodcast.genreIds}
                         genres={genrePodcast.genres}
                         getEpisodes={getEpisodes}
+                        margin={20}
                     />
                 })
             }
