@@ -15,6 +15,7 @@ const Search = (props) => {
                             image={podcast.artworkUrl600}
                             publisher={podcast.artistName}
                             getEpisodes={props.getEpisodes}
+                            margin={20}
                         />
                 }) : 'No results found. Try typing the full name.'
             }

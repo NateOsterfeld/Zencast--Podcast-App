@@ -4,12 +4,12 @@
   /* margin-top: -0.75rem; */
 }
 
-.menu-label:not(:last-child) {
+/* .menu-label:not(:last-child) {
   margin-bottom: 1em;
 }
 .menu-label:not(:first-child) {
   margin-top: 1em;
-}
+} */
 
 .section {
   padding: 1rem 1.5rem;

@@ -27,7 +27,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
         }
     }
 
-    useEffect(() => episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?'))))
+    useEffect(() => {episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?')))})
     
     return (
         <div className="episodes-case">

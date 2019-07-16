@@ -5,6 +5,7 @@ import ExploreGenre from './ExploreGenre/ExploreGenre';
 import CuratedLists from './CuratedLists/CuratedLists';
 import { useSpring, animated } from 'react-spring';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Discover = (props) => {
     const { getEpisodes, getGenre, topPodcasts, genre, curatedLists, getListPodcasts } = props;
@@ -12,7 +13,6 @@ const Discover = (props) => {
     const [expSlideDirection, setExpSlideDirection] = useState();
     const [clSlideDirection, setClSlideDirection] = useState();
     const fade = useSpring({from:{opacity: 0}, opacity: 1})
-
 
     const handleSlide = (e) => {
         console.log('e', e.target.dataset.slide);
@@ -56,15 +56,15 @@ const Discover = (props) => {
     //linear-gradient(270deg, white 40%, transparent);
     
     return (
+        //TODO: Add a refresh button for Curated lists/Discover
         <animated.div className="discover-container" style={fade}>
-
 
             <h1 className="mb2 title">Discover</h1>
             <h4 className="selection-container-title">Explore: {genre.name}
-                <div 
+                <Link to={`/genres/${genre.name.toLowerCase()}`}
                     onClick = { (e) => getGenre(genre.id, genre.name, e, false) }
                     className="selection-anchor">more<span className="fas fa-chevron-right" attr="icon"></span>
-                </div>
+                </Link>
             </h4>
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-exp transparent">
@@ -77,7 +77,6 @@ const Discover = (props) => {
             </div>
 
 
-
             <h4 className="selection-container-title">Curated Lists
                 <a href="" className="selection-anchor">more<span className="fas fa-chevron-right" attr="icon"></span></a>
             </h4>
@@ -88,7 +87,7 @@ const Discover = (props) => {
                 <div className="scrollRight scrollRight-cl">
                     <span onClick = { (e) => handleSlide(e) } className="scrollRight-icon fas fa-chevron-right" data-slide="cl-right"></span>
                 </div>
-                <CuratedLists curatedLists={curatedLists} getPodcasts={getListPodcasts} direction={clSlideDirection} />                
+                <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} />                
             </div>
 
             

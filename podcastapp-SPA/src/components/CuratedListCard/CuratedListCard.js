@@ -1,5 +1,6 @@
 import React from 'react';
 import './CuratedListCard.scss';
+import { Link } from 'react-router-dom';
 
 class CuratedListCard extends React.Component {
     constructor(props) {
@@ -11,15 +12,15 @@ class CuratedListCard extends React.Component {
         
         return (
             <div className="podcast fl" style={{margin: 0 + 'px ' + margin + 'px'}}>
-                <div                  /*getPodcasts() is getListPodcasts() from App.js*/
-                    onClick = { () => this.props.getPodcasts(id, title, podcasts) }
+                <Link to={`/curated/${title.toLowerCase()}`}  /*getPodcasts() is getListPodcasts() from App.js*/
+                    onClick = { () => this.props.getListPodcasts(id, title, podcasts) }
                     className="podcast-a">
                     <img src={image} alt="podcast" className="podcast-image" />
                     <p style={{width: 200 + 'px'}}>
                         <strong>{title}</strong>
                     </p>
                     <p></p>
-                </div>
+                </Link>
             </div>
         )    
     }

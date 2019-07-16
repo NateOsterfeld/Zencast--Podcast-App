@@ -3,6 +3,11 @@
     opacity: 0;
 }
 
+.menu-item-container {
+    display: flex;
+    min-height: 2.5em;
+}
+
 .menu-list-item {
     cursor:pointer;
     padding: 8px 12px;
@@ -14,7 +19,7 @@
     right: 10px;
     bottom: 1.6px;
 }
-.menu-list-item:hover {
+.menu-item-container:hover {
     background-color: whitesmoke;
 }
 .menu-list-item .genre-name {
@@ -39,7 +44,7 @@
     margin: 0.75em;
     padding-left: 0.75em;
     margin-top: 22px;
-    right: 37px;
+    right: 14px;
     position: relative;
 }
 
@@ -54,7 +59,8 @@
 }
 
 .menu-icon {
-    display: inline-block;
+    position: absolute;
+    margin-top: 7px;
     width: 2em;
     height: 1.5em;
 }

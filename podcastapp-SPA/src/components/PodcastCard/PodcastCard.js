@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './PodcastCard.css';
 
 class PodcastCard extends React.Component {
@@ -12,7 +13,7 @@ class PodcastCard extends React.Component {
         
         return (
             <div className="podcast fl" style={{margin: 0 + 'px ' + margin + 'px'}}>
-                <div 
+                <Link to={`/episodes/${id}`}
                     onClick = { () => this.props.getEpisodes(id, title, image, publisher, website) }
                     className="podcast-a">
                     <img src={image} alt="podcast" className="podcast-image" />
@@ -20,7 +21,7 @@ class PodcastCard extends React.Component {
                         <strong>{title}</strong>
                     </p>
                     <p>{publisher}</p>
-                </div>
+                </Link>
             </div>
         )    
     }

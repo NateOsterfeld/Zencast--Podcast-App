@@ -10,6 +10,8 @@ import PlayBar from './components/PlayBar/PlayBar';
 import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 
 class App extends Component {
   constructor() {
@@ -22,12 +24,13 @@ class App extends Component {
       route: 'discover',
       genresMenu: [],
       genrePodcasts: { name: '', podcasts: [] },
-      GenrePodcasts: { name: '', podcasts: [] },
       // randomGenre: {},
+      curatedListObj: { id: 0, title: '', podcasts: [] },
       curatedLists: [],
       episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [], website: '' },
       playBarObj: { audio: '', image: {}, enclosure: {}, title: '', publisher: '', pubdate: '' },
       hasPlayed: '',
+      showMenu: true,
     }
   }
 
@@ -40,9 +43,9 @@ class App extends Component {
       
   getPopular = () => {
     fetch('/popular')
-    .then(response1 => response1.json())
-    .then(response2 => {
-      this.setState({ popular: response2 })
+    .then(response => response.json())
+    .then(response => {
+      this.setState({ popular: response })
     })
   }
 
@@ -53,7 +56,7 @@ class App extends Component {
   }
 
   getCuratedLists = (random = true) => {
-    fetch(`/curatedLists`, {
+    fetch(`/curatedListsList`, {
       method: 'post',
       headers: { 'Content-Type' : 'application/json' },
       body: JSON.stringify({ random: random })
@@ -69,8 +72,6 @@ class App extends Component {
       .then(response => this.setState({ curatedListObj : { id: id, title: title, podcasts: response.podcasts },
                         route: 'curatedPodcasts' }))
   }
-
-  
 
   createPlayBarObj = (audio, image, enclosure, title, hasPlayed, publisher, pubdate) => {
     this.setState({ playBarObj: { audio: audio, image: image, enclosure: enclosure, title: title, publisher: publisher, pubdate: pubdate },
@@ -123,7 +124,7 @@ class App extends Component {
         const url = `https://itunes.apple.com/search?term=podcast&genreId=${genre.id}&limit=10`;
         fetch(url)
           .then(response => response.json())
-          .then(response => this.setState({ GenrePodcasts: { id: genre.id, name: genre.name, podcasts: response.results }}));
+          .then(response => this.setState({ genrePodcasts: { id: genre.id, name: genre.name, podcasts: response.results }}));
       }
     });
   }
@@ -148,30 +149,102 @@ class App extends Component {
       }
   }
 
+  
+  
   render() {
-    const { route } = this.state;
+    const { route, showMenu } = this.state;
+    console.log('current route', route);
     return (
-      <div className="App">
-        <Navigation changeRoute={this.changeRoute} getSearchedPodcasts={this.getSearchedPodcasts} />
-        <section className="section">
-            {route === 'episodes' && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} />}
-          <div className="case">
-            {route !== 'episodes' && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} /> }
-            {route === 'popular' && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} /> }
-            {route === 'search' && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-            {route === 'discover' && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes} 
-                                               genre={this.state.GenrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} /> }
-            {route === 'curatedPodcasts' && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} /> }
-            {route === 'genre' && <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} /> }
-          </div>
-        </section>
-            <nav className="navbar fixed-bottom navbar-light bg-light">
-              <PlayBar playBarObj={this.state.playBarObj} hasPlayed={this.state.hasPlayed} />
-            </nav>
-      </div>
+      <Router>
+        <div className="App">
+          <Navigation changeRoute={this.changeRoute} getSearchedPodcasts={this.getSearchedPodcasts} showMenu={this.setShowMenu} />
+          <section className="section">
+
+
+            <div className="case">
+              <Route path='/episodes/:id' 
+                render={(props) => 
+                  <>
+                  {route === 'search'
+                    &&  <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} /> }
+                  {route === 'search'
+                    &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} /> }
+                  {route !== 'search'
+                    &&  <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} /> }
+                  </>
+                  } 
+              />
+            
+              <Route exact path='/' 
+                render={(props) => 
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} />
+                    {route === 'search'  
+                      &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'  
+                      &&  <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes} 
+                              genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} /> }
+                  </>
+                } 
+              />
+            
+              <Route path='/discover'
+                render={(props) =>
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} />
+                    {route === 'search'  
+                      &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'  
+                      &&  <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
+                                genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} /> }
+                  </>
+                }
+              />
+
+              <Route path='/popular' 
+                render={(props) =>
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} />
+                    {route === 'search'  
+                      &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'  
+                      &&  <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} {...props} /> }
+                  </>
+                }
+              />
+            
+              <Route path='/genres/:name' 
+                render={(props) =>
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} />
+                    {route === 'search'  
+                      &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'  
+                      &&  <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} {...props} /> }
+                  </>
+                }
+              />
+
+              <Route path='/curated/:name'
+                render={(props) => 
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} {...props} />
+                    {route === 'search'  
+                      &&  <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'  
+                      &&  <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} {...props} /> }
+                  </>
+                }
+              />
+            </div>
+          </section>
+              <nav className="navbar fixed-bottom navbar-light bg-light">
+                <PlayBar playBarObj={this.state.playBarObj} hasPlayed={this.state.hasPlayed} />
+              </nav>
+        </div>
+      </Router>
     );
   }
-  
 }
 
 export default App;

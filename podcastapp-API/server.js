@@ -25,14 +25,15 @@ app.use(cors());
 
 
 
-app.get('/', (req, res) => res.send('it is working!'));
+// app.get('/', (req, res) => res.send('it is working!'));
 
 
 app.get('/popular', (req, res) => {
     const url = 'https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/50/explicit.json';
     fetch(url)
         .then(response => response.json())
-        .then(result => res.json(result.feed.results));
+        .then(result => res.json(result.feed.results))
+        .catch(err => console.log('error', err));
 })
 
 app.get('/searchPodcasts/:term', (req, res) => {
@@ -41,9 +42,10 @@ app.get('/searchPodcasts/:term', (req, res) => {
     fetch(url)
         .then(response => response.json())
         .then(data => res.json(data))
+        .catch(err => console.log('error', err));
 })
 
-app.post('/curatedLists', (req, res) => {
+app.post('/curatedListsList', (req, res) => {
     let url = 'https://listen-api.listennotes.com/api/v2/curated_podcasts';
 
     if (req.body.random) {
@@ -57,7 +59,8 @@ app.post('/curatedLists', (req, res) => {
                    'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8' }
     })
         .then(response => response.json())
-        .then(response => res.json(response));
+        .then(response => res.json(response))
+        .catch(err => console.log('error', err));
 })
 
 app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
@@ -72,6 +75,7 @@ app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
           console.log('check', response);
           res.json(response);
       })
+      .catch(err => console.log('error', err));
 })
 
 
@@ -91,6 +95,7 @@ app.get('/genresMenu', (req, res) => {
             })
             res.json(majorGenres);
         })
+        .catch(err => console.log('error', err));
 })
 
 
@@ -127,7 +132,7 @@ app.get('/episodes/:id', (req, res) => {
                 
                 res.json(episodes);
             })();
-        })
+        }).catch(err => console.log('error', err));
 })
 
 

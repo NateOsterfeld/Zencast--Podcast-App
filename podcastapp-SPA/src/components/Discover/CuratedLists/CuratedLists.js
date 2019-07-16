@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CuratedListCard from '../../CuratedListCard/CuratedListCard';
 import { useSpring, a } from 'react-spring';
 
-const CuratedLists = ({curatedLists, getPodcasts, direction }) => {
+const CuratedLists = ({curatedLists, getListPodcasts, direction }) => {
     const [directionStyle, setDirectionStyle] = useState();
     const fade = useSpring({from:{opacity: 0}, opacity: 1});
     const right = useSpring({from:{transform: 'translateX(0px)'}, transform: 'translateX(-900px)'});
@@ -24,7 +24,7 @@ const CuratedLists = ({curatedLists, getPodcasts, direction }) => {
                         title={curatedList.title}
                         image={curatedList.podcasts[0].thumbnail}
                         podcasts={curatedList.podcasts}
-                        getPodcasts={getPodcasts}
+                        getListPodcasts={getListPodcasts}
                         margin={10}
                     />
             })

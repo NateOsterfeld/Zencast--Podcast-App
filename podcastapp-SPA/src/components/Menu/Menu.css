@@ -10,10 +10,12 @@ li {
 
 .menu-label {
     color: #7a7a7a;
-    font-size: 0.75em;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
     margin: 1em;
+    font-size: 16px;
+    letter-spacing: 7px;
+    margin-bottom: 6px;
+    margin-left: 5px;
 }
 
 .menu-list {
@@ -23,6 +25,7 @@ li {
     box-shadow: 0 20px 20px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1);
     color: #4a4a4a;
     padding: 20px;
+    padding-left: 10px;
 }
 
 .menu-list a {
@@ -54,4 +57,6 @@ li {
     font-size: 0.75em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    font-size: 15px;
+    padding-left: 0px !important;
 }

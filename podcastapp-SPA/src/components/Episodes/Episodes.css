@@ -119,6 +119,12 @@
 
 }
 
+.episodes-case {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+}
+
 .episodes-container {
     background-color: #fff;
     color: #363636;
