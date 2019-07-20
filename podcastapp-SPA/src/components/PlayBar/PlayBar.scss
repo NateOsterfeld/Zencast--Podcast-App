@@ -57,15 +57,12 @@ $white: #ffffff;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
-    transition: color .15s ease-in-out,
-        background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
-    transition: all .5s ease;
     font-size: 1.5rem;
     outline: 0;
     border: 1px solid #dbdbdb;
+    transition: all .5s ease;
     &.play {
+        animation: playBtn-animate2 .5s ease;
         
         .fa-pause {
             display: none;
@@ -74,7 +71,8 @@ $white: #ffffff;
     }
     &.pause {
         transform: rotate(180deg);
-        border-radius: 500px;
+        animation: playBtn-animate1 .5s ease;
+        
         .fa-play {
             display: none;
             outline: 0;
@@ -83,6 +81,20 @@ $white: #ffffff;
     }
     &:hover {
         border: 1px solid #b5b5b5;
+    }
+
+    /* CSS animations are dumb dude... https://css-tricks.com/restart-css-animation/ */
+    @keyframes playBtn-animate1 {
+        from {border-radius: .25rem;}
+        20% {border-radius: 500px;}
+        80% {border-radius: .18rem;}
+        to {border-radius: .25rem;}
+    }
+    @keyframes playBtn-animate2 {
+        from {border-radius: .25rem;}
+        20% {border-radius: 500px;}
+        80% {border-radius: .2rem;}
+        to {border-radius: .25rem;}
     }
 }
 
@@ -202,29 +214,29 @@ $white: #ffffff;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: center;
-    transition: all .2s;
     
     #playing-art {
         display: default;
         position: absolute;
-        top: 0;
+        top: 0px;
         left: 0;
         z-index: 3;
         width: 128px;
         height: 128px;
+        transition: 2s linear all;
         
         &.animateImage {
+            transform: translateY(0%);
             animation: move 4s ease-in-out infinite;
         }
 
-        
         @keyframes move {
             0% {
-                transform: translateY(0%);
+                top: 0;
             } 50% {
-                transform: translateY(-20%);
+                top: -30px;
             } 100% {
-                transform: translateY(0%);
+                top: 0;
             }
         }
     }

@@ -49,14 +49,16 @@ app.post('/curatedListsList', (req, res) => {
     let url = 'https://listen-api.listennotes.com/api/v2/curated_podcasts';
 
     if (req.body.random) {
-        let page = Math.floor(Math.random()*112);
+        let page = Math.floor(Math.random() * 112);
         url = `https://listen-api.listennotes.com/api/v2/curated_podcasts?page=${page}`;
     }
 
     fetch(url, {
         method: 'get',
-        headers: { 'Content-Type': 'application/json',
-                   'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8' }
+        headers: {
+            'Content-Type': 'application/json',
+            'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8'
+        }
     })
         .then(response => response.json())
         .then(response => res.json(response))
@@ -68,14 +70,16 @@ app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
 
     fetch(url, {
         method: 'get',
-        headers: { 'Content-Type': 'application/json',
-                   'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8' }
+        headers: {
+            'Content-Type': 'application/json',
+            'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8'
+        }
     }).then(response => response.json())
-      .then(response => {
-          console.log('check', response);
-          res.json(response);
-      })
-      .catch(err => console.log('error', err));
+        .then(response => {
+            console.log('check', response);
+            res.json(response);
+        })
+        .catch(err => console.log('error', err));
 })
 
 
@@ -104,18 +108,19 @@ app.get('/episodes/:id', (req, res) => {
         .then(response => response.json())
         .then(response => {
             (async () => {
+            try {
                 const parser = new Parser({
                     customFields: {
-                      feed: ['otherTitle', 'extendedDescription'],
-                      item: [
-                          ['description', 'description'],
-                          ['itunes:duration', 'duration'],
-                          ['itunes:image', 'image']
-                      ] 
+                        feed: ['otherTitle', 'extendedDescription'],
+                        item: [
+                            ['description', 'description'],
+                            ['itunes:duration', 'duration'],
+                            ['itunes:image', 'image']
+                        ]
                     }
-                  })
+                })
                 const feed = await parser.parseURL(response.results[0].feedUrl);
-                
+
                 let episodes = feed.items.map(item => {
                     const episodesObj = {
                         title: item.title,
@@ -129,10 +134,14 @@ app.get('/episodes/:id', (req, res) => {
                     episodesObj.mainDescription = feed.description;
                     return episodesObj;
                 })
-                
+
                 res.json(episodes);
-            })();
-        }).catch(err => console.log('error', err));
+            }
+            catch (err) {
+                console.log('error', err);
+            }
+        })();
+    }).catch(err => console.log('error', err));
 })
 
 

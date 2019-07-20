@@ -108,6 +108,7 @@ class App extends Component {
         this.setState({ route: 'episodes', 
                         episodesObj: {id:id, title:title, image:image, publisher:publisher, mainDescription: response[0].mainDescription, episodes: response, website: website }});
       })
+      .catch(err => console.log('error', err));
   }
 
   getRandomGenre = () => {

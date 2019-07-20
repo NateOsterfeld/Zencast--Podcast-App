@@ -1,5 +1,6 @@
 import React from 'react';
 import './PlayBar.scss';
+import { useSpring, animated } from 'react-spring';
 
 class PlayBar extends React.Component {
     constructor(props) {
@@ -31,20 +32,25 @@ class PlayBar extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.playBarObj.title !== prevProps.playBarObj.title) {
             this.playPodcast(this.isNewPodcast);
+            if (prevProps.playBarObj.title.length) {
+                prevProps.playBarObj.audio.pause();
+            }
         }
-        if (this.props.playBarObj.title !== prevProps.playBarObj.title && prevProps.playBarObj.title.length) {
-            prevProps.playBarObj.audio.pause();
-            this.playPodcast(this.isNewPodcast);
-        }
-
     }
 
+    resetTransition = false;
     playPodcast = (isNewPodcast) => {
         if (isNewPodcast) {
             this.props.playBarObj.audio.src = this.props.playBarObj.enclosure.url; // set up url for src to be able to play on audio element
         }
         this.setState({ finalPlay: 'pause' });
-        this._refImage.current.className = 'animateImage';
+        let el = document.querySelector('#playing-art'); //grab img
+        el.style.top = '0px'; //want to start at 'base' and reset from changed values in 'pausePodcast'
+        el.style.transform = 'translateY(0px)'; //same here
+        if (this.resetTransition) { //let skip first time so it will transition down
+            el.style.transition = '0s'; //because top and transform will not initially be 0, we want to skip to setting at 0 with no transition after first buttonclick
+        }
+        this._refImage.current.className = 'animateImage'; //begin animating again (will apply transition on pause click to come down smoothly)
         this._refImage.current.nextSibling.style.color = 'white';
         this.props.playBarObj.audio.play();
         this.updateSeekBar();
@@ -90,7 +96,16 @@ class PlayBar extends React.Component {
             }
             else if (this._refPlayButton.current.className === 'pause') {
                 this.setState({ finalPlay: 'play' });
-                this._refImage.current.className = '';
+                let el = document.querySelector('#playing-art'); //select image
+                el.style.transition = '1s linear all'; //apply transition
+                let topVal = window.getComputedStyle(el).getPropertyValue('top'); // current proprety of "style.top" for image
+                el.style.top = topVal; //set that number as actual style.top value
+                let parse = topVal.split('px'); //split #px into array [#, px]
+                let value = Number(parse[0]) + 30; //grab number or array[0]
+                let finvalue = 30 - value; //subtract from 30 as this will be how far away from base/0px img must travel
+                this._refImage.current.classList.remove('animateImage'); //remove class animateImage thus stopping animation
+                el.style.transform = 'translateY(' + finvalue + 'px' + ')'; //apply finValue from above to transform the correct amount of pixels down through transitioning
+                this.resetTransition = true; //set resetTransition to true (had to be false first time for 'playPodcast') to keep transition
                 this.props.playBarObj.audio.pause();
             }
         }
@@ -125,7 +140,7 @@ class PlayBar extends React.Component {
         return (
             <div className="level is-mobile">
                 <div className="level-left" id="mobile-player">
-                    <div className="level-item" href="">
+                    <div className="level-item">
                         <img
                             ref={this._refImage}
                             id="playing-art" src={playBarObj.image} alt="" />
