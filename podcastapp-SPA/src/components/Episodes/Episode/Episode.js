@@ -20,14 +20,8 @@ class Episode extends React.Component {
 
     playSound = (enclosure) => {
         const audio = new Audio();
-        audio.src = enclosure.url;
-        audio.play();
 
-        if (this.refPlay) {
-            this.setState({ playBtn: this.refPlay.className });
-            this.props.hasPlayed(this.refPlay);
-        } 
-
+        //verify podcast is playing/ready to play by sending to app.js, setting state there and adding to prop of Playbar and only accept controls input if "hasPlay" aka refPlay exists
         this.props.postPlayBarObj(audio, this.props.ogImage, enclosure, this.props.title, this.refPlay, this.props.publisher, this.props.pubDate);
     }
 

@@ -47,6 +47,7 @@ li {
 .genre-name {
     position: absolute;
     left: 75px;
+    margin-left: 0px;
 }
 .hidden {
     display: none;

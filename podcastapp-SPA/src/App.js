@@ -24,7 +24,6 @@ class App extends Component {
       route: 'discover',
       genresMenu: [],
       genrePodcasts: { name: '', podcasts: [] },
-      // randomGenre: {},
       curatedListObj: { id: 0, title: '', podcasts: [] },
       curatedLists: [],
       episodesObj: { id: '', title: '', image: '', publisher: '', episodes: [], website: '' },
@@ -78,10 +77,6 @@ class App extends Component {
                     hasPlayed: hasPlayed })
   }
 
-  hasPlayed = (hasPlayed) => {
-    this.setState({ hasPlayed: hasPlayed.className });
-  }
-
   getGenre = (id, name, e, isFromMenu) => {
     console.log('id', id);
     const url = `https://itunes.apple.com/search?term=podcast&genreId=${id}&limit=50`;
@@ -96,7 +91,6 @@ class App extends Component {
           .then(response => response.json())
           .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
       }
-
   }
 
   getSearchedPodcasts = (term, route) => {
@@ -120,7 +114,6 @@ class App extends Component {
     let random = Math.floor(Math.random()*this.state.genresMenu.length);
     this.state.genresMenu.map((genre, i) => {
       if (random === i) {
-        // this.setState({ randomGenre: genre });
         const url = `https://itunes.apple.com/search?term=podcast&genreId=${genre.id}&limit=10`;
         fetch(url)
           .then(response => response.json())

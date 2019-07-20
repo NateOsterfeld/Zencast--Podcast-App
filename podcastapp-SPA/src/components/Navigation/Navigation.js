@@ -100,7 +100,7 @@ const Navigation = ({ getSearchedPodcasts, changeRoute, showMenu }) => {
       </form>
     </div>
       <div className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle dropdown" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
+          <a className="nav-link dropdown-toggle dropdown" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
           <div className="dropdown-menu" aria-labelledby="dropdown04">
             <a className="dropdown-item dim" href="">Log in</a>
             <a className="dropdown-item dim" href="">Sign up</a>

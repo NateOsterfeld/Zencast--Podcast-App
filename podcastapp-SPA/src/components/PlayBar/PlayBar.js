@@ -2,7 +2,7 @@ import React from 'react';
 import './PlayBar.scss';
 
 class PlayBar extends React.Component {
-    constructor(props) { //have a function in "Episode.js" that determines true/false if an episode has been clicked/played
+    constructor(props) {
         super(props); //audio, image, enclosure, title
         // this.onClickPlayButton = this.onClickPlayButton.bind(this);
         // this.onClickSeekBarOuter = this.onClickSeekBarOuter.bind(this);
@@ -10,7 +10,6 @@ class PlayBar extends React.Component {
         this._refPlayButton = React.createRef();
         this._refSeekBarInner = React.createRef();
         this._refSeekBarOuter = React.createRef();
-        this._refTimingEnd = React.createRef();
         this._refImage = React.createRef();
         this._refVolumeInner = React.createRef();
         this._refVolumeOuter = React.createRef();
@@ -19,35 +18,59 @@ class PlayBar extends React.Component {
             playButton: 'play',
             duration: 0,
             current: 0,
-            hasPlayed: 'has-not',
             finalPlay: 'play',
             playCounter: 0
         }
 
     }
-    
-    //pass method in that will change the state
 
-    
-    //remember getsnapshot updates before component updates?
+    isNewPodcast = true;
+
+    //remember to view audio object! playback rate to change speed and so much more
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.playBarObj.title !== prevProps.playBarObj.title) {
+            this.playPodcast(this.isNewPodcast);
+        }
+        if (this.props.playBarObj.title !== prevProps.playBarObj.title && prevProps.playBarObj.title.length) {
+            prevProps.playBarObj.audio.pause();
+            this.playPodcast(this.isNewPodcast);
+        }
+
+    }
+
+    playPodcast = (isNewPodcast) => {
+        if (isNewPodcast) {
+            this.props.playBarObj.audio.src = this.props.playBarObj.enclosure.url; // set up url for src to be able to play on audio element
+        }
+        this.setState({ finalPlay: 'pause' });
+        this._refImage.current.className = 'animateImage';
+        this._refImage.current.nextSibling.style.color = 'white';
+        this.props.playBarObj.audio.play();
+        this.updateSeekBar();
+    }
+
     updateSeekBar = () => {
-        let seekBarPercentage = this.getPercentage(this.props.playBarObj.audio.currentTime.toFixed(2), this.props.playBarObj.audio.duration.toFixed(2));
-        this._refSeekBarInner.current.style.width = seekBarPercentage + '%';
-        let convertedTime = this.convertToSeconds(this.props.playBarObj.audio.currentTime);
-        this.setState({ current: convertedTime });
+        setInterval(() => {
+            let seekBarPercentage = this.getPercentage(this.props.playBarObj.audio.currentTime.toFixed(2), this.props.playBarObj.audio.duration.toFixed(2));
+            this._refSeekBarInner.current.style.width = seekBarPercentage + '%';
+            let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
+            this.setState({ duration: convertedEndTime })
+            let convertedTime = this.convertToSeconds(this.props.playBarObj.audio.currentTime);
+            this.setState({ current: convertedTime });
+        }, 250);
     }
 
     getPercentage = (currentValue, totalLength) => {
-        let calcPercentage = (currentValue/totalLength)*100;
+        let calcPercentage = (currentValue / totalLength) * 100;
         return parseFloat(calcPercentage.toString());
     }
 
     convertToSeconds = (currentTime) => {
-        let seconds = currentTime % 60;
-        let foo = currentTime - seconds;
-        let minutes = foo / 60;
-        if(seconds < 9){
-            seconds = 0 + seconds;
+        let seconds = currentTime % 60; //currentTime and "converted"seconds will run synonymous until 60, then seconds starts over. eg1)45 = 45 % 60 eg2)15 = 75 % 60 eg3)5 = 125 % 60
+        let foo = currentTime - seconds; //subtract "converted/leftover"seconds from currentTime(totalseconds) to always get a divisible of 60. eg1)0 = 45 - 45 eg2)60 = 75 - 15 eg3)120=125-5
+        let minutes = foo / 60; //divide this number by 60 to see how many minutes we've accounted for and add seconds separately below eg1)0 = 0/60 eg2) 1 = 60/60 eg3)2 = 120/60
+        if (seconds < 9.5) { //use 9.5 here because you want 01, 02, 03.. up to 09 but at 9.5 it rounds up to 10 so you'd get 010 otherwise
             return minutes + ":0" + seconds.toFixed(0);
         }
         return minutes + ":" + seconds.toFixed(0);
@@ -59,87 +82,61 @@ class PlayBar extends React.Component {
         let minutes = foo / 60;
         return minutes + ":" + seconds.toFixed(0);
     }
-    
+
     onClickPlayButton = () => {
-        this.state.playCounter++;
-        
-        if (this._refPlayButton.current.className === 'play') {
-            this.setState({ finalPlay: 'pause'});
-            let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
-            this.setState({ duration: convertedEndTime })
-            this._refImage.current.className = 'animateImage';
-            this._refImage.current.nextSibling.style.color = 'white';
-            this.props.playBarObj.audio.play();
-            let interval = setInterval(() => {
-                if (!this.props.playBarObj.audio.paused) {
-                    this.updateSeekBar();
-                }
-            }, 250);
-        }
-        else if (this._refPlayButton.current.className === 'pause') {
-            let convertedEndTime = this.convertToSecsEnd(this.props.playBarObj.audio.duration);
-            this._refTimingEnd.current.innerText = convertedEndTime;
-            let interval = setInterval(() => {
-                if (!this.props.playBarObj.audio.paused) {
-                    this.updateSeekBar();
-                }
-            }, 250);
-            this.setState({ finalPlay: 'play'});
-            this._refImage.current.className = '';
-            this.props.playBarObj.audio.pause();
-        }
-        let interval = setInterval(() => {
-            if (!this.props.playBarObj.audio.paused) {
-                this.updateSeekBar();
+        if (this.props.hasPlayed) {
+            if (this._refPlayButton.current.className === 'play') {
+                this.playPodcast(!this.isNewPodcast);
             }
-        }, 250);
+            else if (this._refPlayButton.current.className === 'pause') {
+                this.setState({ finalPlay: 'play' });
+                this._refImage.current.className = '';
+                this.props.playBarObj.audio.pause();
+            }
+        }
     }
-            
-    
 
     onClickSeekBarOuter = (e) => {
         if (!this.props.playBarObj.audio.ended && this.state.duration !== 0) {
             let seekPosition = e.pageX - this._refSeekBarOuter.current.offsetLeft;
             if (seekPosition >= 0 && seekPosition < this._refSeekBarOuter.current.offsetLeft + e.pageX) {
-                let newCurrentTime = (seekPosition*this.props.playBarObj.audio.duration.toFixed(2)) / this._refSeekBarOuter.current.offsetWidth;
+                let newCurrentTime = (seekPosition * this.props.playBarObj.audio.duration.toFixed(2)) / this._refSeekBarOuter.current.offsetWidth;
                 this.props.playBarObj.audio.currentTime = newCurrentTime;
             }
         }
     }
- //run method that runs onclick
+
     onClickVolume = (e) => {
-        let volumePosition = e.pageX - this._refVolumeOuter.current.offsetLeft;
-        let audioVolume = volumePosition / this._refVolumeOuter.current.offsetWidth;
-        
-        if (audioVolume >= 0 && audioVolume <= 1) {
-            this.props.playBarObj.audio.volume = audioVolume;
-            this._refVolumeInner.current.style.width = audioVolume*100 + '%';
-            // this._refVolumeInner.current.classList.add('vol-animate');
-            // setInterval(() => {
-            //     this._refVolumeInner.current.classList.remove('vol-animate');
-            // }, 1500);
+        if (this.props.hasPlayed) {
+            let volumePosition = e.pageX - this._refVolumeOuter.current.offsetLeft;
+            let audioVolume = volumePosition / this._refVolumeOuter.current.offsetWidth;
+
+            if (audioVolume >= 0 && audioVolume <= 1) {
+                this.props.playBarObj.audio.volume = audioVolume;
+                this._refVolumeInner.current.style.width = audioVolume * 100 + '%';
+            }
         }
     }
 
-        
-        
+
+
     render() {
         const { playBarObj } = this.props;
         return (
             <div className="level is-mobile">
                 <div className="level-left" id="mobile-player">
                     <div className="level-item" href="">
-                        <img 
-                            ref = { this._refImage }    
+                        <img
+                            ref={this._refImage}
                             id="playing-art" src={playBarObj.image} alt="" />
-                            <div className="art-placeholder">
-                                <i className="fas fa-headphones">
-    
-                                </i>
-                            </div>
+                        <div className="art-placeholder">
+                            <i className="fas fa-headphones">
+
+                            </i>
+                        </div>
                         <div className="player-loading">
                             <div className="button is-link is-loading is-large is-rounded">
-    
+
                             </div>
                         </div>
                     </div>
@@ -149,30 +146,30 @@ class PlayBar extends React.Component {
                                 <button className="button is-large btn">
                                     <span>
                                         <i className="fas fa-backward">
-    
+
                                         </i>
                                     </span>
                                 </button>
                             </div>
                             <div className="control">
-                                <button                                     
-                                        ref = { this._refPlayButton }
-                                        onClick = { () => this.onClickPlayButton() }
-                                        className={(this.props.hasPlayed.className === 'pause' && this.state.playCounter === 0) ? 'pause' : this.state.finalPlay} id="play-btn">
+                                <button
+                                    ref={this._refPlayButton}
+                                    onClick={() => this.onClickPlayButton()}
+                                    className={this.state.finalPlay} id="play-btn">
                                     <span className="icon is-medium is-marginless" id="play-icon">
                                         <i className="fas fa-play"></i>
                                         <i className="fas fa-pause"></i>
                                     </span>
-                                    
-                                        
-                                   
+
+
+
                                 </button>
                             </div>
                             <div className="control">
                                 <button className="button is-large btn btn-for">
                                     <span>
                                         <i className="fas fa-forward">
-    
+
                                         </i>
                                     </span>
                                 </button>
@@ -183,31 +180,29 @@ class PlayBar extends React.Component {
                 <div className="level-item is-hidden-mobile">
                     <div className="has-text-centered" id="player-center">
                         <p className="player-info is-size-6">
-                            <a data-target="player.episode" href="/podcasts/360084272?episode_id=http://blog.joerogan.net/?p=1810">
+                            <a data-target="player.episode" href="#">
                                 {playBarObj.title.length > 0 ? playBarObj.title : 'Go ahead...'}
                             </a>
                         </p>
                         <p className="player-info">
-                            <a data-target="player.podcast" href="/podcasts/360084272">
-                                {playBarObj.publisher.length > 0 ? playBarObj.publisher + '-' : ''} 
+                            <a data-target="player.podcast" href="#">
+                                {playBarObj.publisher.length > 0 ? playBarObj.publisher + '-' : ''}
                                 {playBarObj.pubdate.length > 0 ? playBarObj.pubdate : 'play something already!'}
                             </a>
                         </p>
                         <div className="seekBar">
-                            <span 
-                                ref = { this._refSeekBarOuter }
-                                onClick = { (e) => this.onClickSeekBarOuter(e) }
+                            <span
+                                ref={this._refSeekBarOuter}
+                                onClick={(e) => this.onClickSeekBarOuter(e)}
                                 className="outer">
-                                <span 
-                                    ref = { this._refSeekBarInner }
+                                <span
+                                    ref={this._refSeekBarInner}
                                     className="inner"></span>
                             </span>
                         </div>
                         <div className="player-time" id="timing" data-target="player.time">
-                            <div className="timing-start">{this.state.current} / </div>
-                            <div 
-                                ref = { this._refTimingEnd }
-                                className="timing-end"> {this.state.duration}</div>
+                            <div className="timing-start">{this.props.playBarObj.audio.duration ? this.state.current + ' /' : 0 + ' /'}</div>
+                            <div className="timing-end">{this.props.playBarObj.audio.duration ? this.state.duration : 0}</div>
                         </div>
                     </div>
                 </div>
@@ -224,13 +219,13 @@ class PlayBar extends React.Component {
                         </div>
                     </div>
                     <div className="level-item">
-                            <i className="fas fa-volume-up"></i>
-                        <span 
-                            ref = { this._refVolumeOuter }
-                            onClick = { (e) => this.onClickVolume(e) }
+                        <i className="fas fa-volume-up"></i>
+                        <span
+                            ref={this._refVolumeOuter}
+                            onClick={(e) => this.onClickVolume(e)}
                             className="outer-vol">
-                            <span 
-                                ref = { this._refVolumeInner }
+                            <span
+                                ref={this._refVolumeInner}
                                 className="inner-vol"></span>
                         </span>
                     </div>
@@ -239,6 +234,5 @@ class PlayBar extends React.Component {
         )
     }
 }
-
 
 export default PlayBar;

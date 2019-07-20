@@ -6,6 +6,7 @@
 .menu-item-container {
     display: flex;
     min-height: 2.5em;
+    margin-left: 3px;
 }
 
 .menu-list-item {
@@ -63,9 +64,4 @@
     margin-top: 7px;
     width: 2em;
     height: 1.5em;
-}
-
-.genre-name {
-    margin-left: 15px;
-    z-index: 1;
 }

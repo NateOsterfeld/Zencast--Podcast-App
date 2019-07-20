@@ -113,7 +113,7 @@ app.get('/episodes/:id', (req, res) => {
                           ['itunes:image', 'image']
                       ] 
                     }
-                  });
+                  })
                 const feed = await parser.parseURL(response.results[0].feedUrl);
                 
                 let episodes = feed.items.map(item => {
