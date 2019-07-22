@@ -61,3 +61,19 @@ li {
     font-size: 15px;
     padding-left: 0px !important;
 }
+.menu-nav > i {
+    opacity: .8;
+    transition: all .2s;
+}
+.menu-nav:hover {
+    text-decoration: none;
+}
+.menu-nav:hover > i {
+    color: #007bff;
+    transform: scale(1.02);
+    opacity: .8;
+}
+
+.form-inline-menu {
+    transform: translateX(-3px);
+}

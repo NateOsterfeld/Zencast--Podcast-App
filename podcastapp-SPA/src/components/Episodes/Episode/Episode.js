@@ -42,12 +42,12 @@ class Episode extends React.Component {
                                 </span>
                             </div>
                             <div className="level">
-                                <div className="ep-title">{title}</div>
+                                <div className="ep-title">{title.length > 50 ? title.substring(0, 100) + '...' : title}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="td ep-date">{pubDate}</div>
+                <div className="td ep-date">{pubDate.substring(0, pubDate.length-14)}</div>
                 <div className="td ep-duration">{duration}</div>
                 <div className="td table-icon-container">
                     <div className="table-icon">
@@ -55,7 +55,7 @@ class Episode extends React.Component {
                             className='pause' 
                             ref = { this.setRef }
                             onClick = {() => this.playSound(enclosure)}>
-                            <span><i class="far fa-play-circle"></i></span>
+                            <span><i className="far fa-play-circle"></i></span>
                         </a>
                     </div>
                 </div>

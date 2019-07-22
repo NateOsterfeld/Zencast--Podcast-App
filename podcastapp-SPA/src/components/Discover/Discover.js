@@ -15,7 +15,6 @@ const Discover = (props) => {
     const fade = useSpring({from:{opacity: 0}, opacity: 1})
 
     const handleSlide = (e) => {
-        console.log('e', e.target.dataset.slide);
         const direction = e.target.dataset.slide;
         
         switch(direction) {

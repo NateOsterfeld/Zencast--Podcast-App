@@ -6,6 +6,7 @@ import './Episodes.css';
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
     let [count, setCount] = useState(30);
     let [website, setWebsite] = useState();
+    let [description, setDescription] = useState();
     let start = 0;
     const initEpisodes = [];
 
@@ -27,6 +28,14 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
         }
     }
 
+    const fixInnerText = () => {
+        episodesObj.mainDescription &&
+            episodesObj.mainDescription.toString().trim().substring(0,3) === '<p>'
+                ? setDescription(episodesObj.mainDescription.toString().trim().substring(3, episodesObj.mainDescription.toString().trim().length - 4))
+                : setDescription(episodesObj.mainDescription)
+        
+    }
+    useEffect(() => fixInnerText())
     useEffect(() => {episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?')))})
     
     return (
@@ -41,8 +50,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                     <div className="media-center">
                         <h1 className="title">{episodesObj.title}</h1>
                         <h2 className="publisher">{episodesObj.publisher}</h2>
-                        <p className="description">{episodesObj.mainDescription}</p>
-
+                        <p className="description">{description}</p>
                     </div>
                     <div className="media-right">
                         <button type="button" className="btn btn-secondary subscribe">

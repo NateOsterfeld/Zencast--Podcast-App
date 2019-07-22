@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Menu.css';
 import GenreList from './GenreList/GenreList';
+import { Link } from 'react-router-dom';
 
 const Menu = (props) => {
 
@@ -20,7 +21,7 @@ const Menu = (props) => {
     return (
         <div className="menu">
             <ul className="menu-list">
-                <form className="form-inline">
+                <form className="form-inline form-inline-menu">
                     <i className="fas fa-search" aria-hidden="true"></i>
                     <input
                         onChange={(e) => handleSearch(e)}
@@ -31,18 +32,18 @@ const Menu = (props) => {
                     Podfast
                     </p>
                 <li>
-                    <a href="" className="menu-nav" id="discover-menu">
+                    <Link to='/discover'  className="menu-nav" id="discover-menu">
                         <i className="fas fa-compass" aria-hidden="true"></i>
                         <span className="menu-icon"></span>
                         Discover
-                        </a>
+                        </Link>
                 </li>
                 <li>
-                    <a href="" className="menu-nav" id="popular-menu">
+                    <Link to='/popular' className="menu-nav" id="popular-menu">
                         <i className="fas fa-fire" aria-hidden="true"></i>
                         <span className="menu-icon"></span>
                         Popular
-                        </a>
+                        </Link>
                 </li>
                 <p className="menu-label">Categories</p>
                 <GenreList genres={props.genres} getGenre={props.getGenre} />
