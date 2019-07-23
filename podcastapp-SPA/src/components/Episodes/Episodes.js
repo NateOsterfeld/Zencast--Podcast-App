@@ -36,7 +36,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
         
     }
     useEffect(() => fixInnerText())
-    useEffect(() => {episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?')))})
+    useEffect(() => {episodesObj.website && setWebsite(episodesObj.website.substring(0, episodesObj.website.indexOf('?')))}, episodesObj.website)
     
     return (
         <div className="episodes-case">

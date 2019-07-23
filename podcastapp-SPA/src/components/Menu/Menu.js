@@ -4,48 +4,49 @@ import GenreList from './GenreList/GenreList';
 import { Link } from 'react-router-dom';
 
 const Menu = (props) => {
-
+    const [menuSearchNode, setMenuSearchNode] = useState();
     const [navSearchNode, setNavSearchNode] = useState();
 
-    useEffect(() => setNavSearchNode(document.querySelector('.nav-search')));
-
-    let handleSearch = (e) => {
-        e.target.value
-            ? props.getSearchedPodcasts(e.target.value, 'search')
-            : props.getSearchedPodcasts('', 'popular');
-
-        if (e.target.value && navSearchNode.value.length > 0)
-            navSearchNode.value = '';
+    let setSearchNodes = () => {
+        setMenuSearchNode(document.querySelector('.menu-search'));
+        setNavSearchNode(document.querySelector('.nav-search'));
     }
+
+    useEffect(() => setSearchNodes());
 
     return (
         <div className="menu">
             <ul className="menu-list">
                 <form className="form-inline form-inline-menu">
-                    <i className="fas fa-search" aria-hidden="true"></i>
+                    <i className="fas fa-search"></i>
                     <input
-                        onChange={(e) => handleSearch(e)}
+                        onChange={(e) => props.funcs.onSearch(e, navSearchNode)}
                         className="form-control menu-search" type='text' placeholder='Search' aria-label="Search"
                     />
                 </form>
-                <p className="menu-label">
-                    Podfast
+                <div className="menu-nav-container">
+                    <p className="menu-label">          Podfast
                     </p>
-                <li>
-                    <Link to='/discover'  className="menu-nav" id="discover-menu">
-                        <i className="fas fa-compass" aria-hidden="true"></i>
-                        <span className="menu-icon"></span>
-                        Discover
+                    <li>
+                        <Link to='/discover' className="menu-nav" id="discover-menu"
+                            onClick= { () => props.funcs.onDisc(menuSearchNode, navSearchNode, false) } >
+                            <i className="fas fa-compass"
+                                onClick = { () => props.funcs.onDisc(menuSearchNode, navSearchNode, true) } >
+                            </i>
+                            <span className="menu-icon">
+                            </span>
+                                        Discover
                         </Link>
-                </li>
-                <li>
-                    <Link to='/popular' className="menu-nav" id="popular-menu">
-                        <i className="fas fa-fire" aria-hidden="true"></i>
-                        <span className="menu-icon"></span>
-                        Popular
+                    </li>
+                    <li>
+                        <Link to='/popular' className="menu-nav" id="popular-menu"
+                            onClick = { () => props.funcs.onPop(menuSearchNode, navSearchNode) } >
+                            <i className="fas fa-fire"></i>
+                            <span className="menu-icon"></span>
+                                        Popular
                         </Link>
-                </li>
-                <p className="menu-label">Categories</p>
+                    </li>
+                </div>
                 <GenreList genres={props.genres} getGenre={props.getGenre} />
             </ul>
         </div>

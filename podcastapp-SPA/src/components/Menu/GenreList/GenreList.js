@@ -4,6 +4,8 @@ import Genre from './Genre/Genre';
 const GenreList = ({ genres, getGenre }) => {
     return (
         <div className="genre-container">
+                <p className="menu-label">          Categories
+                </p>
             {
                 genres.map(genre => {
                     return <Genre 

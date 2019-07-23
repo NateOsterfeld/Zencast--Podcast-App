@@ -4,18 +4,33 @@
     padding: .75rem;
 }
 
+.menu-nav-container:hover .menu-label {
+    color: #007bff;
+    opacity: .8;
+}
+
+.genre-container:hover .menu-label {
+    color: #007bff;
+    opacity: .8;
+}
+
 li {
     list-style-type: none;
 }
 
 .menu-label {
-    color: #7a7a7a;
+    color: #363636;
     text-transform: uppercase;
     margin: 1em;
     font-size: 16px;
+    font-weight: 600;
+    line-height: 30px;
     letter-spacing: 7px;
     margin-bottom: 6px;
     margin-left: 5px;
+    opacity: .5;
+    transition: color .5s;
+    transition: opacity 1.5s;
 }
 
 .menu-list {
@@ -42,6 +57,14 @@ li {
 }
 .fas {
     z-index: 1;
+}
+
+.menu-nav > i.fa-compass {
+    transition: all .15s;
+    z-index: 2;  
+}
+.menu-nav > i.fa-compass:hover {
+    transform: rotate(180deg) translateX(1px);
 }
 
 .genre-name {

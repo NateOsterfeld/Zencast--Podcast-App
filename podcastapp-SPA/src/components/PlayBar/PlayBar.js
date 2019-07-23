@@ -1,6 +1,5 @@
 import React from 'react';
 import './PlayBar.scss';
-import { useSpring, animated } from 'react-spring';
 
 class PlayBar extends React.Component {
     constructor(props) {
@@ -29,7 +28,7 @@ class PlayBar extends React.Component {
 
     //remember to view audio object! playback rate to change speed and so much more
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.playBarObj.title !== prevProps.playBarObj.title) {
             this.playPodcast(this.isNewPodcast);
             if (prevProps.playBarObj.title.length) {

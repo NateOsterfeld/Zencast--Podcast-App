@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Genre = ({ id, name, subgenres, getGenre }) => {
     const collapseList = (event) => {
-        console.log('event', event.target.parentNode.nextElementSibling.lastElementChild);
         let el = event.target.parentNode.nextElementSibling.lastElementChild;
         if (el.className === 'hidden') {
             el.classList.remove('hidden');

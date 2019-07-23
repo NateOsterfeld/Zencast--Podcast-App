@@ -4,7 +4,7 @@ import TopPodcasts from './TopPodcasts/TopPodcasts';
 import ExploreGenre from './ExploreGenre/ExploreGenre';
 import CuratedLists from './CuratedLists/CuratedLists';
 import { useSpring, animated } from 'react-spring';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Discover = (props) => {

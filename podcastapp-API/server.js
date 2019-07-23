@@ -24,10 +24,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-
-// app.get('/', (req, res) => res.send('it is working!'));
-
-
 app.get('/popular', (req, res) => {
     const url = 'https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/50/explicit.json';
     fetch(url)
@@ -76,7 +72,6 @@ app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
         }
     }).then(response => response.json())
         .then(response => {
-            console.log('check', response);
             res.json(response);
         })
         .catch(err => console.log('error', err));
