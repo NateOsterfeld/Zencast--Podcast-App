@@ -56,9 +56,9 @@ app.post('/curatedListsList', (req, res) => {
             'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8'
         }
     })
-        .then(response => response.json())
-        .then(response => res.json(response))
-        .catch(err => console.log('error', err));
+    .then(response => response.json())
+    .then(response => res.json(response))
+    .catch(err => console.log('error', err));
 })
 
 app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
@@ -84,7 +84,7 @@ app.get('/genresMenu', (req, res) => {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const podcastObj = data['26'].subgenres;
+            let podcastObj = data['26'].subgenres;
             let majorGenres = [];
             Object.keys(podcastObj).forEach(key => {
                 // console.log(podcastObj[key]);
