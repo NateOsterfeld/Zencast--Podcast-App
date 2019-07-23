@@ -17,7 +17,8 @@ const Navigation = ({ funcs }) => {
   
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-      <a className="navbar-brand" href="">Podfast</a>
+      <a className="navbar-brand" href="">      Podfast
+      </a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -48,7 +49,7 @@ const Navigation = ({ funcs }) => {
       </form>
     </div>
       <div className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle dropdown" href="" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
+          <a className="nav-link dropdown-toggle dropdown" href="" data-toggle="dropdown" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
           <div className="dropdown-menu" aria-labelledby="dropdown04">
             <a className="dropdown-item dim" href="">Log in</a>
             <a className="dropdown-item dim" href="">Sign up</a>

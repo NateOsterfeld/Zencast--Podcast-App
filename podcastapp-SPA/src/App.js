@@ -54,7 +54,7 @@ class App extends Component {
   }
 
   getCuratedLists = (random = true) => {
-    fetch(`/curatedListsList`, {
+    fetch(`/listOfCuratedLists`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ random: random })
@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   getListPodcasts = (id, title, podcasts) => {
-    fetch(`/podcastsFromCuratedList/${id}`)
+    fetch(`/podcastsInCuratedList/${id}`)
       .then(response => response.json())
       .then(response => this.setState({
         curatedListObj: { id: id, title: title, podcasts: response.podcasts },
@@ -85,12 +85,14 @@ class App extends Component {
       if (!e.target.classList.value.includes('chev') && name === e.target.innerText) {
         fetch(url)
           .then(response => response.json())
-          .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
+          .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }))
+          .catch(err => console.log('error', err));
       }
     } else if (!isFromMenu) {
       fetch(url)
         .then(response => response.json())
-        .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }));
+        .then(response => this.setState({ route: 'genre', genrePodcasts: { name: name, podcasts: response.results } }))
+        .catch(err => console.log('error', err));
     }
   }
 

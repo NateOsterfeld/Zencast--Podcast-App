@@ -52,62 +52,82 @@ const Discover = (props) => {
                 break;
         }
     }
-    //linear-gradient(270deg, white 40%, transparent);
     
     return (
-        //TODO: Add a refresh button for Curated lists/Discover
         <animated.div className="discover-container" style={fade}>
 
-            <h1 className="mb2 title">Discover</h1>
-            <h4 className="selection-container-title">Explore: {genre.name}
+            <h1 className="mb2 title">  Discover
+            </h1>
+            <h4 className="selection-container-title">  Explore: {genre.name}
                 <Link to={`/genres/${genre.name.toLowerCase()}`}
                     onClick = { (e) => getGenre(genre.id, genre.name, e, false) }
-                    className="selection-anchor">more<span className="fas fa-chevron-right" attr="icon"></span>
+                    className="selection-anchor">   more
+                    <span className="fas fa-chevron-right" attr="icon">
+                    </span>
                 </Link>
             </h4>
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-exp transparent">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollLeft-icon fas fa-chevron-left" data-slide="exp-left"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollLeft-icon fas fa-chevron-left" 
+                        data-slide="exp-left">
+                    </span>
                 </div>
                 <div className="scrollRight scrollRight-exp">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollRight-icon fas fa-chevron-right" data-slide="exp-right"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollRight-icon fas fa-chevron-right"
+                        data-slide="exp-right">
+                    </span>
                 </div>
                 <ExploreGenre podcasts={genre.podcasts} getEpisodes={getEpisodes} direction={expSlideDirection} />                
             </div>
 
 
-            <h4 className="selection-container-title">Curated Lists
-                <a href="" className="selection-anchor">more<span className="fas fa-chevron-right" attr="icon"></span></a>
+            <h4 className="selection-container-title">  Curated Lists
+                <a href="" className="selection-anchor">    more
+                    <span className="fas fa-chevron-right" attr="icon">
+                    </span>
+                </a>
             </h4>
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-cl transparent">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollLeft-icon fas fa-chevron-left" data-slide="cl-left"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollLeft-icon fas fa-chevron-left" 
+                        data-slide="cl-left">
+                    </span>
                 </div>
                 <div className="scrollRight scrollRight-cl">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollRight-icon fas fa-chevron-right" data-slide="cl-right"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollRight-icon fas fa-chevron-right" 
+                        data-slide="cl-right">
+                    </span>
                 </div>
                 <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} />                
             </div>
 
             
 
-            <h4 className="selection-container-title">Top Podcasts
-                <a href="" className="selection-anchor">more<span className="fas fa-chevron-right" attr="icon"></span></a>
+            <h4 className="selection-container-title">  Top Podcasts
+                <a href="" className="selection-anchor">    more
+                    <span className="fas fa-chevron-right" 
+                            attr="icon">
+                    </span>
+                </a>
             </h4>  
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-top transparent">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollLeft-icon fas fa-chevron-left" data-slide="top-left"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollLeft-icon fas fa-chevron-left" 
+                        data-slide="top-left"></span>
                 </div>
                 <div className="scrollRight scrollRight-top">
-                    <span onClick = { (e) => handleSlide(e) } className="scrollRight-icon fas fa-chevron-right" data-slide="top-right"></span>
+                    <span   onClick = { (e) => handleSlide(e) } 
+                        className="scrollRight-icon fas fa-chevron-right" 
+                        data-slide="top-right"></span>
                 </div>
                 <TopPodcasts getEpisodes={getEpisodes} podcasts={topPodcasts} direction={topSlideDirection} />
             </div>
 
-
-
-
-            
         </animated.div>
     )
 }

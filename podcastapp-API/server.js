@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
+// const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 // const knex = require('knex');
 const fetch = require('node-fetch');
@@ -19,125 +19,27 @@ const Parser = require('rss-parser');
 //   }
 // });
 
+const popular = require('./controllers/Content/popular');
+const searchPodcasts = require('./controllers/Content/searchPodcasts');
+const curatedLists = require('./controllers/Content/curatedLists');
+const genresMenu = require('./controllers/Content/genresMenu');
+const episodes = require('./controllers/Content/episodes');
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 
-app.get('/popular', (req, res) => {
-    const url = 'https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/50/explicit.json';
-    fetch(url)
-        .then(response => response.json())
-        .then(result => res.json(result.feed.results))
-        .catch(err => console.log('error', err));
-})
+app.get('/popular', (req, res) => popular.Popular(req, res));
 
-app.get('/searchPodcasts/:term', (req, res) => {
-    const url = `https://itunes.apple.com/search?media=podcast&term=${req.params.term}`;
+app.get('/searchPodcasts/:term', (req, res) => searchPodcasts.SearchPodcasts(req, res));
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => res.json(data))
-        .catch(err => console.log('error', err));
-})
+app.post('/listOfCuratedLists', (req, res) => curatedLists.ListOfCuratedLists(req, res));
+app.get(`/podcastsInCuratedList/:id`, (req, res) => curatedLists.PodcastsInCuratedList(req, res));
 
-app.post('/curatedListsList', (req, res) => {
-    let url = 'https://listen-api.listennotes.com/api/v2/curated_podcasts';
+app.get('/genresMenu', (req, res) => genresMenu.GenresMenu(req, res));
 
-    if (req.body.random) {
-        let page = Math.floor(Math.random() * 112);
-        url = `https://listen-api.listennotes.com/api/v2/curated_podcasts?page=${page}`;
-    }
-
-    fetch(url, {
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8'
-        }
-    })
-    .then(response => response.json())
-    .then(response => res.json(response))
-    .catch(err => console.log('error', err));
-})
-
-app.get(`/podcastsFromCuratedList/:id`, (req, res) => {
-    const url = `https://listen-api.listennotes.com/api/v2/curated_podcasts/${req.params.id}`;
-
-    fetch(url, {
-        method: 'get',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-ListenAPI-Key': 'cf69dc6fa0024866ab39bc898eaed9a8'
-        }
-    }).then(response => response.json())
-        .then(response => {
-            res.json(response);
-        })
-        .catch(err => console.log('error', err));
-})
-
-
-app.get('/genresMenu', (req, res) => {
-    const url = 'http://itunes.apple.com/WebObjects/MZStoreServices.woa/ws/genres';
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            let podcastObj = data['26'].subgenres;
-            let majorGenres = [];
-            Object.keys(podcastObj).forEach(key => {
-                // console.log(podcastObj[key]);
-                // console.log(util.inspect(podcastObj[key], false, null, true))
-                // console.dir(podcastObj[key], {depth: null})
-                majorGenres.push(podcastObj[key]);
-            })
-            res.json(majorGenres);
-        })
-        .catch(err => console.log('error', err));
-})
-
-
-app.get('/episodes/:id', (req, res) => {
-    fetch(`https://itunes.apple.com/lookup?id=${req.params.id}&entity=podcast`)
-        .then(response => response.json())
-        .then(response => {
-            (async () => {
-            try {
-                const parser = new Parser({
-                    customFields: {
-                        feed: ['otherTitle', 'extendedDescription'],
-                        item: [
-                            ['description', 'description'],
-                            ['itunes:duration', 'duration'],
-                            ['itunes:image', 'image']
-                        ]
-                    }
-                })
-                const feed = await parser.parseURL(response.results[0].feedUrl);
-
-                let episodes = feed.items.map(item => {
-                    const episodesObj = {
-                        title: item.title,
-                        description: item.description,
-                        pubDate: item.pubDate,
-                        link: item.link,
-                        enclosure: item.enclosure,
-                        duration: item.duration,
-                        image: item.image
-                    }
-                    episodesObj.mainDescription = feed.description;
-                    return episodesObj;
-                })
-
-                res.json(episodes);
-            }
-            catch (err) {
-                console.log('error', err);
-            }
-        })();
-    }).catch(err => console.log('error', err));
-})
+app.get('/episodes/:id', (req, res) => episodes.Episodes(req, res));
 
 
 
