@@ -108,11 +108,11 @@ const Discover = (props) => {
             
 
             <h4 className="selection-container-title">  Top Podcasts
-                <a href="" className="selection-anchor">    more
+                <Link to='/popular' className="selection-anchor">    more
                     <span className="fas fa-chevron-right" 
                             attr="icon">
                     </span>
-                </a>
+                </Link>
             </h4>  
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-top transparent">
