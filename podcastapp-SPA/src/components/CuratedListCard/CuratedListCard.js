@@ -12,8 +12,8 @@ class CuratedListCard extends React.Component {
         
         return (
             <div className="podcast fl" style={{margin: 0 + 'px ' + margin + 'px'}}>
-                <Link to={`/curated/${title.toLowerCase()}`}  /*getPodcasts() is getListPodcasts() from App.js*/
-                    onClick = { () => this.props.getListPodcasts(id, title, podcasts) }
+                <Link to={`/curated/${title.toLowerCase()}`} 
+                    onClick = { () => this.props.getListPodcasts(id, title) }
                     className="podcast-a">
                     <img src={image} alt="podcast" className="podcast-image" />
                     <p style={{width: 200 + 'px'}}>

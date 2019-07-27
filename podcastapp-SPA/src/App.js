@@ -9,6 +9,7 @@ import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
 import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
+import CuratedLists from './components/Discover/CuratedLists/CuratedLists';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -63,7 +64,7 @@ class App extends Component {
       .then(response => this.setState({ curatedLists: response.curated_lists }))
   }
 
-  getListPodcasts = (id, title, podcasts) => {
+  getListPodcasts = (id, title) => {
     fetch(`/podcastsInCuratedList/${id}`)
       .then(response => response.json())
       .then(response => this.setState({
@@ -262,6 +263,18 @@ class App extends Component {
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
                       && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} {...props} />}
+                  </>
+                }
+              />
+              
+              <Route path='/curatedLists'
+                render={(props) =>
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
+                    {route === 'search'
+                      && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'
+                      && <CuratedLists curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} amount={20} {...props} />}
                   </>
                 }
               />

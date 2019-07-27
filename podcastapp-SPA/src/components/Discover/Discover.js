@@ -84,10 +84,10 @@ const Discover = (props) => {
 
 
             <h4 className="selection-container-title">  Curated Lists
-                <a href="" className="selection-anchor">    more
+                <Link to='/curatedLists' className="selection-anchor">    more
                     <span className="fas fa-chevron-right" attr="icon">
                     </span>
-                </a>
+                </Link>
             </h4>
             <div className="selection-container">
                 <div className="scrollLeft scrollLeft-cl transparent">
@@ -102,7 +102,7 @@ const Discover = (props) => {
                         data-slide="cl-right">
                     </span>
                 </div>
-                <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} />                
+                <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} amount={10} />                
             </div>
 
             

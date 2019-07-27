@@ -6,6 +6,7 @@ import { useSpring, animated } from 'react-spring';
 
 const CuratedPodcasts = ({ curatedListObj, getEpisodes }) => {
     const fade = useSpring({from: {opacity: 0}, opacity: 1});
+    
     return (
         <animated.div className="podcast-container" style={fade}>
             <h1 className="title">{curatedListObj.title}</h1> {

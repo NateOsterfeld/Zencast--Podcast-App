@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import CuratedListCard from '../../CuratedListCard/CuratedListCard';
 import { useSpring, a } from 'react-spring';
 
-const CuratedLists = ({curatedLists, getListPodcasts, direction }) => {
+const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount }) => {
     const [directionStyle, setDirectionStyle] = useState();
-    const fade = useSpring({from:{opacity: 0}, opacity: 1});
-    const right = useSpring({from:{transform: 'translateX(0px)'}, transform: 'translateX(-900px)'});
-    const left = useSpring({from:{transform: 'translateX(-900px)'}, transform: 'translateX(0px)'});
+    const fade = useSpring({ from: { opacity: 0 }, opacity: 1 });
+    const right = useSpring({ from: { transform: 'translateX(0px)' }, transform: 'translateX(-900px)' });
+    const left = useSpring({ from: { transform: 'translateX(-900px)' }, transform: 'translateX(0px)' });
 
     useEffect(() => {
         direction === 'cl-right' && setDirectionStyle(right);
@@ -15,20 +15,25 @@ const CuratedLists = ({curatedLists, getListPodcasts, direction }) => {
 
     return (
         <a.div className="selection-component" style={fade}>
-        	<a.div className="componentCarousel" style={directionStyle} > {
-            curatedLists.map((curatedList, i) => {
-                if (i < 10)
-                    return <CuratedListCard
-                        key={curatedList.id}
-                        id={curatedList.id}
-                        title={curatedList.title}
-                        image={curatedList.podcasts[0].thumbnail}
-                        podcasts={curatedList.podcasts}
-                        getListPodcasts={getListPodcasts}
-                        margin={10}
-                    />
-            })
+        {amount === 20
+            ? <h1 className="title">Curated</h1>
+            : null
         }
+            
+            <a.div className="componentCarousel" style={directionStyle} > {
+                curatedLists.map((curatedList, i) => {
+                    if (i < amount)
+                        return <CuratedListCard
+                            key={curatedList.id}
+                            id={curatedList.id}
+                            title={curatedList.title}
+                            image={curatedList.podcasts[0].thumbnail}
+                            podcasts={curatedList.podcasts}
+                            getListPodcasts={getListPodcasts}
+                            margin={amount} //amount(to show) and margin are coincidentally the same i.e. display 10 (carousel) 10px apart or display all 20 w/ 20px apart
+                        />
+                })
+            }
             </a.div>
         </a.div>
     )
