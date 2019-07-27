@@ -10,11 +10,10 @@ class PodcastCard extends React.Component {
     render() {
         const { id, title, image, publisher, margin, website } = this.props;
         
-        
         return (
             <div className="podcast fl" style={{margin: 0 + 'px ' + margin + 'px'}}>
                 <Link to={`/episodes/${id}`}
-                    onClick = { () => this.props.getEpisodes(id, title, image, publisher, website) }
+                    onClick = { () => this.props.getEpisodes(id, title, image, publisher) }
                     className="podcast-a">
                     <img src={image} alt="podcast" className="podcast-image" />
                     <p style={{width: 200 + 'px'}}>

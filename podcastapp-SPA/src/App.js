@@ -135,13 +135,13 @@ class App extends Component {
   }
 
   // pass "itunesid" from listennotes cl podcasts obj
-  getEpisodes = (id, title, image, publisher, website) => {
+  getEpisodes = (id, title, image, publisher) => {
     fetch(`/episodes/${id}`)
       .then(response => response.json())
       .then(response => {
         this.setState({
           route: 'episodes',
-          episodesObj: { id: id, title: title, image: image, publisher: publisher, mainDescription: response[0].mainDescription, episodes: response, website: website }
+          episodesObj: { id: id, title: title, image: image, publisher: publisher, mainDescription: response[0].mainDescription, episodes: response, website: response[0].website }
         });
       })
       .catch(err => console.log('error', err));

@@ -25,12 +25,13 @@ const Episodes = (req, res) => {
                         title: item.title,
                         description: item.description,
                         pubDate: item.pubDate,
-                        link: item.link,
+                        // link: item.link,
                         enclosure: item.enclosure,
                         duration: item.duration,
                         image: item.image
                     }
                     episodesObj.mainDescription = feed.description;
+                    episodesObj.website = feed.link;
                     return episodesObj;
                 })
 
