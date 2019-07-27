@@ -58,7 +58,7 @@ const Discover = (props) => {
 
             <h1 className="mb2 title">  Discover
             </h1>
-            <h4 className="selection-container-title">  Explore: {genre.name}
+            <h4 className="selection-container-title">  Explore: <i>{genre.name}</i>
                 <Link to={`/genres/${genre.name.toLowerCase()}`}
                     onClick = { (e) => getGenre(genre.id, genre.name, e, false) }
                     className="selection-anchor">   more

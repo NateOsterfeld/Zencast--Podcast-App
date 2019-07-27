@@ -25,7 +25,7 @@ const Menu = (props) => {
                     />
                 </form>
                 <div className="menu-nav-container">
-                    <p className="menu-label">          Podfast
+                    <p className="menu-label">          ZENCAST
                     </p>
                     <li>
                         <Link to='/discover' className="menu-nav" id="discover-menu"

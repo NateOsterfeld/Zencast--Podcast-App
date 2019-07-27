@@ -1,6 +1,7 @@
 .menu {
     flex: none;
     width: 20%;
+    max-width: 320px;
     padding: .75rem;
 }
 
@@ -64,7 +65,7 @@ li {
     z-index: 2;  
 }
 .menu-nav > i.fa-compass:hover {
-    transform: rotate(180deg) translateX(1px);
+    transform: rotate(180deg) translate(1.9px, .15px) scale(1.02);
 }
 
 .genre-name {
@@ -92,7 +93,7 @@ li {
     text-decoration: none;
 }
 .menu-nav:hover > i {
-    color: #007bff;
+    color: #815e8f;
     transform: scale(1.02);
     opacity: .8;
 }

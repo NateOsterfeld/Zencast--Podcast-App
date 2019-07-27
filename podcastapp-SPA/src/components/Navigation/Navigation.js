@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../images/zencastLogo.svg';
 import './Navigation.css';
 
 const Navigation = ({ funcs }) => {
@@ -17,7 +18,8 @@ const Navigation = ({ funcs }) => {
   
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-      <a className="navbar-brand" href="">      Podfast
+      <a className="navbar-brand" href="">
+        <span className="navbar-brand-svg"><Logo></Logo></span>  <i>enCast</i>
       </a>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>

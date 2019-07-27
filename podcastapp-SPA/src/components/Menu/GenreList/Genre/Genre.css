@@ -6,7 +6,7 @@
 .menu-item-container {
     display: flex;
     min-height: 2.5em;
-    margin-left: 3px;
+    margin-left: 5px;
 }
 
 .menu-list-item {

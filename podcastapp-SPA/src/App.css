@@ -41,10 +41,14 @@
 .navbar-brand {
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-left: 1rem;
   padding-right: 1.2rem;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 3px;
+}
+
+.navbar-brand i {
+  transform: translate(3px, 5px);
+  font-style: normal;
 }

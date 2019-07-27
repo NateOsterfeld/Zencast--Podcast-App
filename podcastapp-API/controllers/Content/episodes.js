@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const Parser = require('rss-parser');
+
 
 const Episodes = (req, res) => {
     fetch(`https://itunes.apple.com/lookup?id=${req.params.id}&entity=podcast`)
