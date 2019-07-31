@@ -4,6 +4,7 @@ import Popular from './components/Popular/Popular';
 import Navigation from './components/Navigation/Navigation';
 import Discover from './components/Discover/Discover';
 import Menu from './components/Menu/Menu';
+import About from './components/About/About';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
 import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
@@ -239,6 +240,18 @@ class App extends Component {
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
                       && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} {...props} />}
+                  </>
+                }
+              />
+              
+              <Route path='/about'
+                render={(props) =>
+                  <>
+                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
+                    {route === 'search'
+                      && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                    {route !== 'search'
+                      && <About {...props} />}
                   </>
                 }
               />
