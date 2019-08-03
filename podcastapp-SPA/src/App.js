@@ -246,13 +246,7 @@ class App extends Component {
               
               <Route path='/about'
                 render={(props) =>
-                  <>
-                    <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
-                    {route === 'search'
-                      && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                    {route !== 'search'
-                      && <About {...props} />}
-                  </>
+                    <About {...props} />
                 }
               />
 
