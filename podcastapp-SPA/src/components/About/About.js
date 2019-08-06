@@ -1,6 +1,7 @@
 import React from 'react';
 import './About.scss';
-import { ReactComponent as MicIcon } from '../../images/podcastMic.svg';
+import { ReactComponent as FreeSVG } from '../../images/freeSVG.svg';
+import { ReactComponent as MicSVG } from '../../images/micSVGA.svg';
 import { useSpring, animated } from 'react-spring';
 
 const About = () => {
@@ -16,7 +17,7 @@ const About = () => {
             </h3>
             <div className="about-container-bottom">
                 <div className="about-container-card">
-                    <div className="about-card-picture"><MicIcon></MicIcon></div>
+                    <div className="about-card-picture"><MicSVG></MicSVG></div>
                     <div className="about-card-title">1,000,000+ episodes</div>
                     <div className="about-card-border"></div>
                     <div className="about-card-description">
@@ -24,7 +25,7 @@ const About = () => {
                     </div>
                 </div>
                 <div className="about-container-card">
-                    <div className="about-card-picture"></div>
+                    <div className="about-card-picture"><FreeSVG></FreeSVG></div>
                     <div className="about-card-title">Completely FREE</div>
                     <div className="about-card-border"></div>
                     <div className="about-card-description">
