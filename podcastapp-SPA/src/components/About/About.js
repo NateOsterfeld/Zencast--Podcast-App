@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.scss';
-import { ReactComponent as FreeSVG } from '../../images/freeSVG.svg';
+import { ReactComponent as FreeSVG } from '../../images/freeSVGArtboard 1.svg';
 import { ReactComponent as MicSVG } from '../../images/micSVGA.svg';
 import { useSpring, animated } from 'react-spring';
 
