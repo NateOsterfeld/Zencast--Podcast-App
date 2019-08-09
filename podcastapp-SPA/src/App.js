@@ -117,6 +117,13 @@ class App extends Component {
             navSearchNode.value = ''
     },
 
+    onAbout: (navSearchNode) => {
+      this.changeRoute('about')
+      navSearchNode.value.length > 0  //eslint-disable-line
+        ? navSearchNode.value = ''
+        : null
+    },
+
     onSearch: (e, oppositeSearchNode) => {
       e.target.value
         ? this.getSearchedPodcasts(e.target.value, 'search')
@@ -178,6 +185,8 @@ class App extends Component {
         this.setState({ route: 'discover' });
         if (refresh)
           this.getDiscover();
+    } else if (route === 'about') {
+      this.setState({ route: 'about' });
     }
   }
 
@@ -246,7 +255,14 @@ class App extends Component {
               
               <Route path='/about'
                 render={(props) =>
-                    <About {...props} />
+                <>
+                  {route === 'search'
+                      && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />}
+                  {route === 'search'
+                      && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                  {route !== 'search' 
+                      && <About {...props} />}
+                </>
                 }
               />
 
