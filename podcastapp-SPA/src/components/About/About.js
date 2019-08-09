@@ -2,6 +2,7 @@ import React from 'react';
 import './About.scss';
 import { ReactComponent as FreeSVG } from '../../images/FreeSVG.svg';
 import { ReactComponent as MicSVG } from '../../images/MicSVG.svg';
+import { ReactComponent as NoAdsSVG } from '../../images/NoAdsSVG.svg';
 import { useSpring, animated } from 'react-spring';
 
 const About = () => {
@@ -33,7 +34,7 @@ const About = () => {
                     </div>
                 </div>
                 <div className="about-container-card">
-                    <div className="about-card-picture"></div>
+                    <div className="about-card-picture"><NoAdsSVG></NoAdsSVG></div>
                     <div className="about-card-title">ZER0 Ads</div>
                     <div className="about-card-border"></div>
                     <div className="about-card-description">
