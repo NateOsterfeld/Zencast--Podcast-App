@@ -1,7 +1,7 @@
 import React from 'react';
 import './About.scss';
-import { ReactComponent as FreeSVG } from '../../images/freeSVGArtboard 1.svg';
-import { ReactComponent as MicSVG } from '../../images/micSVGA.svg';
+import { ReactComponent as FreeSVG } from '../../images/FreeSVG.svg';
+import { ReactComponent as MicSVG } from '../../images/MicSVG.svg';
 import { useSpring, animated } from 'react-spring';
 
 const About = () => {
@@ -13,7 +13,7 @@ const About = () => {
             <h3 className="about-container-summary">
                 Zencast is the efforts of one self-taught developer who is currently speaking in the 3rd person. Hi, I'm Nate and congratulations
                 on discovering this awesome podcasts web app! It's been a lot of work and although I've learned a lot, unfortunately I can't even afford to run
-                this thing without your help; so please consider donating!
+                this thing without your help; so please consider donating and spread the word!
             </h3>
             <div className="about-container-bottom">
                 <div className="about-container-card">
@@ -37,7 +37,7 @@ const About = () => {
                     <div className="about-card-title">ZER0 Ads</div>
                     <div className="about-card-border"></div>
                     <div className="about-card-description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora atque, illum voluptates ducimus harum 
+                        Zero, that's right, ZERO ADS!  Let's keep Zencast reminiscent of it's name, clean and peaceful.
                     </div>
                 </div>
             </div>

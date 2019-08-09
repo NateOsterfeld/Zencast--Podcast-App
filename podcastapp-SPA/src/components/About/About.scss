@@ -15,6 +15,7 @@
     }
 
     .about-container-summary {
+        color: #2e475d;
         font-size: 18px;
         text-align: center;
         align-self: center;
@@ -61,6 +62,10 @@
 
             .about-card-description {
                 text-align: center;
+                background: linear-gradient(145deg,#2e475d,#815E8F);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+
             }
         }
     }
