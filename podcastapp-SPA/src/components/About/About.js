@@ -19,7 +19,7 @@ const About = () => {
             <div className="about-container-bottom">
                 <div className="about-container-card">
                     <div className="about-card-picture"><MicSVG></MicSVG></div>
-                    <div className="about-card-title">1,000,000+ episodes</div>
+                    <div className="about-card-title">30 MILLION Episodes</div>
                     <div className="about-card-border"></div>
                     <div className="about-card-description">
                         No, that's not a typo. Find over 1 million episodes belonging to over 600,000 podcasts and counting. The fun never ends!

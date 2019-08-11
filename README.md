@@ -1,5 +1,5 @@
 # Zencast
-
+Find and listen to more than 30 million podcast episodes and counting. With Zencast you can expect all of your favorite podcasts in one place, for free, without any interruption by ads. What's not to love?!
 
 ## Installation
 
@@ -10,9 +10,8 @@
 
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
+
+
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
