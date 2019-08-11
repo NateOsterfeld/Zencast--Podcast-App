@@ -37,6 +37,7 @@
             height: 35vh;
             width: 15vw;
             margin: 2vw;
+            transition: all .3s ease-in-out;
 
             .about-card-picture {
                 height: 150px;
@@ -58,6 +59,7 @@
                 width: 40%;
                 border-radius: 4px;
                 background: linear-gradient(145deg,#B49DCA,#815E8F);
+                transition: width .5s ease-out;
             }
 
             .about-card-description {
@@ -68,5 +70,31 @@
 
             }
         }
+    }
+}
+
+.about-container-card:hover .about-card-border {
+    width: 60% !important;
+}
+
+.about-container-card:hover .cls-10 {
+    animation: blink 1s infinite ease-in-out alternate;
+}
+
+.about-container-card:hover .cls2-4 {
+    animation: blink 1s infinite ease-in-out alternate;
+}
+
+.about-container-card:hover .cls3-2 {
+    animation: blink 1s infinite ease-in-out alternate;
+}
+
+@keyframes blink {
+    0% {
+        opacity: .48;
+        stroke: #B49DCA;
+    } 100% {
+        opacity: 1;
+        stroke: #007BFF;
     }
 }

@@ -20,7 +20,7 @@ const About = () => {
                 <div className="about-container-card">
                     <div className="about-card-picture"><MicSVG></MicSVG></div>
                     <div className="about-card-title">30 MILLION Episodes</div>
-                    <div className="about-card-border"></div>
+                    <div className="about-card-border" data-attr="about-card-border-1"></div>
                     <div className="about-card-description">
                         No, that's not a typo. Find over 1 million episodes belonging to over 600,000 podcasts and counting. The fun never ends!
                     </div>
@@ -28,7 +28,7 @@ const About = () => {
                 <div className="about-container-card">
                     <div className="about-card-picture"><FreeSVG></FreeSVG></div>
                     <div className="about-card-title">Completely FREE</div>
-                    <div className="about-card-border"></div>
+                    <div className="about-card-border" data-attr="about-card-border-2"></div>
                     <div className="about-card-description">
                         Sign up, or don't! Zencast is totally free no matter what you do. But donations do help :)
                     </div>
@@ -36,7 +36,7 @@ const About = () => {
                 <div className="about-container-card">
                     <div className="about-card-picture"><NoAdsSVG></NoAdsSVG></div>
                     <div className="about-card-title">ZER0 Ads</div>
-                    <div className="about-card-border"></div>
+                    <div className="about-card-border" data-attr="about-card-border-3"></div>
                     <div className="about-card-description">
                         Zero, that's right, ZERO ADS!  Let's keep Zencast reminiscent of it's name, clean and peaceful.
                     </div>

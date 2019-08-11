@@ -1,7 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 150 150">
     <defs>
-        <style>.cls3-1{isolation:isolate;}.cls3-2{opacity:0.48;}.cls3-21,.cls3-3,.cls3-9{fill:none;}.cls3-22,.cls3-3{stroke:#b49dca;stroke-linecap:square;}.cls3-11,.cls3-12,.cls3-13,.cls3-14,.cls3-22,.cls3-3,.cls3-6,.cls3-9{stroke-linejoin:round;}.cls3-22,.cls3-4{fill:#b49dca;}.cls3-15,.cls3-5,.cls3-6{fill:#815e8f;}.cls3-11,.cls3-12,.cls3-13,.cls3-14,.cls3-6,.cls3-9{stroke:#815e8f;stroke-linecap:round;}.cls3-17,.cls3-18,.cls3-23,.cls3-7{mix-blend-mode:screen;}.cls3-8{fill:#d2ccdb;}.cls3-10,.cls3-14{fill:#c8ede6;}.cls3-11{fill:#969;}.cls3-12,.cls3-13,.cls3-18,.cls3-19,.cls3-23{fill:#6cc;}.cls3-12{stroke-width:4px;}.cls3-13{stroke-width:3px;}.cls3-14,.cls3-21{stroke-width:2px;}.cls3-15,.cls3-16{opacity:0.6;}.cls3-15,.cls3-16,.cls3-20{mix-blend-mode:multiply;}.cls3-16{fill:url(#linear-gradient);}.cls3-17{opacity:0.19;fill:url(#linear-gradient-2);}.cls3-20{opacity:0.8;}.cls3-21{stroke:#c999e0;stroke-miterlimit:10;opacity:0.2;mix-blend-mode:luminosity;}.cls3-23{opacity:0.47;}</style>
+        <style>.cls3-1{isolation:isolate;}.cls3-2{stroke:#b49dca;opacity:0.48;}.cls3-21,.cls3-3,.cls3-9{fill:none;}.cls3-3{stroke-linecap:round;}
+        .cls3-11,.cls3-12,.cls3-13,.cls3-14,.cls3-3,.cls3-3,.cls3-6,.cls3-9{stroke-linejoin:round;}.cls3-4{fill:#b49dca;}.cls3-15,.cls3-5,.cls3-6{fill:#815e8f;}
+        .cls3-11,.cls3-12,.cls3-13,.cls3-14,.cls3-6,.cls3-9{stroke:#815e8f;stroke-linecap:round;}.cls3-17,.cls3-18,.cls3-23,.cls3-7{mix-blend-mode:screen;}
+        .cls3-8{fill:#d2ccdb;}.cls3-10,.cls3-14{fill:#c8ede6;}.cls3-11{fill:#969;}.cls3-12,.cls3-13,.cls3-18,.cls3-19,.cls3-23{fill:#6cc;}.cls3-12{stroke-width:4px;}
+        .cls3-13{stroke-width:3px;}.cls3-14,.cls3-21{stroke-width:2px;}.cls3-15,.cls3-16{opacity:0.6;}.cls3-15,.cls3-16,.cls3-20{mix-blend-mode:multiply;}
+        .cls3-16{fill:url(#linear-gradient);}.cls3-17{opacity:0.19;fill:url(#linear-gradient-2);}.cls3-20{opacity:0.8;}
+        .cls3-21{stroke:#c999e0;stroke-miterlimit:10;opacity:0.2;mix-blend-mode:luminosity;}.cls3-23{opacity:0.47;}
+        </style>
         <linearGradient id="linear-gradient" x1="43.76" y1="44.77" x2="90.25" y2="29.87" gradientUnits="userSpaceOnUse">
             <stop offset="0"/>
             <stop offset="0" stop-color="#010101"/>
@@ -20,7 +27,7 @@
         </linearGradient>
         <linearGradient id="linear-gradient-2" x1="39.68" y1="75.51" x2="93.92" y2="58.12" xlink:href="#linear-gradient"/>
     </defs>
-    <title>Artboard 1</title>
+    <title></title>
     <g class="cls3-1">
         <g id="Layer_1" data-name="Layer 1">
             <g class="cls3-2">
@@ -389,7 +396,7 @@
                 <line class="cls3-3" x1="37.35" y1="30.4" x2="33.97" y2="30.4"/>
                 <line class="cls3-3" x1="31.77" y1="30.4" x2="28.39" y2="30.4"/>
                 <line class="cls3-3" x1="33.72" y1="29.77" x2="36.11" y2="27.38"/>
-                <line class="cls3-22" x1="33.72" y1="31.04" x2="36.11" y2="33.43"/>
+                <line class="cls3-3" x1="33.72" y1="31.04" x2="36.11" y2="33.43"/>
                 <line class="cls3-3" x1="29.64" y1="33.53" x2="32.03" y2="31.14"/>
                 <line class="cls3-3" x1="32.03" y1="29.6" x2="29.64" y2="27.21"/>
             </g>
@@ -399,7 +406,7 @@
                 <line class="cls3-3" x1="20.7" y1="70.74" x2="18.6" y2="70.74"/>
                 <line class="cls3-3" x1="17.23" y1="70.74" x2="15.13" y2="70.74"/>
                 <line class="cls3-3" x1="18.45" y1="70.35" x2="19.93" y2="68.86"/>
-                <line class="cls3-22" x1="18.45" y1="71.14" x2="19.93" y2="72.63"/>
+                <line class="cls3-3" x1="18.45" y1="71.14" x2="19.93" y2="72.63"/>
                 <line class="cls3-3" x1="15.9" y1="72.69" x2="17.39" y2="71.2"/>
                 <line class="cls3-3" x1="17.39" y1="70.24" x2="15.9" y2="68.75"/>
             </g>
@@ -409,7 +416,7 @@
                 <line class="cls3-3" x1="72.74" y1="20.36" x2="70.64" y2="20.36"/>
                 <line class="cls3-3" x1="69.27" y1="20.36" x2="67.17" y2="20.36"/>
                 <line class="cls3-3" x1="70.49" y1="19.96" x2="71.97" y2="18.48"/>
-                <line class="cls3-22" x1="70.49" y1="20.75" x2="71.97" y2="22.24"/>
+                <line class="cls3-3" x1="70.49" y1="20.75" x2="71.97" y2="22.24"/>
                 <line class="cls3-3" x1="67.94" y1="22.31" x2="69.43" y2="20.82"/>
                 <line class="cls3-3" x1="69.43" y1="19.86" x2="67.94" y2="18.37"/>
             </g>
