@@ -5,7 +5,7 @@ const Search = (props) => {
 
     return (
         <div className="podcast-container">
-            <h1 className="title">Search: "{props.searchTerm}"</h1> {
+            <h1 className="title">Podcasts matching: "{props.searchTerm}"</h1> {
                 props.podcasts.resultCount ?
                     props.podcasts.results.map(podcast => {
                         return <PodcastCard 

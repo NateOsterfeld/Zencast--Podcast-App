@@ -77,24 +77,32 @@
     width: 60% !important;
 }
 
-.about-container-card:hover .cls-10 {
-    animation: blink 1s infinite ease-in-out alternate;
+.about-container-card:hover .cls-grouped {
+    animation: blink infinite ease-in-out alternate;
 }
 
-.about-container-card:hover .cls2-4 {
-    animation: blink 1s infinite ease-in-out alternate;
+.about-container-card:hover .cls2-grouped {
+    animation: blink infinite ease-in-out alternate;
 }
 
-.about-container-card:hover .cls3-2 {
-    animation: blink 1s infinite ease-in-out alternate;
+.about-container-card:hover .cls3-grouped {
+    animation: blink infinite ease-in-out alternate;
 }
+
+
 
 @keyframes blink {
     0% {
-        opacity: .48;
-        stroke: #B49DCA;
+        opacity: .6;
+        stroke: #815E8F;
+        transform: scale(1.03);
+        stroke-width: 1px;
+        // stroke-linecap: square;
     } 100% {
         opacity: 1;
         stroke: #007BFF;
+        transform: scale(1);
+        stroke-width: 2px;
+        // stroke-linecap: round;
     }
 }
