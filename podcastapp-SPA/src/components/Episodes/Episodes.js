@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Episode from './Episode/Episode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
+import loadable from '@loadable/component';
+// const Episode = loadable(() => 
+    // import(/* webpackPrefetch: true */ './Episode/Episode'));
+// const Moment = loadable.lib(() => import('moment'))
+import { lazy } from '@loadable/component'
+const Episode = lazy(() => import('./OtherComponent'))
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
     let [count, setCount] = useState(30);
@@ -61,12 +67,12 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
             </div>
             <div className="episodes-container">
                 <div className="table-head">               
-                        <div className="table-name">Episode Name</div>
-                        <div className="order">
-                            <p className="released">Released<i className="fas fa-sort-down"></i></p>
-                        </div>
-                        <div className="duration">Duration</div>
-                        <div className="table-play"></div>
+                    <div className="table-name">Episode Name</div>
+                    <div className="order">
+                        <p className="released">Released<i className="fas fa-sort-down"></i></p>
+                    </div>
+                    <div className="duration">Duration</div>
+                    <div className="table-play"></div>
                 </div>
                     <div>
                     
@@ -78,8 +84,9 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                             
                         >
                         {
-                            initEpisodes.map((episode, i) => {
-                                return <Episode 
+                            initEpisodes.map((episode, i) => (
+                            <Suspense fallback={<div className="loading-test">Loading...</div>}>
+                                <Episode 
                                     key={i}
                                     id={i}
                                     description={episode.description}
@@ -94,12 +101,12 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                                     publisher={episodesObj.publisher}
                                     hasPlayed={hasPlayed}
                                 />
-                            })
+                            </Suspense>
+                            ))
                         }
                         </InfiniteScroll>
                     
                     </div>
-                
             </div>
         </div>
     )
