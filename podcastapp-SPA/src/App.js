@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import './App.css';
 import Popular from './components/Popular/Popular';
 import Navigation from './components/Navigation/Navigation';
@@ -127,7 +127,7 @@ class App extends Component {
     onSearch: (e, oppositeSearchNode) => {
       e.target.value
         ? this.getSearchedPodcasts(e.target.value, 'search')
-        : this.getSearchedPodcasts('', 'popular');
+        : this.getSearchedPodcasts('', 'episodes');
       
       if (oppositeSearchNode !== null)
       if (e.target.value && oppositeSearchNode.value.length > 0)
@@ -142,8 +142,12 @@ class App extends Component {
       .then(response => this.setState({ searched: response, searchTerm: term }))
   }
 
+  passPodcastMetaData = (id, title, image, publisher)  => {
+
+  }
+
   // pass "itunesid" from listennotes cl podcasts obj
-  getEpisodes = (id, title, image, publisher) => {
+  getEpisodes = (id, title, image, publisher, prevRoute) => {
     fetch(`/episodes/${id}`)
       .then(response => response.json())
       .then(response => {
@@ -208,7 +212,24 @@ class App extends Component {
                       && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />}
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                    {route !== 'search'
+                    {route === 'popular' &&
+                      <>
+                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
+                        {route === 'search'
+                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                        {route !== 'search'
+                          && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} {...props} />}
+                      </>}
+                    {route === 'discover' &&
+                      <>
+                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
+                        {route === 'search'
+                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                        {route !== 'search'
+                          && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
+                            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                      </>}
+                    {route !== 'search' && route === 'episodes'
                       && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />}
                   </React.Fragment>
                 }
