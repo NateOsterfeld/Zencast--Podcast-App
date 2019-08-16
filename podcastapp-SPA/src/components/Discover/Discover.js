@@ -8,11 +8,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Discover = (props) => {
-    const { getEpisodes, getGenre, topPodcasts, genre, curatedLists, getListPodcasts } = props;
+    const { getEpisodes, getGenre, topPodcasts, genre, curatedLists, getListPodcasts, loading } = props;
     const [topSlideDirection, setTopSlideDirection] = useState();
     const [expSlideDirection, setExpSlideDirection] = useState();
     const [clSlideDirection, setClSlideDirection] = useState();
-    const fade = useSpring({from:{opacity: 0}, opacity: 1})
+    const fade = useSpring({from:{opacity: 0}, opacity: 1});
+    const normal = useSpring({from:{opacity: 1}, opacity: 1});
 
     const handleSlide = (e) => {
         const direction = e.target.dataset.slide;
@@ -52,9 +53,10 @@ const Discover = (props) => {
                 break;
         }
     }
+
     
     return (
-        <animated.div className="discover-container" style={fade}>
+        <animated.div className="discover-container" style={loading ? normal : fade}>
 
             <h1 className="mb2 title">  Discover
             </h1>
@@ -79,7 +81,7 @@ const Discover = (props) => {
                         data-slide="exp-right">
                     </span>
                 </div>
-                <ExploreGenre podcasts={genre.podcasts} getEpisodes={getEpisodes} direction={expSlideDirection} />                
+                <ExploreGenre podcasts={genre.podcasts} getEpisodes={getEpisodes} direction={expSlideDirection} loading={loading} />                
             </div>
 
 
@@ -102,7 +104,7 @@ const Discover = (props) => {
                         data-slide="cl-right">
                     </span>
                 </div>
-                <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} amount={10} />                
+                <CuratedLists curatedLists={curatedLists} getListPodcasts={getListPodcasts} direction={clSlideDirection} amount={10} loading={loading} />                
             </div>
 
             
@@ -125,7 +127,7 @@ const Discover = (props) => {
                         className="scrollRight-icon fas fa-chevron-right" 
                         data-slide="top-right"></span>
                 </div>
-                <TopPodcasts getEpisodes={getEpisodes} podcasts={topPodcasts} direction={topSlideDirection} />
+                <TopPodcasts getEpisodes={getEpisodes} podcasts={topPodcasts} direction={topSlideDirection} loading={loading} />
             </div>
 
         </animated.div>

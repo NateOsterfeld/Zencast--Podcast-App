@@ -3,9 +3,12 @@ import PodcastCard from '../../PodcastCard/PodcastCard';
 import { useSpring, a } from 'react-spring';
 
 // event handling with spring? onClick={function that will set a style prop from spring on the element}
-const TopPodcasts = ({ podcasts, getEpisodes, direction }) => {
-    const [directionStyle, setDirectionStyle] = useState();
+const TopPodcasts = ({ podcasts, getEpisodes, direction, loading }) => {
     const fade = useSpring({from:{opacity: 0}, opacity: 1});
+    const normal = useSpring({ from: { opacity: 1 }, opacity: 1 });
+    
+    const [directionStyle, setDirectionStyle] = useState();
+
     const right = useSpring({from:{transform: 'translateX(0px)'}, transform: 'translateX(-900px)'});
     const left = useSpring({from:{transform: 'translateX(-900px)'}, transform: 'translateX(0px)'});
 
@@ -16,7 +19,7 @@ const TopPodcasts = ({ podcasts, getEpisodes, direction }) => {
             
     
     return (
-        <a.div className="selection-component" style={fade}>
+        <a.div className="selection-component" style={loading ? normal : fade}>
         	<a.div className="componentCarousel" style={directionStyle} > {
             podcasts.map((podcast, i) => {
                 if (i < 10)

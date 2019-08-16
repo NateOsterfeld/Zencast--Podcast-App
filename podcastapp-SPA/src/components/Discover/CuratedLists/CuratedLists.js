@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import CuratedListCard from '../../CuratedListCard/CuratedListCard';
 import { useSpring, a } from 'react-spring';
 
-const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount }) => {
+const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount, loading }) => {
     const [directionStyle, setDirectionStyle] = useState();
     const fade = useSpring({ from: { opacity: 0 }, opacity: 1 });
+    const normal = useSpring({ from: { opacity: 1 }, opacity: 1 });
     const right = useSpring({ from: { transform: 'translateX(0px)' }, transform: 'translateX(-900px)' });
     const left = useSpring({ from: { transform: 'translateX(-900px)' }, transform: 'translateX(0px)' });
 
@@ -14,7 +15,7 @@ const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount }) => {
     })
 
     return (
-        <a.div className="selection-component" style={fade}>
+        <a.div className="selection-component" style={loading ? normal : fade}>
         {amount === 20
             ? <h1 className="title">Curated</h1>
             : null

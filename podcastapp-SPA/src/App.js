@@ -142,12 +142,8 @@ class App extends Component {
       .then(response => this.setState({ searched: response, searchTerm: term }))
   }
 
-  passPodcastMetaData = (id, title, image, publisher)  => {
-
-  }
-
   // pass "itunesid" from listennotes cl podcasts obj
-  getEpisodes = (id, title, image, publisher, prevRoute) => {
+  getEpisodes = (id, title, image, publisher) => {
     fetch(`/episodes/${id}`)
       .then(response => response.json())
       .then(response => {
@@ -219,7 +215,7 @@ class App extends Component {
                         {route === 'search'
                           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                         {route !== 'search'
-                          && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} {...props} />}
+                          && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} loading={true} {...props} />}
                       </>
                     }
 
@@ -230,7 +226,7 @@ class App extends Component {
                           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                         {route !== 'search'
                           && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
-                            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} {...props} />}
                       </>
                     }
 
@@ -240,7 +236,7 @@ class App extends Component {
                         {route === 'search'
                           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                         {route !== 'search'
-                          && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} {...props} />}
+                          && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} loading={true} {...props} />}
                       </>
                     }
 
