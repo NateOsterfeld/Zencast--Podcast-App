@@ -212,6 +212,7 @@ class App extends Component {
                       && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />}
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+
                     {route === 'popular' &&
                       <>
                         <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
@@ -219,7 +220,9 @@ class App extends Component {
                           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                         {route !== 'search'
                           && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} {...props} />}
-                      </>}
+                      </>
+                    }
+
                     {route === 'discover' &&
                       <>
                         <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
@@ -228,7 +231,19 @@ class App extends Component {
                         {route !== 'search'
                           && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
                             genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
-                      </>}
+                      </>
+                    }
+
+                    {route === 'curatedPodcasts' &&
+                      <>
+                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
+                        {route === 'search'
+                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+                        {route !== 'search'
+                          && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} {...props} />}
+                      </>
+                    }
+
                     {route !== 'search' && route === 'episodes'
                       && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />}
                   </React.Fragment>
