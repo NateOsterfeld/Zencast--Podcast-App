@@ -79,21 +79,27 @@
 
 .about-container-card:hover .cls-grouped {
     animation: blink infinite ease-in-out alternate;
+}.about-container-card:hover .cls-grouped1 {
+    animation: strobe1 infinite ease-in-out alternate;
 }
 
 .about-container-card:hover .cls2-grouped {
     animation: blink infinite ease-in-out alternate;
+}.about-container-card:hover .cls2-grouped1 {
+    animation: strobe2 infinite ease-in-out alternate;
 }
 
 .about-container-card:hover .cls3-grouped {
     animation: blink infinite ease-in-out alternate;
+}.about-container-card:hover .cls3-grouped1 {
+    animation: strobe3 infinite ease-in-out alternate;
 }
 
 
 
 @keyframes blink {
     0% {
-        opacity: .6;
+        opacity: .9;
         stroke: #815E8F;
         transform: scale(1.03);
         stroke-width: 1px;
@@ -104,5 +110,35 @@
         transform: scale(1);
         stroke-width: 2px;
         // stroke-linecap: round;
+    }
+}
+
+@keyframes strobe1 {
+    0% {
+        opacity: .4;
+    } 100% {
+        opacity: .1;
+    }
+}
+@keyframes strobe2 {
+    0% {
+        stroke-width: 2px;
+        opacity: .5;
+
+    } 100% {
+        stroke-width: 9px;
+        opacity: .2;
+    }
+}
+@keyframes strobe3 {
+    0% {
+        stroke-width: 2px;
+        opacity: .5;
+        stroke-dasharray: 20;
+        stroke-dashoffset: 5;
+    } 100% {
+        stroke-width: 9px;
+        opacity: .2;
+        stroke-dashoffset: 0;
     }
 }

@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
     <defs>
         <style>
-        .cls-1{isolation:isolate;}.cls-2{fill:#67c8c3;}.cls-14,.cls-3,.cls-9{fill:#5ba397;}.cls-lines,.cls-15,.cls-20,.cls-21,.cls-23,.cls-4,.cls-7{fill:none;}
-        .cls-4{stroke:#67c8c3;stroke-width:0.5px;}.cls-14,.cls-18,.cls-21,.cls-23,.cls-4,.cls-5,.cls-6,.cls-7{stroke-miterlimit:10;}.cls-16,.cls-18,.cls-5{fill:#fff;}
+        .cls-1{isolation:isolate;}.cls-2{fill:#67c8c3;}.cls-14,.cls-3,.cls-9{fill:#5ba397;}.cls-lines,.cls-15,.cls-20,.cls-21,.cls-grouped1,.cls-4,.cls-7{fill:none;}
+        .cls-4{stroke:#67c8c3;stroke-width:0.5px;}.cls-14,.cls-18,.cls-21,.cls-grouped1,.cls-4,.cls-5,.cls-6,.cls-7{stroke-miterlimit:10;}.cls-16,.cls-18,.cls-5{fill:#fff;}
         .cls-18,.cls-20,.cls-5,.cls-6,.cls-7{stroke:#815e8f;}.cls-lines,.cls-lines,.cls-6{fill:#b49dca;}.cls-8{fill:#ededed;mix-blend-mode:screen;}.cls-16,.cls-8{opacity:0.65;}
         .cls-14,.cls-9{stroke:#5ba397;}.cls-20,.cls-9{stroke-linecap:round;}.cls-lines,.cls-lines,.cls-9{stroke-linejoin:round;}.cls-14,.cls-21,.cls-9{stroke-width:0.25px;}
-        .cls-grouped{opacity:0;stroke:#b49dca;}.cls-lines{stroke-linecap:square;}.cls-17,.cls-19{fill:#815e8f;}.cls-18,.cls-20,.cls-23{stroke-width:2px;}
-        .cls-19,.cls-22{mix-blend-mode:multiply;}.cls-20{stroke-linejoin:bevel;}.cls-21{stroke:#000;}.cls-22{opacity:0.8;}.cls-23{stroke:#c999e0;opacity:0.2;mix-blend-mode:luminosity;}
+        .cls-grouped{opacity:0;stroke:#b49dca;}.cls-lines{stroke-linecap:square;}.cls-17,.cls-19{fill:#815e8f;}.cls-18,.cls-20,.cls-grouped1{stroke-width:2px;}
+        .cls-19,.cls-22{mix-blend-mode:multiply;}.cls-20{stroke-linejoin:bevel;}.cls-21{stroke:#000;}.cls-22{opacity:0.8;}.cls-grouped1{stroke:#c999e0;opacity:0.2;mix-blend-mode:luminosity;}
         </style>
     </defs>
     <title></title>
@@ -111,19 +111,19 @@
             </g>
             <line class="cls-21" x1="73.48" y1="57.3" x2="73.46" y2="57.31"/>
             <g class="cls-22">
-                <line class="cls-23" x1="142.96" y1="117.02" x2="125.38" y2="134.6"/>
-                <line class="cls-23" x1="137.52" y1="104.13" x2="100.96" y2="140.69"/>
-                <line class="cls-23" x1="131.36" y1="91.96" x2="77.78" y2="145.54"/>
-                <line class="cls-23" x1="126.58" y1="78.41" x2="57.04" y2="147.95"/>
-                <polyline class="cls-23" points="138.83 47.83 130.84 55.82 125.46 61.2 43.21 143.45"/>
-                <line class="cls-23" x1="140.67" y1="27.66" x2="32.79" y2="135.54"/>
-                <line class="cls-23" x1="138.25" y1="11.75" x2="23.26" y2="126.74"/>
-                <line class="cls-23" x1="129.51" y1="2.16" x2="12.98" y2="118.69"/>
-                <line class="cls-23" x1="104.14" y1="9.2" x2="6.69" y2="106.65"/>
-                <line class="cls-23" x1="71.81" y1="23.2" x2="6.27" y2="88.74"/>
-                <line class="cls-23" x1="54.07" y1="22.61" x2="8.05" y2="68.63"/>
-                <line class="cls-23" x1="45.57" y1="12.78" x2="24.75" y2="33.6"/>
-                <line class="cls-23" x1="33.63" y1="6.39" x2="22.24" y2="17.78"/>
+                <line class="cls-grouped1" x1="142.96" y1="117.02" x2="125.38" y2="134.6"/>
+                <line class="cls-grouped1" x1="137.52" y1="104.13" x2="100.96" y2="140.69"/>
+                <line class="cls-grouped1" x1="131.36" y1="91.96" x2="77.78" y2="145.54"/>
+                <line class="cls-grouped1" x1="126.58" y1="78.41" x2="57.04" y2="147.95"/>
+                <polyline class="cls-grouped1" points="138.83 47.83 130.84 55.82 125.46 61.2 43.21 143.45"/>
+                <line class="cls-grouped1" x1="140.67" y1="27.66" x2="32.79" y2="135.54"/>
+                <line class="cls-grouped1" x1="138.25" y1="11.75" x2="23.26" y2="126.74"/>
+                <line class="cls-grouped1" x1="129.51" y1="2.16" x2="12.98" y2="118.69"/>
+                <line class="cls-grouped1" x1="104.14" y1="9.2" x2="6.69" y2="106.65"/>
+                <line class="cls-grouped1" x1="71.81" y1="23.2" x2="6.27" y2="88.74"/>
+                <line class="cls-grouped1" x1="54.07" y1="22.61" x2="8.05" y2="68.63"/>
+                <line class="cls-grouped1" x1="45.57" y1="12.78" x2="24.75" y2="33.6"/>
+                <line class="cls-grouped1" x1="33.63" y1="6.39" x2="22.24" y2="17.78"/>
             </g>
         </g>
     </g>
