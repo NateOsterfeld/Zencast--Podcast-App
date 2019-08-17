@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import Parser from 'rss-parser';
 import LRU from 'lru-cache';
 
 const cache = new LRU(50);
