@@ -144,10 +144,9 @@ class App extends Component {
   }
 
   getEpisodes = (id, title, image, publisher) => {
-    this.setState({
-      route: `episodes${this.state.route}`,
-      episodesObj: { id: id, title: title, image: image, publisher: publisher}
-    })
+    this.setState({ episodesObj: { id: id, title: title, image: image, publisher: publisher }})
+    if (!this.state.route.includes('episodes'))
+    this.setState({ route: `episodes${this.state.route}` })
   }
 
   getRandomGenre = () => {
