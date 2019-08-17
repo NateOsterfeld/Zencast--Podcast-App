@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import './App.css';
 import Popular from './components/Popular/Popular';
 import Navigation from './components/Navigation/Navigation';
@@ -6,13 +6,14 @@ import Discover from './components/Discover/Discover';
 import Menu from './components/Menu/Menu';
 import About from './components/About/About';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
-import Episodes from './components/Episodes/Episodes';
+// import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
 import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
 import CuratedLists from './components/Discover/CuratedLists/CuratedLists';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+const Episodes = React.lazy(() => import('./components/Episodes/Episodes'));
 
 
 class App extends Component {
@@ -102,19 +103,19 @@ class App extends Component {
     onPop: (menuSearchNode, navSearchNode) => {
       this.changeRoute('popular')
       menuSearchNode !== null &&  //eslint-disable-line
-        menuSearchNode.value.length > 0 
-          ? menuSearchNode.value = ''
-          : navSearchNode.value.length > 0
-            navSearchNode.value = ''
+        menuSearchNode.value.length > 0
+        ? menuSearchNode.value = ''
+        : navSearchNode.value.length > 0
+      navSearchNode.value = ''
     },
-  
+
     onDisc: (menuSearchNode, navSearchNode, refresh) => {
       this.changeRoute('discover', refresh)
       menuSearchNode !== null &&  //eslint-disable-line
-        menuSearchNode.value.length > 0 
-          ? menuSearchNode.value = ''
-          : navSearchNode.value.length > 0
-            navSearchNode.value = ''
+        menuSearchNode.value.length > 0
+        ? menuSearchNode.value = ''
+        : navSearchNode.value.length > 0
+      navSearchNode.value = ''
     },
 
     onAbout: (navSearchNode) => {
@@ -128,10 +129,10 @@ class App extends Component {
       e.target.value
         ? this.getSearchedPodcasts(e.target.value, 'search')
         : this.getSearchedPodcasts('', 'episodes');
-      
+
       if (oppositeSearchNode !== null)
-      if (e.target.value && oppositeSearchNode.value.length > 0)
-        oppositeSearchNode.value = '';
+        if (e.target.value && oppositeSearchNode.value.length > 0)
+          oppositeSearchNode.value = '';
     }
   }
 
@@ -142,17 +143,11 @@ class App extends Component {
       .then(response => this.setState({ searched: response, searchTerm: term }))
   }
 
-  // pass "itunesid" from listennotes cl podcasts obj
   getEpisodes = (id, title, image, publisher) => {
-    fetch(`/episodes/${id}`)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          route: 'episodes',
-          episodesObj: { id: id, title: title, image: image, publisher: publisher, mainDescription: response[0].mainDescription, episodes: response, website: response[0].website }
-        });
-      })
-      .catch(err => console.log('error', err));
+    this.setState({
+      route: `episodes${this.state.route}`,
+      episodesObj: { id: id, title: title, image: image, publisher: publisher}
+    })
   }
 
   getRandomGenre = () => {
@@ -182,9 +177,9 @@ class App extends Component {
       this.setState({ route: 'popular' });
       this.getPopular();
     } else if (route === 'discover') {
-        this.setState({ route: 'discover' });
-        if (refresh)
-          this.getDiscover();
+      this.setState({ route: 'discover' });
+      if (refresh)
+        this.getDiscover();
     } else if (route === 'about') {
       this.setState({ route: 'about' });
     }
@@ -194,6 +189,37 @@ class App extends Component {
 
   render() {
     const { route } = this.state;
+    const PopularLoader = () => (
+      <>
+        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
+        {route === 'search'
+          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+        {route !== 'search'
+          && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} loading={true} />}
+      </>
+    );
+
+    const DiscoverLoader = () => (
+      <>
+        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
+        {route === 'search'
+          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+        {route !== 'search'
+          && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
+            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} />}
+      </>
+    );
+
+    const CuratedPodcastsLoader = () => (
+      <>
+        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
+        {route === 'search'
+          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+        {route !== 'search'
+          && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} loading={true} />}
+      </>
+    );
+
     return (
       <Router>
         <div className="App">
@@ -209,39 +235,23 @@ class App extends Component {
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
 
-                    {route === 'popular' &&
-                      <>
-                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
-                        {route === 'search'
-                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                        {route !== 'search'
-                          && <Popular podcasts={this.state.popular} getEpisodes={this.getEpisodes} loading={true} {...props} />}
-                      </>
+                    {route === 'episodesdiscover' &&
+                      <Suspense fallback={<DiscoverLoader />}>
+                        <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
+                      </Suspense>
                     }
 
-                    {route === 'discover' &&
-                      <>
-                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
-                        {route === 'search'
-                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                        {route !== 'search'
-                          && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
-                            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} {...props} />}
-                      </>
+                    {route === 'episodespopular' &&
+                      <Suspense fallback={<PopularLoader />}>
+                        <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
+                      </Suspense>
                     }
 
-                    {route === 'curatedPodcasts' &&
-                      <>
-                        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
-                        {route === 'search'
-                          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                        {route !== 'search'
-                          && <CuratedPodcasts curatedListObj={this.state.curatedListObj} getEpisodes={this.getEpisodes} loading={true} {...props} />}
-                      </>
+                    {route === 'episodescuratedPodcasts' &&
+                      <Suspense fallback={<CuratedPodcastsLoader />}>
+                        <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
+                      </Suspense>
                     }
-
-                    {route !== 'search' && route === 'episodes'
-                      && <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />}
                   </React.Fragment>
                 }
               />
@@ -249,7 +259,7 @@ class App extends Component {
               <Route exact path='/'
                 /* '<>' is the same as React.Fragment */
                 render={(props) =>
-                  <> 
+                  <>
                     <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
@@ -284,17 +294,17 @@ class App extends Component {
                   </>
                 }
               />
-              
+
               <Route path='/about'
                 render={(props) =>
-                <>
-                  {route === 'search'
+                  <>
+                    {route === 'search'
                       && <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} {...props} />}
-                  {route === 'search'
+                    {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
-                  {route !== 'search' 
+                    {route !== 'search'
                       && <About {...props} />}
-                </>
+                  </>
                 }
               />
 
@@ -321,7 +331,7 @@ class App extends Component {
                   </>
                 }
               />
-              
+
               <Route path='/curatedLists'
                 render={(props) =>
                   <>

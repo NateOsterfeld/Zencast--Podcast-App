@@ -2,9 +2,14 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Episode from './Episode/Episode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
+import SuspenseFetchEpisodes from './SuspenseFetchEpisodes';
+//mainDescription: response[0].mainDescription, episodes: response, website: response[0].website
 
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
+    const episodes = SuspenseFetchEpisodes(episodesObj.id);
+    console.log('response', episodes);
+
     let [count, setCount] = useState(30);
     let [website, setWebsite] = useState();
     let [description, setDescription] = useState();
@@ -12,8 +17,8 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
     const initEpisodes = [];
 
     for (let i = start; i < count; i++) {
-        if (episodesObj.episodes[i]) {
-            initEpisodes.push(episodesObj.episodes[i]);
+        if (episodes[i]) {
+            initEpisodes.push(episodes[i]);
         }
     }
 
@@ -22,22 +27,22 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
         setCount(count += 30);
 
         for (let i = start; i < count; i++) {
-            if (episodesObj.episodes[i]) {
+            if (episodes[i]) {
 
-                initEpisodes.push(episodesObj.episodes[i]);
+                initEpisodes.push(episodes[i]);
             }
         }
     }
 
     const fixInnerText = () => {
-        episodesObj.mainDescription &&
-            episodesObj.mainDescription.toString().trim().substring(0, 3) === '<p>'
-            ? setDescription(episodesObj.mainDescription.toString().trim().substring(3, episodesObj.mainDescription.toString().trim().length - 4))
-            : setDescription(episodesObj.mainDescription)
+        episodes[0].mainDescription &&
+            episodes[0].mainDescription.toString().trim().substring(0, 3) === '<p>'
+            ? setDescription(episodes[0].mainDescription.toString().trim().substring(3, episodes[0].mainDescription.toString().trim().length - 4))
+            : setDescription(episodes[0].mainDescription)
 
     }
     useEffect(() => fixInnerText())
-    useEffect(() => { episodesObj.website && setWebsite(episodesObj.website) })
+    useEffect(() => { episodes[0].website && setWebsite(episodes[0].website) })
 
     return (
 
@@ -75,7 +80,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                         <InfiniteScroll
                             dataLength={initEpisodes.length}
                             next={() => loadMore()}
-                            threshold={episodesObj.episodes.length}
+                            threshold={episodes.length}
                             hasMore={true}
 
                         >
