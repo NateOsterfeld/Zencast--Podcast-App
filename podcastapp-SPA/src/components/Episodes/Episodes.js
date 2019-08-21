@@ -2,13 +2,12 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Episode from './Episode/Episode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
-import SuspenseFetchEpisodes from './SuspenseFetchEpisodes';
+import useSuspenseFetchEpisodes from './useSuspenseFetchEpisodes';
 //mainDescription: response[0].mainDescription, episodes: response, website: response[0].website
 
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
-    const episodes = SuspenseFetchEpisodes(episodesObj.id);
-    console.log('response', episodes);
+    const episodes = useSuspenseFetchEpisodes(episodesObj.id);
 
     let [count, setCount] = useState(30);
     let [website, setWebsite] = useState();
@@ -89,13 +88,13 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                                     <Episode
                                         key={i}
                                         id={i}
-                                        description={episode.description}
-                                        duration={episode.duration}
-                                        enclosure={episode.enclosure}
-                                        image={episode.image}
-                                        link={episode.link}
-                                        pubDate={episode.pubDate}
-                                        title={episode.title}
+                                        description={episodes.description}
+                                        duration={episodes.duration}
+                                        enclosure={episodes.enclosure}
+                                        image={episodes.image}
+                                        link={episodes.link}
+                                        pubDate={episodes.pubDate}
+                                        title={episodes.title}
                                         postPlayBarObj={postPlayBarObj}
                                         ogImage={episodesObj.image}
                                         publisher={episodesObj.publisher}

@@ -3,7 +3,7 @@ import LRU from 'lru-cache';
 
 const cache = new LRU(50);
 
-const SuspenseFetchEpisodes = id => {
+const useSuspenseFetchEpisodes = id => {
     const key = id;
     const value = cache.get(key) || { status: 'new', data: null };
 
@@ -11,7 +11,7 @@ const SuspenseFetchEpisodes = id => {
         return value.data;
     }
 
-    const promise = fetch(`/episodes/${id}`).then(response => response.json());
+    const promise = fetch(`/api/episodes/${id}`).then(response => response.json());
 
     promise.then(response => {
         value.status = 'resolved';
@@ -22,4 +22,4 @@ const SuspenseFetchEpisodes = id => {
     throw promise;
 }
 
-export default SuspenseFetchEpisodes;
+export default useSuspenseFetchEpisodes;

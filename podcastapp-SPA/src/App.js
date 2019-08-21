@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   getPopular = () => {
-    fetch('/popular')
+    fetch('/api/popular')
       .then(response => response.json())
       .then(response => {
         this.setState({ popular: response })
@@ -57,7 +57,7 @@ class App extends Component {
   }
 
   getCuratedLists = (random = true) => {
-    fetch(`/listOfCuratedLists`, {
+    fetch(`/api/listOfCuratedLists`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ random: random })
@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   getListPodcasts = (id, title) => {
-    fetch(`/podcastsInCuratedList/${id}`)
+    fetch(`/api/podcastsInCuratedList/${id}`)
       .then(response => response.json())
       .then(response => this.setState({
         curatedListObj: { id: id, title: title, podcasts: response.podcasts },
@@ -138,7 +138,7 @@ class App extends Component {
 
   getSearchedPodcasts = (term, route) => {
     this.setState({ route: route });
-    term !== '' && fetch(`/searchPodcasts/${term}`)
+    term !== '' && fetch(`/api/searchPodcasts/${term}`)
       .then(response => response.json())
       .then(response => this.setState({ searched: response, searchTerm: term }))
   }
@@ -162,7 +162,7 @@ class App extends Component {
   }
 
   getMenuItems = () => {
-    fetch('/genresMenu')
+    fetch('/api/genresMenu')
       .then(response => response.json())
       .then(response => {
         this.setState({ genresMenu: response })
