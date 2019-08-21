@@ -2,12 +2,12 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Episode from './Episode/Episode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
-import SuspenseFetchEpisodes from './SuspenseFetchEpisodes';
+import useSuspenseFetchEpisodes from './useSuspenseFetchEpisodes';
 //mainDescription: response[0].mainDescription, episodes: response, website: response[0].website
 
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
-    const episodes = SuspenseFetchEpisodes(episodesObj.id);
+    const episodes = useSuspenseFetchEpisodes(episodesObj.id);
     console.log('response', episodes);
 
     let [count, setCount] = useState(30);
