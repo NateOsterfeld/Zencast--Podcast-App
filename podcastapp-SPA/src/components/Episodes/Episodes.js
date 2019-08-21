@@ -85,17 +85,17 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
 
                         >
                             {
-                                initEpisodes.map((episode, i) => (
+                                initEpisodes.map((episodes, i) => (
                                     <Episode
                                         key={i}
                                         id={i}
-                                        description={episode.description}
-                                        duration={episode.duration}
-                                        enclosure={episode.enclosure}
-                                        image={episode.image}
-                                        link={episode.link}
-                                        pubDate={episode.pubDate}
-                                        title={episode.title}
+                                        description={episodes.description}
+                                        duration={episodes.duration}
+                                        enclosure={episodes.enclosure}
+                                        image={episodes.image}
+                                        link={episodes.link}
+                                        pubDate={episodes.pubDate}
+                                        title={episodes.title}
                                         postPlayBarObj={postPlayBarObj}
                                         ogImage={episodesObj.image}
                                         publisher={episodesObj.publisher}
