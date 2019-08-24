@@ -58,6 +58,7 @@ li {
 }
 .fas {
     z-index: 1;
+    margin: 0 8px;
 }
 
 .menu-nav > i.fa-compass {
