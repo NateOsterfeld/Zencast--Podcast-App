@@ -21,12 +21,9 @@ class PlayBar extends React.Component {
             finalPlay: 'play',
             playCounter: 0
         }
-
     }
 
     isNewPodcast = true;
-
-    //remember to view audio object! playback rate to change speed and so much more
 
     componentDidUpdate(prevProps) {
         if (this.props.playBarObj.title !== prevProps.playBarObj.title) {
@@ -150,7 +147,6 @@ class PlayBar extends React.Component {
                         </div>
                         <div className="player-loading">
                             <div className="button is-link is-loading is-large is-rounded">
-
                             </div>
                         </div>
                     </div>
@@ -174,9 +170,6 @@ class PlayBar extends React.Component {
                                         <i className="fas fa-play"></i>
                                         <i className="fas fa-pause"></i>
                                     </span>
-
-
-
                                 </button>
                             </div>
                             <div className="control">

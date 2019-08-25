@@ -81,10 +81,9 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
                             next={() => loadMore()}
                             threshold={episodes.length}
                             hasMore={true}
-
                         >
                             {
-                                initEpisodes.map((episode, i) => (
+                                initEpisodes.map((episodes, i) => (
                                     <Episode
                                         key={i}
                                         id={i}
@@ -109,7 +108,5 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
             </div>
     )
 }
-
-// description, duration, enclosure, image, link, pubDate, title
 
 export default Episodes
