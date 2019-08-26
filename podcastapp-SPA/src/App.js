@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy } from 'react';
+import React, { Component, Suspense } from 'react';
 import './App.css';
 import Popular from './components/Popular/Popular';
 import Navigation from './components/Navigation/Navigation';
@@ -6,7 +6,6 @@ import Discover from './components/Discover/Discover';
 import Menu from './components/Menu/Menu';
 import About from './components/About/About';
 import GenrePodcasts from './components/GenrePodcasts/GenrePodcasts';
-// import Episodes from './components/Episodes/Episodes';
 import PlayBar from './components/PlayBar/PlayBar';
 import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
@@ -151,7 +150,7 @@ class App extends Component {
 
   getRandomGenre = () => {
     let random = Math.floor(Math.random() * this.state.genresMenu.length);
-    this.state.genresMenu.map((genre, i) => {
+    this.state.genresMenu.forEach((genre, i) => {
       if (random === i) {
         const url = `https://itunes.apple.com/search?term=podcast&genreId=${genre.id}&limit=10`;
         fetch(url)
@@ -204,8 +203,8 @@ class App extends Component {
         {route === 'search'
           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
         {route !== 'search'
-          && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
-            genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} />}
+          && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
+             curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} />}
       </>
     );
 
@@ -263,8 +262,8 @@ class App extends Component {
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
-                      && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
-                        genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                      && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
+                         curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
                   </>
                 }
               />
@@ -276,8 +275,8 @@ class App extends Component {
                     {route === 'search'
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
-                      && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} getEpisodes={this.getEpisodes}
-                        genre={this.state.genrePodcasts} curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                      && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
+                         curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
                   </>
                 }
               />
