@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import Episode from './Episode/Episode';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import './Episodes.css';
@@ -42,7 +42,7 @@ const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
 
     }
     useEffect(() => fixInnerText())
-    useEffect(() => { episodes[0].website && setWebsite(episodes[0].website) })
+    useEffect(() => { episodes[0].website && setWebsite(episodes[0].website) }, [episodes])
 
     return (
 
