@@ -57,7 +57,6 @@ const Discover = (props) => {
     
     return (
         <animated.div className="discover-container" style={loading ? normal : fade}>
-
             <h1 className="mb2 title">  Discover
             </h1>
             <h4 className="selection-container-title">  Explore: <i>{genre.name}</i>
@@ -129,7 +128,6 @@ const Discover = (props) => {
                 </div>
                 <TopPodcasts getEpisodes={getEpisodes} podcasts={topPodcasts} direction={topSlideDirection} loading={loading} />
             </div>
-
         </animated.div>
     )
 }

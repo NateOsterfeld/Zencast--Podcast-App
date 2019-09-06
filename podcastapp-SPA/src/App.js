@@ -10,6 +10,8 @@ import PlayBar from './components/PlayBar/PlayBar';
 import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
 import CuratedLists from './components/Discover/CuratedLists/CuratedLists';
+import SignInSignup from './components/SignInSignUp/SignInSignUp'
+import { auth } from './firebase/firebase.utils';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 const Episodes = React.lazy(() => import('./components/Episodes/Episodes'));
@@ -20,6 +22,7 @@ class App extends Component {
     super();
     this._refPlayBar = React.createRef();
     this.state = {
+      currentUser: null,
       popular: [],
       searched: [],
       searchTerm: '',
@@ -34,7 +37,26 @@ class App extends Component {
     }
   }
 
+  // unsubscribeFromAuth = null;
+
   componentDidMount() {
+
+  }
+
+  // componentWillUnmount() {
+  //     this.unsubscribeFromAuth();
+  // }
+
+
+  componentDidMount() {
+    console.log('check1')
+    auth.onAuthStateChanged(user => {
+      this.setState({ currentUser: user });
+      console.log('user', user);
+    })
+    
+    console.log('check2')
+    console.log('userState', this.state.currentUser);
     this.getMenuItems();
     this.state.route === 'popular'
       ? this.getPopular()
@@ -143,9 +165,9 @@ class App extends Component {
   }
 
   getEpisodes = (id, title, image, publisher) => {
-    this.setState({ episodesObj: { id: id, title: title, image: image, publisher: publisher }})
+    this.setState({ episodesObj: { id: id, title: title, image: image, publisher: publisher } })
     if (!this.state.route.includes('episodes'))
-    this.setState({ route: `episodes${this.state.route}` })
+      this.setState({ route: `episodes${this.state.route}` })
   }
 
   getRandomGenre = () => {
@@ -204,7 +226,7 @@ class App extends Component {
           && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
         {route !== 'search'
           && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
-             curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} />}
+            curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} loading={true} />}
       </>
     );
 
@@ -221,10 +243,17 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navigation funcs={this.menuNavFuncs} />
+          <Navigation funcs={this.menuNavFuncs} currentUser={this.state.currentUser} />
           <section className="section">
 
             <div className="case">
+
+              <Route path='/sign-in'
+                render={(props) =>
+                  <SignInSignup />
+                }
+              />
+
               <Route path='/episodes/:id'
                 render={(props) =>
                   <React.Fragment>
@@ -263,7 +292,7 @@ class App extends Component {
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
                       && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
-                         curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                        curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
                   </>
                 }
               />
@@ -276,7 +305,7 @@ class App extends Component {
                       && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
                     {route !== 'search'
                       && <Discover getEpisodes={this.getEpisodes} topPodcasts={this.state.popular} getGenre={this.getGenre} genre={this.state.genrePodcasts}
-                         curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
+                        curatedLists={this.state.curatedLists} getListPodcasts={this.getListPodcasts} {...props} />}
                   </>
                 }
               />
