@@ -15,9 +15,14 @@ class SignIn extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        // const { email, password } = this.state;
-        // await auth.signInWithEmailAndPassword(email, password);
-        this.setState({ email: '', password: '' })
+        const { email, password } = this.state;
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            this.setState({ email: '', password: '' })
+        } catch (error) {
+            console.log('trouble signing in', error);
+        }
     }
 
     handleChange = e => {

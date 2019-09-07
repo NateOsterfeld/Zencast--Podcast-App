@@ -6,7 +6,7 @@ import SignUp from './SignUp/SignUp'
 const SignInSignUp = () => (
 	<div className='sign-in-and-sign-up'>
 		<SignIn />
-		{/* <SignUp /> */}
+		<SignUp />
 	</div>
 )
 

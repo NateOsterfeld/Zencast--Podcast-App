@@ -2,7 +2,7 @@ import React from 'react';
 import './SignUp.scss';
 import FormInput from '../../FormInput/FormInput';
 import CustomButton from '../../CustomButton/CustomButton';
-import { auth } from '../../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from '../../../firebase/firebase.utils';
 
 class SignUp extends React.Component {
     constructor() {
@@ -15,14 +15,47 @@ class SignUp extends React.Component {
         }
     }
 
+    handleSubmit = async e => {
+        e.preventDefault()
+        const { displayName, email, password, confirmPassword } = this.state;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        try {
+            const { user } = await auth.createUserWithEmailAndPassword(email, password)
+
+            // creates 'user document' in 'users collection'
+            // add displayName because 'user' from above only has email and password info
+            await createUserProfileDocument(user, { displayName })
+
+            // clear form
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    handleChange = e => {
+        const { name, value } = e.target
+        this.setState({ [name]: value })
+    }
+
     render() {
         const { displayName, email, password, confirmPassword } = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
-                <form className='sign-up-form'>
-                    <FormInput 
+                <form className='sign-up-form' onSubmit={this.handleSubmit}>
+                    <FormInput
                         type='text'
                         name='displayName'
                         value={displayName}
@@ -30,7 +63,7 @@ class SignUp extends React.Component {
                         label='Name'
                         required
                     />
-                    <FormInput 
+                    <FormInput
                         type='email'
                         name='email'
                         value={email}
@@ -38,7 +71,7 @@ class SignUp extends React.Component {
                         label='Email'
                         required
                     />
-                    <FormInput 
+                    <FormInput
                         type='password'
                         name='password'
                         value={password}
@@ -46,7 +79,7 @@ class SignUp extends React.Component {
                         label='password'
                         required
                     />
-                    <FormInput 
+                    <FormInput
                         type='password'
                         name='confirmPassword'
                         value={confirmPassword}
@@ -54,6 +87,8 @@ class SignUp extends React.Component {
                         label='Confirm Password'
                         required
                     />
+
+                    <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
             </div>
         )

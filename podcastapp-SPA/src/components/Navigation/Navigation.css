@@ -19,3 +19,8 @@
 .bg-primary {
     box-shadow: 0 5px 30px rgba(0,0,0,0.2), 0 6px 4px rgba(0,0,0,0.05);
 }
+
+.option {
+padding: 10px 15px;
+cursor: pointer;
+}

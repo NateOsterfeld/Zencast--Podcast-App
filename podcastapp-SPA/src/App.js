@@ -11,7 +11,7 @@ import Search from './components/Search/Search';
 import CuratedPodcasts from './components/CuratedPodcasts/CuratedPodcasts';
 import CuratedLists from './components/Discover/CuratedLists/CuratedLists';
 import SignInSignup from './components/SignInSignUp/SignInSignUp'
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 const Episodes = React.lazy(() => import('./components/Episodes/Episodes'));
@@ -37,26 +37,38 @@ class App extends Component {
     }
   }
 
-  // unsubscribeFromAuth = null;
+  unsubscribeFromAuth = null;
 
-  componentDidMount() {
-
+  componentWillUnmount() {
+      this.unsubscribeFromAuth();
   }
 
-  // componentWillUnmount() {
-  //     this.unsubscribeFromAuth();
-  // }
+  authorizeUser = () => {
+    console.log('1')
+    // subscribe to an observer that listens for sign-in/sign-out changes
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        // gets document reference for user or creates one if doesn't already exist (firebase.utils.js)
+        const userRef = await createUserProfileDocument(userAuth);
 
+        // gets snapShot (actual data) using document reference & listens for updates to it
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data() // name, email, createdAt, etc
+            }
+          })
+        })
+      } else {
+         this.setState({ currentUser: userAuth }); // currentUser: null
+      }
+    })
+  }
 
   componentDidMount() {
-    console.log('check1')
-    auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
-      console.log('user', user);
-    })
-    
-    console.log('check2')
-    console.log('userState', this.state.currentUser);
+    this.authorizeUser();
+
     this.getMenuItems();
     this.state.route === 'popular'
       ? this.getPopular()

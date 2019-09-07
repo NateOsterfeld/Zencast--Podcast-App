@@ -56,7 +56,7 @@ const Navigation = ({ funcs, currentUser }) => {
       </div>
       <div className="nav-item dropdown">
         <a className="nav-link dropdown-toggle dropdown" href="" data-toggle="dropdown" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
-        <div className="dropdown-menu" aria-labelledby="dropdown04">
+        <div className="dropdown-menu options" aria-labelledby="dropdown04">
           {currentUser
             ? (<div className='dropdown-item dim option' onClick={() => auth.signOut()}>
               SIGN OUT
