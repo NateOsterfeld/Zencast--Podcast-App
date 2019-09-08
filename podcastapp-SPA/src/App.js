@@ -251,6 +251,16 @@ class App extends Component {
       </>
     );
 
+    const GenrePodcastsLoader = () => (
+      <>
+        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
+        {route === 'search'
+          && <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />}
+        {route !== 'search'
+          && <GenrePodcasts genrePodcasts={this.state.genrePodcasts} getEpisodes={this.getEpisodes} />}
+      </>
+    );
+
     const SearchLoader = () => (
       <>
         <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
@@ -294,6 +304,12 @@ class App extends Component {
 
                     {route === 'episodescuratedPodcasts' &&
                       <Suspense fallback={<CuratedPodcastsLoader />}>
+                        <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
+                      </Suspense>
+                    }
+
+                    {route === 'episodesgenre' &&
+                      <Suspense fallback={<GenrePodcastsLoader />}>
                         <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
                       </Suspense>
                     }
