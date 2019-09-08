@@ -54,18 +54,38 @@ const Navigation = ({ funcs, currentUser }) => {
         </form>
       </div>
       <div className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle dropdown" href="" data-toggle="dropdown" aria-expanded="false"><i className="fas fa-user-circle"></i></a>
-        <div className="dropdown-menu options" aria-labelledby="dropdown04">
-          {currentUser
-            ? (<div className='dropdown-item dim option' onClick={() => auth.signOut()}>
-              SIGN OUT
-              </div>)
-
-            : (<Link to='/sign-in' className="dropdown-item dim option" href="">
-              SIGN IN
+        {currentUser
+          ? <a className="nav-link dropdown" data-toggle="dropdown" aria-expanded="false">
+            <img className="photoURL" src={currentUser.photoURL} />
+          </a>
+          : (<Link to='/sign-in' className="dropdown-sign-in option" href="">
+                SIGN IN
               </Link>)
-          }
+        }
+        {currentUser
+          ? <div className="dropdown-menu options" aria-labelledby="dropdown04">
+            <div className='dropdown-item option'>
+              <div className='dropdown-account'>
+                <div className='dropdown-account-manage'>
+                  <div className='account-manage-info'>
+                    <div className='dropdown-account-name'>
+                      {currentUser.displayName}
+                    </div>
+                    <div className='dropdown-account-email'>
+                      {currentUser.email}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='dropdown-status dim' onClick={() => auth.signOut()}>
+                <i className='fas fa-sign-out-alt' />
+                SIGN OUT
+                </div>
+              {console.log('curuser', currentUser)}
+            </div>
         </div>
+          : null
+        }
       </div>
     </nav>
   )

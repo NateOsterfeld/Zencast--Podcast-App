@@ -13,7 +13,7 @@ import CuratedLists from './components/Discover/CuratedLists/CuratedLists';
 import SignInSignup from './components/SignInSignUp/SignInSignUp'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 const Episodes = React.lazy(() => import('./components/Episodes/Episodes'));
 
 
@@ -55,7 +55,7 @@ class App extends Component {
           this.setState({
             currentUser: {
               id: snapShot.id,
-              ...snapShot.data() // name, email, createdAt, etc
+              ...snapShot.data() // name, email, photo, createdAt, etc
             }
           })
         })
@@ -278,7 +278,9 @@ class App extends Component {
 
               <Route path='/sign-in'
                 render={(props) =>
-                  <SignInSignup />
+                this.state.currentUser
+                  ? <Redirect to='/' />
+                  : <SignInSignup />
                 }
               />
 

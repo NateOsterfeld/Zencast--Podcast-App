@@ -4,7 +4,8 @@
 
 .dropdown-menu {
     position: absolute;
-    left: -70px;
+    left: -150px;
+    padding: 0;
 }
 
 .fa-user-circle{
@@ -16,11 +17,44 @@
     cursor: pointer;
 }
 
+.nav-item.dropdown {
+    align-self: center;
+}
+
 .bg-primary {
     box-shadow: 0 5px 30px rgba(0,0,0,0.2), 0 6px 4px rgba(0,0,0,0.05);
 }
 
 .option {
-padding: 10px 15px;
-cursor: pointer;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.dropdown-sign-in {
+    color: white;
+}
+
+.dropdown-sign-in:hover {
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+}
+
+.photoURL {
+    height: auto;
+    width: 2vw;
+    border-radius: 200%;
+}
+
+.photoURL-mini {
+    height: 1vh;
+    width: 1vw;
+    border-radius: 200%;
+}
+
+.dropdown-account-manage {
+    display: flex;
+    border-bottom: 1px solid #b5b5b5;
+}
+
+.account-manage-info {
 }

@@ -22,7 +22,7 @@ export const createUserProfileDocument = async (userAuth, additonalData) => {
 
   // if user doesn't already exist in firestore db, add them/create snapshot
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, photoURL } = userAuth;
     const createdAt = new Date();
 
     try {
@@ -30,6 +30,7 @@ export const createUserProfileDocument = async (userAuth, additonalData) => {
         displayName,
         email,
         createdAt,
+        photoURL,
         ...additonalData
       })
     } catch (error) {
