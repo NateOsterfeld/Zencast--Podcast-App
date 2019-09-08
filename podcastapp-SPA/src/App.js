@@ -40,11 +40,10 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentWillUnmount() {
-      this.unsubscribeFromAuth();
+    this.unsubscribeFromAuth();
   }
 
   authorizeUser = () => {
-    console.log('1')
     // subscribe to an observer that listens for sign-in/sign-out changes
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -61,7 +60,7 @@ class App extends Component {
           })
         })
       } else {
-         this.setState({ currentUser: userAuth }); // currentUser: null
+        this.setState({ currentUser: userAuth }); // currentUser: null
       }
     })
   }
@@ -252,6 +251,13 @@ class App extends Component {
       </>
     );
 
+    const SearchLoader = () => (
+      <>
+        <Menu genres={this.state.genresMenu} getGenre={this.getGenre} getSearchedPodcasts={this.getSearchedPodcasts} funcs={this.menuNavFuncs} />
+        <Search podcasts={this.state.searched} getEpisodes={this.getEpisodes} searchTerm={this.state.searchTerm} />
+      </>
+    )
+
     return (
       <Router>
         <div className="App">
@@ -288,6 +294,12 @@ class App extends Component {
 
                     {route === 'episodescuratedPodcasts' &&
                       <Suspense fallback={<CuratedPodcastsLoader />}>
+                        <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
+                      </Suspense>
+                    }
+
+                    {route === 'episodessearch' &&
+                      <Suspense fallback={<SearchLoader />}>
                         <Episodes episodesObj={this.state.episodesObj} postPlayBarObj={this.createPlayBarObj} hasPlayed={this.hasPlayed} {...props} />
                       </Suspense>
                     }

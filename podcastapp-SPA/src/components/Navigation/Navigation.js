@@ -14,7 +14,6 @@ const Navigation = ({ funcs, currentUser }) => {
   }
 
   useEffect(() => {
-    console.log('currentUser', currentUser);
     setSearchNodes();
   })
 

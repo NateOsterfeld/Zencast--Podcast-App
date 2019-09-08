@@ -8,7 +8,6 @@ import useSuspenseFetchEpisodes from './useSuspenseFetchEpisodes';
 
 const Episodes = ({ episodesObj, postPlayBarObj, hasPlayed }) => {
     const episodes = useSuspenseFetchEpisodes(episodesObj.id);
-    console.log('response', episodes);
 
     let [count, setCount] = useState(30);
     let [website, setWebsite] = useState();
