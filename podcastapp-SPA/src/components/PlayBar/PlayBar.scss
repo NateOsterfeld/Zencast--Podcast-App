@@ -172,11 +172,13 @@ $white: #ffffff;
 #player>.level {
     width: 100%;
 }
+
 .level.is-mobile {
     display: flex;
 }
 
 .level {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -214,6 +216,7 @@ $white: #ffffff;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: center;
+    margin-right: .7em;
     
     #playing-art {
         display: default;

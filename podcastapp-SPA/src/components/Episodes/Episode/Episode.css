@@ -15,30 +15,6 @@
 
 
 
-
-.level {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all .3s ease;
-}
-.level:hover {
-    color: black;
-}
-
-.level-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
-.level-item {
-    margin-right: .7em;
-}
-
 .grey-text {
     color: #b5b5b5 !important;
 }
