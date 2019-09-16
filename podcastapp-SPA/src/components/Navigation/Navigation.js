@@ -19,9 +19,9 @@ const Navigation = ({ funcs, currentUser }) => {
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary">
-      <a className="navbar-brand" href="">
+      <Link to='/' className="navbar-brand" href="">
         <span className="navbar-brand-svg"><Logo></Logo></span>  <i>enCast</i>
-      </a>
+      </Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -59,31 +59,30 @@ const Navigation = ({ funcs, currentUser }) => {
             <img className="photoURL" src={currentUser.photoURL} />
           </a>
           : (<Link to='/sign-in' className="dropdown-sign-in option" href="">
-                SIGN IN
+            SIGN IN
               </Link>)
         }
         {currentUser
           ? <div className="dropdown-menu options" aria-labelledby="dropdown04">
-            <div className='dropdown-item option'>
-              <div className='dropdown-account'>
-                <div className='dropdown-account-manage'>
-                  <div className='account-manage-info'>
-                    <div className='dropdown-account-name'>
-                      {currentUser.displayName}
-                    </div>
-                    <div className='dropdown-account-email'>
-                      {currentUser.email}
+              <div className='dropdown-item option'>
+                <div className='dropdown-account'>
+                  <div className='dropdown-account-manage'>
+                    <div className='account-manage-info'>
+                      <div className='dropdown-account-name'>
+                        {currentUser.displayName}
+                      </div>
+                      <div className='dropdown-account-email'>
+                        {currentUser.email}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className='dropdown-status dim' onClick={() => auth.signOut()}>
-                <i className='fas fa-sign-out-alt' />
-                SIGN OUT
+                <div className='dropdown-status dim' onClick={() => auth.signOut()}>
+                  <i className='fas fa-sign-out-alt' />
+                  SIGN OUT
                 </div>
-              {console.log('curuser', currentUser)}
+              </div>
             </div>
-        </div>
           : null
         }
       </div>
