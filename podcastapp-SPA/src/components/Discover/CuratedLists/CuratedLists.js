@@ -12,7 +12,7 @@ const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount, loadin
     useEffect(() => {
         direction === 'cl-right' && setDirectionStyle(right);
         direction === 'cl-left' && setDirectionStyle(left);
-    })
+    }, [direction])
 
     return (
         <a.div className="selection-component" style={loading ? normal : fade}>

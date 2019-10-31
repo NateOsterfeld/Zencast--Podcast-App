@@ -15,7 +15,7 @@ const TopPodcasts = ({ podcasts, getEpisodes, direction, loading }) => {
     useEffect(() => {
         direction === 'top-right' && setDirectionStyle(right);
         direction === 'top-left' && setDirectionStyle(left);
-    })
+    }, [direction])
             
     
     return (

@@ -14,7 +14,7 @@ const ExploreGenre = ({ podcasts, getEpisodes, direction, loading }) => {
     useEffect(() => {
         direction === 'exp-right' && setDirectionStyle(right);
         direction === 'exp-left' && setDirectionStyle(left);
-    })
+    }, [direction])
 
     return (
         <a.div className="selection-component" style={loading ? normal : fade} >
