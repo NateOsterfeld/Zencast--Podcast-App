@@ -99,6 +99,8 @@ li {
     opacity: .8;
 }
 
-.form-inline-menu {
+.search-container {
     transform: translateX(-3px);
+    display: flex;
+    align-items: center;
 }

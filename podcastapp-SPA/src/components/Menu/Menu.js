@@ -17,7 +17,7 @@ const Menu = (props) => {
     return (
         <div className="menu">
             <ul className="menu-list">
-                <form className="form-inline form-inline-menu">
+                <form className="search-container form-inline-menu">
                     <i className="fas fa-search"></i>
                     <input
                         onChange={(e) => props.funcs.onSearch(e, navSearchNode)}
