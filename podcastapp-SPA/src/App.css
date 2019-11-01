@@ -13,7 +13,15 @@
 
 .section {
   padding: 1rem 1.5rem;
+
 }
+
+@media only screen and (max-width: 1248px) {
+  .section {
+    padding: 1rem 0.5rem;
+  }
+}
+
 
 .case {
   display: flex;

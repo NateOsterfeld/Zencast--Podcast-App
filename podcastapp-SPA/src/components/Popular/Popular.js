@@ -8,8 +8,9 @@ const Popular = ({ podcasts, getEpisodes, loading }) => {
     const normal = useSpring({from: {opacity:1}, opacity:1});
     
     return (
-        <animated.div className="podcast-container" style={loading ? normal : fade}>
-            <h1 className="title">Popular</h1> {
+        <animated.div className="popular-container" style={loading ? normal : fade}>
+            <h1 className="title">Popular</h1> 
+        <div className="podcast-container" style={loading ? normal : fade}> {
                 podcasts.map(podcast => {
                     return <PodcastCard 
                         key={podcast.id}
@@ -22,6 +23,7 @@ const Popular = ({ podcasts, getEpisodes, loading }) => {
                     />
                 })
             }
+        </div>
         </animated.div>
     )    
 }

@@ -1,8 +1,19 @@
 .menu {
-    flex: none;
-    width: 20%;
+    min-width: 20%;
     max-width: 320px;
     padding: .75rem;
+}
+
+@media only screen and (max-width: 1248px) {
+    .menu {
+        padding-left: .2rem;
+    }
+}
+
+@media only screen and (max-width: 1065px) {
+    .menu {
+        min-width: 212px;
+    }
 }
 
 .menu-nav-container:hover .menu-label {
@@ -73,6 +84,12 @@ li {
     position: absolute;
     left: 75px;
     margin-left: 0px;
+}
+
+@media only screen and (max-width: 1248px) {
+    .genre-name {
+        left: 45px;
+    }
 }
 .hidden {
     display: none;
