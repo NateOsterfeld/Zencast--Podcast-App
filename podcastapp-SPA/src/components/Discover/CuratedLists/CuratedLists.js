@@ -16,12 +16,14 @@ const CuratedLists = ({ curatedLists, getListPodcasts, direction, amount, loadin
 
     return (
         <a.div className="selection-component" style={loading ? normal : fade}>
-        {amount === 20
+        {
+            amount === 20
             ? <h1 className="title">Curated</h1>
             : null
         }
             
-            <a.div className="componentCarousel" style={directionStyle} > {
+            <a.div className="componentCarousel" style={directionStyle} > 
+            {
                 curatedLists.map((curatedList, i) => {
                     if (i < amount)
                         return <CuratedListCard
