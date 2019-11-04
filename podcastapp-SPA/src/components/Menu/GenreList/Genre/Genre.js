@@ -5,18 +5,19 @@ import { Link } from 'react-router-dom';
 
 
 const Genre = ({ id, name, subgenres, getGenre }) => {
-    const collapseList = (event) => {
-        let el = event.target.parentNode.nextElementSibling.lastElementChild;
-        if (el.className === 'hidden') {
-            el.classList.remove('hidden');
-            el.classList.add('subgenre-container');
-            event.target.classList.remove('fa-chevron-right');
-            event.target.classList.add('fa-sort-down');
+    const toggleList = (event) => {
+        if (event.target.tagName === 'I') {
+            let menuItem = event.target.closest('.menu-item-container')
+            let subgenre = menuItem.querySelector('.subgenre-container')
+            subgenre.style.display = ''
+            event.target.style.rotate = '90deg'
         } else {
-            el.classList.add('hidden');
-            el.classList.remove('subgenre-container');
-            event.target.classList.remove('fa-sort-down');
-            event.target.classList.add('fa-chevron-right');
+            let menuItem = event.target.closest('.menu-item-container')
+            let subgenre = menuItem.querySelector('.subgenre-container')
+            subgenre.style.display = 'none'
+            
+            if (menuItem.querySelector('.fa-chevron-right')) 
+                menuItem.querySelector('.fa-chevron-right').style.rotate = ''              
         }
     }
 
@@ -27,14 +28,13 @@ const Genre = ({ id, name, subgenres, getGenre }) => {
 
 
     return (
-        <div className="menu-item-container">
+        <div onMouseLeave = { (e) => toggleList(e)} className="menu-item-container">
             <span className="menu-icon">
                 {
                     typeof subgenres != 'undefined'
-                    ? <i onClick = { (e) => collapseList(e) }
-                        className="fas fas fa-chevron-right grow chev">
-                    </i>
-                    : <i className="fas fas fa-chevron-right clear-icon"></i>
+                    && <i onMouseEnter = { (e) => toggleList(e) }
+                        className="fas fa-chevron-right chev">
+                       </i>
                 }
             </span>
             <Link to={`/genres/${name.toLowerCase()}`} style={styleLink} className="menu-list-item"  >
@@ -43,7 +43,7 @@ const Genre = ({ id, name, subgenres, getGenre }) => {
                         {name}
                     </p>  
                 </div>
-                <ul className="hidden">
+                <ul className="subgenre-container" style={{display: 'none'}}>
                 {
                     typeof subgenres != 'undefined' 
                     && <SubgenresList subgenres={subgenres} getGenre={getGenre} /> 

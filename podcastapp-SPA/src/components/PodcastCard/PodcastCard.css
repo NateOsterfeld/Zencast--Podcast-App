@@ -44,7 +44,7 @@
 }
 .podcast-a:hover > img {
     transform: translateY(-3px);
-    box-shadow: rgba(46, 41, 51, 0.08) 0px 4px 8px, rgba(71, 63, 79, 0.16) 0px 8px 16px;
+    box-shadow: rgba(148, 72, 224, 0.08) 0px 4px 8px, rgba(71, 63, 79, 0.16) 0px 8px 16px;
 }
 
 .podcast-image {
