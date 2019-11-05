@@ -100,8 +100,8 @@ li {
     font-size: 0.75em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-size: 15px;
-    padding-left: 0px !important;
+    font-size: 17px;
+    padding-left: 3px !important;
 }
 .menu-nav > i {
     opacity: .8;
