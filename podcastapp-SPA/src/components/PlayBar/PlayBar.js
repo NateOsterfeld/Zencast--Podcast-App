@@ -137,9 +137,9 @@ class PlayBar extends React.Component {
     render() {
         const { playBarObj } = this.props;
         return (
-            <div className="level is-mobile">
-                <div className="level-left" id="mobile-player">
-                    <div className="level-item">
+            <div className="level">
+                <div className="level-left">
+                    <div className="level-item level-item--art">
                         <img
                             ref={this._refImage}
                             id="playing-art" src={playBarObj.image} alt="" />
@@ -154,8 +154,8 @@ class PlayBar extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="level-item" id="player-controls">
-                        <div className="field has-addons ma">
+                    <div className="level-item">
+                        <div className="play-controls">
                             <div className="control">
                                 <button className="button is-large btn">
                                     <span>

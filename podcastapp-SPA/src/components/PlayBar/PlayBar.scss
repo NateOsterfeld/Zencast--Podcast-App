@@ -61,6 +61,12 @@ $white: #ffffff;
     outline: 0;
     border: 1px solid #dbdbdb;
     transition: all .5s ease;
+
+    @media (max-width: 1248px) {
+        font-size: 1rem
+
+    }
+
     &.play {
         animation: playBtn-animate2 .5s ease;
         
@@ -173,18 +179,15 @@ $white: #ffffff;
     width: 100%;
 }
 
-.level.is-mobile {
-    display: flex;
-}
-
 .level {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-}
-.level.is-mobile .level-left, .level.is-mobile .level-right {
-    display: flex;
+
+    @media (max-width: 1248px) {
+        margin-top: 5px;
+    }
 }
 .level-left {
     align-items: center;
@@ -193,16 +196,18 @@ $white: #ffffff;
     flex-grow: 0;
     flex-shrink: 0;
 }
-.level.is-mobile .level-item:not(.is-narrow) {
-    flex-grow: 1;
-}
-
-.level.is-mobile .level-item:not(:last-child) {
-    margin-bottom: 0;
-}
-
-.ma {
+.level-right {
+    display: flex;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
     margin-top: 1.5rem;
+
+    @media (max-width: 1248px) {
+        margin-top: 0px;
+    }
 }
 
 .fa-headphones {
@@ -213,10 +218,25 @@ $white: #ffffff;
     align-items: center;
     display: flex;
     flex-basis: auto;
-    flex-grow: 0;
+    flex-grow: 1;
     flex-shrink: 0;
     justify-content: center;
     margin-right: .7em;
+
+    &.level-item--art {
+        height: 7vw;
+        width: 7vw;
+    }
+
+    .play-controls {
+        display: flex;
+        margin-top: 1.5rem;
+
+        @media (max-width: 1248px) {
+            margin-top: 0rem;
+        }
+    }
+
     
     #playing-art {
         display: default;
@@ -227,6 +247,8 @@ $white: #ffffff;
         width: 128px;
         height: 128px;
         transition: 2s linear all;
+        width: 7vw;
+        height: 7vw;
         
         &.animateImage {
             transform: translateY(0%);
@@ -262,9 +284,9 @@ img {
     color: gray;
     justify-content: center;
     align-items: center;
-    width: 128px;
-    height: 128px;
     background-color: whitesmoke;
+    height: 100%;
+    width: 100%;
 }
 
 .player-loading {
@@ -290,6 +312,12 @@ img {
 }
 .button.is-large {
     font-size: 1.5rem;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+
+    @media (max-width: 1248px) {
+        font-size: 1rem;
+    }
 }
 .button.is-link {
     background-color: #3273dc;
@@ -313,16 +341,15 @@ img {
     position: relative;
     text-align: left;
 }
-.button.is-large {
-    font-size: 1.5rem;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-}
 #player-center {
     width: 100%;
 }
 .has-text-centered {
     text-align: center !important;
+
+    @media (max-width: 1248px) {
+        padding-bottom: 5px;
+    }
 }
 
 .is-size-6 {
