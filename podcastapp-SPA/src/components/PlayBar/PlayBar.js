@@ -139,7 +139,7 @@ class PlayBar extends React.Component {
         return (
             <div className="level">
                 <div className="level-left">
-                    <div className="level-item level-item--art">
+                    <div className="level-item">
                         <img
                             ref={this._refImage}
                             id="playing-art" src={playBarObj.image} alt="" />
@@ -148,16 +148,12 @@ class PlayBar extends React.Component {
 
                             </i>
                         </div>
-                        <div className="player-loading">
-                            <div className="button is-link is-loading is-large is-rounded">
-
-                            </div>
-                        </div>
+                        
                     </div>
-                    <div className="level-item">
-                        <div className="play-controls">
+                    <div className="level-item" id="player-controls">
+                        <div className="controls ma">
                             <div className="control">
-                                <button className="button is-large btn">
+                                <button className="button btn">
                                     <span>
                                         <i className="fas fa-backward">
 
@@ -170,7 +166,7 @@ class PlayBar extends React.Component {
                                     ref={this._refPlayButton}
                                     onClick={() => this.onClickPlayButton()}
                                     className={this.state.finalPlay} id="play-btn">
-                                    <span className="icon is-medium is-marginless" id="play-icon">
+                                    <span className="icon" id="play-icon">
                                         <i className="fas fa-play"></i>
                                         <i className="fas fa-pause"></i>
                                     </span>
@@ -180,7 +176,7 @@ class PlayBar extends React.Component {
                                 </button>
                             </div>
                             <div className="control">
-                                <button className="button is-large btn btn-for">
+                                <button className="button btn btn-for">
                                     <span>
                                         <i className="fas fa-forward">
 
@@ -191,17 +187,16 @@ class PlayBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="level-item is-hidden-mobile">
-                    <div className="has-text-centered" id="player-center">
-                        <p className="player-info is-size-6">
+                <div className="level-item">
+                    <div className="player-center">
+                        <p className="player-info">
                             <a data-target="player.episode" href="#">
                                 {playBarObj.title.length > 0 ? playBarObj.title : 'Go ahead...'}
                             </a>
                         </p>
                         <p className="player-info">
                             <a data-target="player.podcast" href="#">
-                                {playBarObj.publisher.length > 0 ? playBarObj.publisher + '-' : ''}
-                                {playBarObj.pubdate.length > 0 ? playBarObj.pubdate : 'play something already!'}
+                                {playBarObj.publisher.length > 0 ? playBarObj.publisher + '-' : 'play something already!'}
                             </a>
                         </p>
                         <div className="seekBar">
@@ -220,7 +215,7 @@ class PlayBar extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="level-right is-hidden-touch ma">
+                <div className="level-right ma">
                     <div className="level-item">
                         <div className="select is-rounded is-small">
                             <select data-action="player#setSpeed" data-target="player.speed" type="text">
