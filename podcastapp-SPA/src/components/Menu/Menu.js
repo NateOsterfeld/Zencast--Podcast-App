@@ -33,8 +33,8 @@ const Menu = (props) => {
                             <i className="fas fa-compass"
                                 onClick = { () => props.funcs.onDisc(menuSearchNode, navSearchNode, true) } >
                             </i>
-                            <span className="menu-icon">
-                            </span>
+                            <span className="menu-icon" />
+                            
                                         Discover
                         </Link>
                     </li>
@@ -42,7 +42,7 @@ const Menu = (props) => {
                         <Link to='/popular' className="menu-nav" id="popular-menu"
                             onClick = { () => props.funcs.onPop(menuSearchNode, navSearchNode) } >
                             <i className="fas fa-fire"></i>
-                            <span className="menu-icon"></span>
+                            <span className="menu-icon"/>
                                         Popular
                         </Link>
                     </li>

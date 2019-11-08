@@ -3,21 +3,30 @@ import SubgenresList from './SubgenreList/SubgenreList';
 import './Genre.css';
 import { Link } from 'react-router-dom';
 
-
 const Genre = ({ id, name, subgenres, getGenre }) => {
+    let noChange = false
     const toggleList = (event) => {
-        if (event.target.tagName === 'I') {
-            let menuItem = event.target.closest('.menu-item-container')
-            let subgenre = menuItem.querySelector('.subgenre-container')
-            subgenre.style.display = ''
+        let menuItem = event.target.closest('.menu-item-container')
+        let subgenre = menuItem.querySelector('.subgenre-container')
+        if (event.target.tagName === 'I' && event.type === 'mouseenter') {
+            subgenre.style.display = 'inherit'
             event.target.style.rotate = '90deg'
-        } else {
-            let menuItem = event.target.closest('.menu-item-container')
-            let subgenre = menuItem.querySelector('.subgenre-container')
+            noChange = true
+        } else if (event.type === 'click' && !noChange) {
+            if (subgenre.style.display === 'inherit') {
+                subgenre.style.display = 'none'
+                menuItem.querySelector('.fa-chevron-right').style.rotate = ''              
+            } else {
+                subgenre.style.display = 'inherit'
+                event.target.style.rotate = '90deg'
+            }
+        }  else if (event.type === 'mouseleave') {
             subgenre.style.display = 'none'
             
             if (menuItem.querySelector('.fa-chevron-right')) 
                 menuItem.querySelector('.fa-chevron-right').style.rotate = ''              
+        } else {
+            noChange = false
         }
     }
 
@@ -29,7 +38,7 @@ const Genre = ({ id, name, subgenres, getGenre }) => {
 
     return (
         <div onMouseLeave = { (e) => toggleList(e)} className="menu-item-container">
-            <span className="menu-icon">
+            <span onClick = { (e) => toggleList(e)} className="menu-icon">
                 {
                     typeof subgenres != 'undefined'
                     && <i onMouseEnter = { (e) => toggleList(e) }

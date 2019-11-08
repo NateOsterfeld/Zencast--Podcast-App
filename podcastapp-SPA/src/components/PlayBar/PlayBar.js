@@ -203,15 +203,21 @@ class PlayBar extends React.Component {
                             <span
                                 ref={this._refSeekBarOuter}
                                 onClick={(e) => this.onClickSeekBarOuter(e)}
-                                className="outer">
+                                className="outer"
+                            >
                                 <span
                                     ref={this._refSeekBarInner}
-                                    className="inner"></span>
+                                    className="inner" 
+                                />
                             </span>
                         </div>
                         <div className="player-time" id="timing" data-target="player.time">
-                            <div className="timing-start">{this.props.playBarObj.audio.duration ? this.state.current + ' /' : 0 + ' /'}</div>
-                            <div className="timing-end">{this.props.playBarObj.audio.duration ? this.state.duration : 0}</div>
+                            <div className="timing-start">
+                                {this.props.playBarObj.audio.duration ? this.state.current + ' /' : 0 + ' /'}
+                            </div>
+                            <div className="timing-end">
+                                {this.props.playBarObj.audio.duration ? this.state.duration : 0}
+                            </div>
                         </div>
                     </div>
                 </div>
