@@ -116,7 +116,7 @@ li {
     opacity: .8;
 }
 
-.search-container {
+.search {
     transform: translateX(-3px);
     display: flex;
     align-items: center;

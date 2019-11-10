@@ -10,7 +10,7 @@ const Popular = ({ podcasts, getEpisodes, loading }) => {
     return (
         <animated.div className="popular-container" style={loading ? normal : fade}>
             <h1 className="title">Popular</h1> 
-        <div className="podcast-container" style={loading ? normal : fade}> {
+            <div className="podcast-container" style={loading ? normal : fade}> {
                 podcasts.map(podcast => {
                     return <PodcastCard 
                         key={podcast.id}
@@ -20,10 +20,10 @@ const Popular = ({ podcasts, getEpisodes, loading }) => {
                         publisher={podcast.artistName}
                         getEpisodes={getEpisodes}
                         margin={20}
-                    />
-                })
-            }
-        </div>
+                        />
+                    })
+                }
+            </div>
         </animated.div>
     )    
 }
