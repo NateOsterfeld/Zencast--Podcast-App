@@ -25,7 +25,7 @@
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "knex": "^0.20.0",
+    "knex": "^2.4.0",
     "node-fetch": "^2.5.0",
     "pg": "^7.10.0",
     "rss-parser": "^3.7.3",
